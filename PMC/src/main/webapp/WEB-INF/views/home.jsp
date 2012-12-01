@@ -5,25 +5,27 @@
 	용역 입력
 </h1>
 <hr>
-<p>
-	<button class="btn btn-large btn-block btn-primary" onclick="submit()">등록</button>
+
+<div >
+	<form id='work_input' method="post" action="${pageContext.request.contextPath}/func/insertWork">
+	<p>
+	<button class="btn btn-large btn-block btn-primary" onclick="form_submit()">등록</button>
 	</p>
-<div id='work_input'>
-	<form>
+	
 	<p>
 	용역이름
-	<input type="text" id="w_name">
+	<input type="text" name="w_name">
 	</p>
 	
 	<p>
 	용역설명
-	<textarea rows="3" id="description"></textarea>
+	<textarea rows="3" name="description"></textarea>
 	</p>
 	
 	<p>
 	전문분야
-	<select id="expert_part">
-  <option>1</option>
+	<select name="expert_part">
+  <option value="1">1</option>
   <option>2</option>
   <option>3</option>
   <option>4</option>
@@ -33,8 +35,8 @@
 	
 	<p>
 	세부분야
-	<select id="detail_part">
-  <option>1</option>
+	<select name="detail_part">
+  <option value="1">1</option>
   <option>2</option>
   <option>3</option>
   <option>4</option>
@@ -122,22 +124,17 @@
 				temp+=$(this).attr('id')+';';
 			}
 		});
-		developers = temp;
+		$("#selectedDeveloperList").val(temp);
+		alert($("#selectedDeveloperList").val());
 		//alert(temp.length);
 	}
-	function submit(){
+	function form_submit(){
+		var form = document.forms['work_input'];
+		alert('submit');
 		save_selected_developers();
-		var data={
-				name: name.value,
-				description: description.value,
-				expert_part: expert_part.value,
-				detail_part: detail_part.value,
-				developers: developers,
-				cost: cost.value,
-				start_period: start_period.value,
-				end_period: end_period.value
-			};
-		console.log(data);
+
+		form.submit();
+		/*
 		$.ajax({
 			type:'POST',
 			url:'${pageContext.request.contextPath}/func/insertWork',
@@ -153,6 +150,7 @@
 			}
 			
 		});
+		*/
 	}
 </script>
 
@@ -175,16 +173,12 @@
 	    	<button class="btn btn-primary" data-dismiss="modal">Close</button>
 		</div>
 	</div>
-	<!-- 
-	<input id="selectedDeveloperList" type="text" name="obj">
-	 -->
-	<div>
-		<table class="table table-hover" id="selectedDeveloperList"></table>
-	</div>
+	 
+	<input id="selectedDeveloperList" type="text" name="developers">
 	
 	<p>
 	비용 설정
-	<input type="text" id="cost">
+	<input type="text" name="cost">
 	</p>
 	<p>
 	 	<input name="fileData" type="file"/>
@@ -199,12 +193,12 @@
 
    <label> 
    	Start<br />  
-   	<input type="date" id="start_period" value="Today" /> 
+   	<input type="date" name="start_period" /> 
    </label>
    
    <label> 
    	End<br /> 
-   	<input type="date" id="end_period" data-value="7" value="After one week" /> 
+   	<input type="date" name="end_period" data-value="7" /> 
    </label>
 	</div>
 	</div>
