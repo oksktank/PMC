@@ -1,15 +1,15 @@
 package kr.mentalcare.project.model;
 
-public class Work {
+public class SW_Work {
 	int num;
 	String file_name;
 	String file_path;
 	int cost;
 	int start_period;
 	int end_period;
-	int admin_num;
-	int dt_num;
-	String name;
+	Integer admin_num;
+	Integer dt_num;
+	String w_name;
 	String description;
 	int expert_part;
 	int detail_part;
@@ -25,11 +25,11 @@ public class Work {
 	public void setDetail_part(int detail_part) {
 		this.detail_part = detail_part;
 	}
-	public String getName() {
-		return name;
+	public String getW_name() {
+		return w_name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setW_name(String w_name) {
+		this.w_name = w_name;
 	}
 	public String getDescription() {
 		return description;
@@ -73,18 +73,19 @@ public class Work {
 	public void setEnd_period(int end_period) {
 		this.end_period = end_period;
 	}
-	public int getAdmin_num() {
+	public Integer getAdmin_num() {
 		return admin_num;
 	}
-	public void setAdmin_num(int admin_num) {
+	public void setAdmin_num(Integer admin_num) {
 		this.admin_num = admin_num;
 	}
-	public int getDt_num() {
+	public Integer getDt_num() {
 		return dt_num;
 	}
-	public void setDt_num(int dt_num) {
+	public void setDt_num(Integer dt_num) {
 		this.dt_num = dt_num;
 	}
+	
 
 	
 }

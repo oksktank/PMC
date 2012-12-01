@@ -3,11 +3,17 @@ package kr.mentalcare.project;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import kr.mentalcare.project.model.Work;
+import javax.servlet.http.HttpServletRequest;
+
+import kr.mentalcare.project.model.SW_Work;
+import kr.mentalcare.project.model.UserInfo;
+import kr.mentalcare.project.service.AdminService;
+import kr.mentalcare.project.util.AuthUtil;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,14 +25,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("func")
 public class DataFuncController {
 	
+	@Autowired
+	AdminService adminService;
+	
 	@RequestMapping(value="/insertWork",method=RequestMethod.POST)
 	@ResponseBody
-	public String insertWork(@ModelAttribute Work work,@RequestParam String developers) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
-		ObjectMapper obj=new ObjectMapper();
-		System.out.println(obj.writeValueAsString(work));
-		System.out.println(developers);
-		String[] developerArray=developers.split(";");
-		System.out.println(developerArray.length);
+	public String insertWork(HttpServletRequest request,@ModelAttribute SW_Work work,@RequestParam String developers) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+			ObjectMapper obj=new ObjectMapper();
+			System.out.println(obj.writeValueAsString(work));
+			System.out.println(developers);
+			String[] developerArray=developers.split(";");
+			System.out.println(developerArray.length);
+			
+			UserInfo userInfo=AuthUtil.getLoginUser(request);
+			work.setAdmin_num(userInfo.getId());
+			
+			adminService.insertSwWork(work);
+			
+		}
+		
 		return null;
 	}
 }
