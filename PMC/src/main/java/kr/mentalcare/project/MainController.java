@@ -14,6 +14,8 @@ import kr.mentalcare.project.service.AdminService;
 import kr.mentalcare.project.util.AuthUtil;
 import kr.mentalcare.project.util.FileUtil;
 
+import net.sf.cglib.core.DefaultNamingPolicy;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
@@ -58,7 +60,6 @@ public class MainController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
 		return AuthUtil.retModelWithUserInfo("home", model, request);
 	}
 	
@@ -68,41 +69,6 @@ public class MainController {
 		return AuthUtil.retModelWithUserInfo("test", model, request);
 	}
 	
-	@RequestMapping("/upload")
-	@ResponseBody
-	  public String create(UploadItem uploadItem, BindingResult result)
-	  {
-	    if (result.hasErrors())
-	    {
-	      for(ObjectError error : result.getAllErrors())
-	      {
-	        System.err.println("Error: " + error.getCode() +  " - " + error.getDefaultMessage());
-	      }
-	      return "upload/uploadForm";
-	    }
-	 
-	    // Some type of file processing...
-	    System.err.println("-------------------------------------------");
-	    System.err.println("Test upload: " + uploadItem.getName());
-	    System.err.println("Test upload: " + uploadItem.getFileData().getOriginalFilename());
-	    
-	    FileUtil fileUtil=new FileUtil();
-	    fileUtil.writeFile(uploadItem.getFileData(), "d:\\download",  uploadItem.getFileData().getOriginalFilename());
-	    
-	    System.err.println("-------------------------------------------");
-	 
-	    return "true";
-	  }
 	
-	 @RequestMapping("/download")
-	    public ModelAndView download( 
-	                                  @RequestParam("fileName")String fileName){
-	         
-	        String fullPath = "d:\\download\\" + fileName;
-	         
-	        File file = new File(fullPath);
-	         
-	        return new ModelAndView("download", "downloadFile", file);
-	    }
 	
 }

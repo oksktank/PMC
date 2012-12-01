@@ -1,6 +1,9 @@
 package kr.mentalcare.project.model;
 
 public class UserInfo {
+	public static final int ROLE_DEVELOPER=1;
+	public static final int ROLE_EVALUATOR=2;
+	public static final int ROLE_ADMIN=3;
 	int id;
 	String username;
 	String password;

@@ -7,7 +7,7 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-	<form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/upload">
+	<form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/func/upload">
 
  
                 <p>
