@@ -12,7 +12,7 @@
 	<form>
 	<p>
 	용역이름
-	<input type="text" id="name">
+	<input type="text" id="w_name">
 	</p>
 	
 	<p>
@@ -73,7 +73,7 @@
 			<hr>
 <script>
 	var data = [{sn:'123',name:'영희',expert:'웹',cost:'300'},{sn:'1234',name:'쿠키',expert:'디비',cost:'300'},{sn:'13253',name:'영수',expert:'디비',cost:'300'},{sn:'19123',name:'구슬',expert:'웹',cost:'300'},{sn:'323',name:'고기',expert:'웹',cost:'300'},{sn:'1823',name:'용지',expert:'웹',cost:'300'},{sn:'1723',name:'방패',expert:'웹',cost:'300'},{sn:'12233',name:'꽃',expert:'디비',cost:'300'},{sn:'223',name:'냠냠',expert:'기타',cost:'300'},{sn:'1123',name:'레포트',expert:'디비',cost:'300'},{sn:'125',name:'철수',expert:'java',cost:'1000'}];
-	var developers = new Array;
+	var developers;
 	/*
 	if(jQuery.isEmptyObject(dList)){
 		alert('asdf');
@@ -116,10 +116,10 @@
 		});
 	}
 	function save_selected_developers(){
-		var temp = new Array();
+		var temp = '';
 		jQuery("#developerList > tbody").children("tr").each(function(){
 			if($(this).attr('class')=='info' || $(this).attr('class')=='info hide'){
-				temp.push($(this).attr('id'));
+				temp+=$(this).attr('id')+';';
 			}
 		});
 		developers = temp;
@@ -127,12 +127,22 @@
 	}
 	function submit(){
 		save_selected_developers();
-		
+		var data={
+				name: name.value,
+				description: description.value,
+				expert_part: expert_part.value,
+				detail_part: detail_part.value,
+				developers: developers,
+				cost: cost.value,
+				start_period: start_period.value,
+				end_period: end_period.value
+			};
+		console.log(data);
 		$.ajax({
 			type:'POST',
 			url:'${pageContext.request.contextPath}/func/insertWork',
 			data:{
-				name: name.value,
+				name: w_name.value,
 				description: description.value,
 				expert_part: expert_part.value,
 				detail_part: detail_part.value,
@@ -176,14 +186,16 @@
 	비용 설정
 	<input type="text" id="cost">
 	</p>
-	
+	<p>
+	 	<input name="fileData" type="file"/>
+	</p>
 	<p>
 	기간설정
 	</p>
 	
-	</form>
+	
 	<div>
-	<form id="flight">
+	<div id="flight">
 
    <label> 
    	Start<br />  
@@ -194,10 +206,11 @@
    	End<br /> 
    	<input type="date" id="end_period" data-value="7" value="After one week" /> 
    </label>
-	</form>
 	</div>
+	</div>
+	</form>
 	<script>
-$(":date").dateinput({ trigger: true, format: 'dd mmmm yyyy', min: -1 })
+$(":date").dateinput({ trigger: true, format: 'yyyymmdd', min: -1 })
 
 // use the same callback for two different events. possible with bind
 $(":date").bind("onShow onHide", function()  {

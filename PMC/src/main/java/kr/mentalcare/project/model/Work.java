@@ -11,6 +11,20 @@ public class Work {
 	int dt_num;
 	String name;
 	String description;
+	int expert_part;
+	int detail_part;
+	public int getExpert_part() {
+		return expert_part;
+	}
+	public void setExpert_part(int expert_part) {
+		this.expert_part = expert_part;
+	}
+	public int getDetail_part() {
+		return detail_part;
+	}
+	public void setDetail_part(int detail_part) {
+		this.detail_part = detail_part;
+	}
 	public String getName() {
 		return name;
 	}
