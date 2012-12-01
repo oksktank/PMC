@@ -1,5 +1,6 @@
 package kr.mentalcare.project;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
@@ -8,7 +9,10 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.mentalcare.project.service.AdminService;
+import kr.mentalcare.project.util.AuthUtil;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +41,7 @@ public class MainController {
 	AdminService adminService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpServletRequest request,Locale locale, Model model) throws SQLException {
+	public String home(HttpServletRequest request,Locale locale, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException {
 		logger.info("Welcome home! the client locale is "+ locale.toString());
 		System.out.println(sqlMapClient);
 		Date date = new Date();
@@ -47,7 +51,7 @@ public class MainController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return AuthUtil.retModelWithUserInfo("home", model, request);
 	}
 	
 	@RequestMapping("/test")

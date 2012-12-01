@@ -2,9 +2,42 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="decorator"
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <script src="/PMC/script/jquery-1.8.0.min.js"></script>
+<script>
+	var loginUser=${loginUser};
+	$(function(){
+		setUser();
+	});
+	function signIn(){
+		$.ajax({
+			url: "${pageContext.request.contextPath}/func/signIn",
+			data:{
+				username:$(".navbar-form #username").val(),
+				password:$(".navbar-form #password").val()
+			},
+			success:function(data){
+				var json=jQuery.parseJSON(data);
+				if(json.result==true){
+					
+					loginUser=json.data;
+					setUser();
+				}else{
+					//로그인 실패
+				}
+			}
+		});
+	}
+	function setUser(){
+		if(loginUser!=null){
+			var loginForm=$("#loginForm");
+			loginForm.empty();
+			loginForm.html(loginUser['username']+"님 환영합니다.");
+		}
+	}
+</script>
 <script src="/PMC/script/bootstrap.min.js"></script>
 <meta charset="utf-8">
 <title>Project Mental Care</title>
@@ -19,7 +52,7 @@ body {
       	to the bottom of the topbar */
 }
 </style>
-<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="/PMC/style/bootstrap-responsive.css" rel="stylesheet">
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
       	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
@@ -39,13 +72,15 @@ undefined
 					<li><a href="#"> About </a></li>
 					<li><a href="#"> Contact </a></li>
 				</ul>
-				<form class="navbar-form pull-right">
-            		<input name="textinput1" type="email" placeholder="Email" class="span2">
-            		<input name="textinput2" type="password" placeholder="Password" class="span2">
-            		<button class="btn">
+				<div id="loginForm" class="pull-right">
+				<form class="navbar-form">
+            		<input id="username" type="email" placeholder="Username" class="span2">
+            		<input id="password" type="password" placeholder="Password" class="span2">
+            		<button class="btn" onClick="signIn()">
 	              		Sign in
             		</button>
           		</form>
+          		</div>
 			</div>
 		</div>
 	</div>
