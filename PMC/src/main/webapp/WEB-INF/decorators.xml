@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE decorators>
+<decorators defaultdir="/WEB-INF/views">
+
+	<excludes>
+		<pattern>/script/*</pattern>
+		<pattern>/style/*</pattern>
+		<pattern>/images/*</pattern>
+	</excludes>
+
+	<decorator name="layout" page="layout.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+
+</decorators>
