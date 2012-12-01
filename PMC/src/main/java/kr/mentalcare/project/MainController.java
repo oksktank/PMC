@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import kr.mentalcare.project.service.AdminService;
 
 import org.slf4j.Logger;
@@ -21,9 +23,9 @@ import com.ibatis.sqlmap.client.SqlMapClient;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class MainController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -35,12 +37,12 @@ public class HomeController {
 	AdminService adminService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) throws SQLException {
+	public String home(HttpServletRequest request,Locale locale, Model model) throws SQLException {
 		logger.info("Welcome home! the client locale is "+ locale.toString());
 		System.out.println(sqlMapClient);
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+		System.out.println("login User:"+request.getSession().getAttribute("userInfo"));
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
@@ -51,7 +53,7 @@ public class HomeController {
 	@RequestMapping("/test")
 	public String aa() throws SQLException{
 		adminService.insertAdmin("이원석", "공A", "010-2242-2424");
-		return "hello";
+		return "home";
 	}
 	
 }

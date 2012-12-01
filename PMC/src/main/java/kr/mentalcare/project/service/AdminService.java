@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
+import com.mysql.jdbc.Driver;
 
 @Service
 public class AdminService {

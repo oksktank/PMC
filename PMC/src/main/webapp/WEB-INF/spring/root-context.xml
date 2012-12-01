@@ -2,8 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
-	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 	<context:property-placeholder location="classpath*:META-INF/*.properties"/>
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	 <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
@@ -17,6 +19,18 @@
         <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
         <property name="numTestsPerEvictionRun" value="3"/>
         <property name="minEvictableIdleTimeMillis" value="1800000"/>
+    </bean>
+    <context:component-scan base-package="kr.mentalcare.project">
+        <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
+        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
+    <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
+        <property name="persistenceUnitName" value="persistenceUnit"/>
+        <property name="dataSource" ref="dataSource"/>
     </bean>
     <!-- iBatis 세팅 -->
    	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">

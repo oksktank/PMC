@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="UserInfo">
+	<typeAlias alias="UserInfo" type="kr.mentalcare.project.model.UserInfo"/>
+	<select id="findUserInfo" parameterClass="UserInfo" resultClass="UserInfo">
+		SELECT id,username,role FROM USERINFO WHERE username=#username# AND PASSWORD=#password#
+	</select>
+</sqlMap>
