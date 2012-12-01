@@ -4,6 +4,6 @@
 <sqlMap namespace="Admin">
 	<typeAlias alias="Admin" type="kr.mentalcare.project.model.Admin"/>
 	<insert id="insertAdmin" parameterClass="Admin">
-		INSERT INTO admin(NAME,address,phone) VALUES (#name#,#address#,#phone#)
+		INSERT INTO ADMIN(NAME,address,phone) VALUES (#name#,#address#,#phone#)
 	</insert>
 </sqlMap>
