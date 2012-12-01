@@ -42,14 +42,14 @@
     display:block;
     width:20px;
     height:20px;
-    background:transparent url(/media/img/dateinput/prev.gif) no-repeat scroll center center;
+    background:transparent url(/PMC/images/prev.gif) no-repeat scroll center center;
     float:left;
     cursor:pointer;
     margin-left:9px;
 }
 
 #calnext {
-    background-image:url(/media/img/dateinput/next.gif);
+    background-image:url(/PMC/images/next.gif);
     float:right;
     margin-right:9px;
 }
