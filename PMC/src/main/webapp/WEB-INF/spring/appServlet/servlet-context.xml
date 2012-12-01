@@ -13,7 +13,7 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
-	<mvc:resources location="/images/" mapping="/imgages/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
 	<mvc:resources location="/script/" mapping="/script/**" />
 	<mvc:resources location="/style/" mapping="/style/**" />
 	<mvc:default-servlet-handler />
