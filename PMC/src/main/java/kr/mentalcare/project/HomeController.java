@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import kr.mentalcare.project.service.AdminService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class HomeController {
 	@Autowired
 	SqlMapClient sqlMapClient;
 	
+	@Autowired
+	AdminService adminService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws SQLException {
@@ -44,8 +48,9 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping("/hello")
-	public String aa(){
+	@RequestMapping("/test")
+	public String aa() throws SQLException{
+		adminService.insertAdmin("이원석", "공A", "010-2242-2424");
 		return "hello";
 	}
 	

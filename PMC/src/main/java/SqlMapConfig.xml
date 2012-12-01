@@ -11,5 +11,6 @@
 		maxTransactions="512" 
 		useStatementNamespaces="true" />
 	<sqlMap resource="kr/mentalcare/project/sql/Common_SQL.xml" />
+	<sqlMap resource="kr/mentalcare/project/sql/Admin_SQL.xml" />
 	
 </sqlMapConfig>
