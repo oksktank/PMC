@@ -1,55 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<!-- work별 페이지 
-	초대된 개발자들끼리 이 페이지에 접속해서
-	그룹도 만들고 경매도 함
-	
-	용역의뢰자는 여기서 구경하다 개발자팀을 선택할 수 있음 -->
-
 <h1>
-	Work : TSP
+	용역 입력
 </h1>
 <hr>
-<style>
-div {border:1px;}
-</style>
-<div class='row'>
-	<div id='left' class='span2'>
-		<div id='my_team'>
-			내 정보 + 팀 정보
-			+	팀삭제버튼
-		</div>
-	</div>
-	
-	
-	<div id='right' class='span7'>
-		<div id='work_info'>
-			워ㅡ 워크 워크 다이나믹 프로그래밍으로 만드렴
-		</div>
-	
-		<div id='auction_board'>
-			100원
-			200원
-			300원
-			400원
-			500원
-		</div>
-	
-	</div>
-</div>
 
-
-
-<div>
+<div >
 	<form id='work_input' method="post" action="${pageContext.request.contextPath}/func/insertWork">
 	<p>
-	<button class="btn btn-block btn-primary" onclick="form_submit()">등록</button>
+	<button class="btn btn-large btn-block btn-primary" onclick="form_submit()">등록</button>
+	</p>
+	
+	<p>
+	용역이름
+	<input type="text" name="w_name">
+	</p>
+	
+	<p>
+	용역설명
+	<textarea rows="3" name="description"></textarea>
+	</p>
+	
+	<p>
+	전문분야
+	<select name="expert_part">
+  <option value="1">1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select>
+	</p>
+	
+	<p>
+	세부분야
+	<select name="detail_part">
+  <option value="1">1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select>
 	</p>
 	
 	<p>
 	개발자 초대기능
-	<a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal">팀 만들기</a>
+	<a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal">개발자  선택</a>
  	</p>
  	
 	<!-- Modal -->
