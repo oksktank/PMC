@@ -39,8 +39,11 @@
 	}
 </script>
 <script src="/PMC/script/bootstrap.min.js"></script>
+<script src="/PMC/script/bootstrap-datepicker.js"></script>
+<!-- 
 <script src="/PMC/script/jquery-ui-1.9.2.custom.min.js"></script>
-<!-- <script src="/PMC/script/jquery.tools.min.js"></script> -->
+<script src="/PMC/script/jquery.tools.min.js"></script>
+ -->
 <meta charset="utf-8">
 <title>Project Mental Care</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,6 +52,7 @@
 <!-- Le styles -->
 <link href="/PMC/style/bootstrap.css" rel="stylesheet">
 <link href="/PMC/style/jquery-ui-1.9.2.custom.min.css" rel="stylesheet">
+<link href="/PMC/style/datepicker.css" rel="stylesheet">
 <!-- 
 <link href="/PMC/style/flight-calendar.css" rel="stylesheet">
 <link href="/PMC/style/flight.css" rel="stylesheet">

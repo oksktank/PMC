@@ -12,6 +12,66 @@
 	<button class="btn btn-large btn-block btn-primary" onclick="form_submit()">등록</button>
 	</p>
 	
+	
+		<p>
+	기간설정
+	</p>
+	<script>
+	$(function() {
+		var startDate = new Date(2012,12,5);
+		var endDate = new Date(2012,12,25);
+		$('#alert').hide();
+		
+		$('#date-start')
+	    .datepicker()
+	    .on('changeDate', function(ev){
+	        if (ev.date.valueOf() > endDate.valueOf()){
+	            $('#alert').show().find('strong').text('The start date must be before the end date.');
+	        } else {
+	            $('#alert').hide();
+	            startDate = new Date(ev.date);
+	            $('#date-start-display').text($('#date-start').data('date'));
+	        }
+	        $('#date-start').datepicker('hide');
+	    });
+	$('#date-end')
+	    .datepicker()
+	    .on('changeDate', function(ev){
+	        if (ev.date.valueOf() < startDate.valueOf()){
+	            $('#alert').show().find('strong').text('The end date must be after the start date.');
+	        } else {
+	            $('#alert').hide();
+	            endDate = new Date(ev.date);
+	            $('#date-end-display').text($('#date-end').data('date'));
+	        }
+	        $('#date-end').datepicker('hide');
+	    });
+	});
+</script>
+<div class="alert alert-error" id="alert">
+    <strong>Oh snap!</strong>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+          <th>
+              Start date
+              <a href="#" class="btn small" id="date-start" data-date-format="yyyy-mm-dd" data-date="2012-12-05">Change</a>
+          </th>
+          <th>
+              End date
+              <a href="#" class="btn small" id="date-end" data-date-format="yyyy-mm-dd" data-date="2012-12-25">Change</a>
+          </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td id="date-start-display">2012-12-05</td>
+          <td id="date-end-display">2012-12-25</td>
+        </tr>
+    </tbody>
+</table>
+
 	<p>
 	용역이름
 	<input type="text" name="w_name">
@@ -183,11 +243,36 @@
 	<p>
 	 	<input name="fileData" type="file"/>
 	</p>
-	<p>
-	기간설정
-	</p>
-	
-	
+
+<!--
+<script>
+    $(function() {
+        $( "#from" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3,
+            dateFormat: "yymmdd",
+            onClose: function( selectedDate ) {
+                $( "#to" ).datepicker( "option", "minDate", selectedDate );
+            }
+        });
+        $( "#to" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3,
+            dateFormat: "yymmdd",
+            onClose: function( selectedDate ) {
+                $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+            }
+        });
+    });
+</script>
+	<label for="from">From</label>
+	<input type="text" id="from" name="start_period" />
+	<label for="to">to</label>
+	<input type="text" id="to" name="end_period" />
+	  -->
+	<!-- 
 	<div>
 	<div id="flight">
 
@@ -202,22 +287,11 @@
    </label>
 	</div>
 	</div>
+	 -->
+	
+	
 	</form>
-	<script>
-$(":date").dateinput({ trigger: true, format: 'yyyymmdd', min: -1 })
 
-// use the same callback for two different events. possible with bind
-$(":date").bind("onShow onHide", function()  {
-	$(this).parent().toggleClass("active");
-});
-
-// when first date input is changed
-
-$(":date:first").data("dateinput").change(function() {
-	// we use it's value for the seconds input min option
-	$(":date:last").data("dateinput").setMin(this.getValue(), true);
-});
-</script>
 
 	
 </div>
