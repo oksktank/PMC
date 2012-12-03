@@ -1,24 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
 <h1>
 	용역 입력
 </h1>
 <hr>
 
-<div id='work_input'>
-	<form>
+<div >
+	<form id='work_input' method="post" action="${pageContext.request.contextPath}/func/insertWork">
+	<p>
+	<button class="btn btn-large btn-block btn-primary" onclick="form_submit()">등록</button>
+	</p>
+	
 	<p>
 	용역이름
-	<input type="text" placeholder="asdf">
+	<input type="text" name="w_name">
 	</p>
 	
 	<p>
 	용역설명
-	<textarea rows="3"></textarea>
+	<textarea rows="3" name="description"></textarea>
 	</p>
 	
 	<p>
 	전문분야
-	<select>
-  <option>1</option>
+	<select name="expert_part">
+  <option value="1">1</option>
   <option>2</option>
   <option>3</option>
   <option>4</option>
@@ -28,8 +35,8 @@
 	
 	<p>
 	세부분야
-	<select>
-  <option>1</option>
+	<select name="detail_part">
+  <option value="1">1</option>
   <option>2</option>
   <option>3</option>
   <option>4</option>
@@ -61,14 +68,14 @@
 					</select>
 				</div>
 				<div style="float:right">
-					<a href="#" role="button" class="btn btn-info" data-dismiss="modal">SelectAll</a>
-					<a href="#" role="button" class="btn btn-inverse" data-dismiss="modal">DeselectAll</a>
+					<a href="#" role="button" class="btn btn-info" onclick="selectAll()">SelectAll</a>
+					<a href="#" role="button" class="btn btn-inverse" onclick="deselectAll()">DeselectAll</a>
 				</div>
 			</div>
 			<hr>
 <script>
 	var data = [{sn:'123',name:'영희',expert:'웹',cost:'300'},{sn:'1234',name:'쿠키',expert:'디비',cost:'300'},{sn:'13253',name:'영수',expert:'디비',cost:'300'},{sn:'19123',name:'구슬',expert:'웹',cost:'300'},{sn:'323',name:'고기',expert:'웹',cost:'300'},{sn:'1823',name:'용지',expert:'웹',cost:'300'},{sn:'1723',name:'방패',expert:'웹',cost:'300'},{sn:'12233',name:'꽃',expert:'디비',cost:'300'},{sn:'223',name:'냠냠',expert:'기타',cost:'300'},{sn:'1123',name:'레포트',expert:'디비',cost:'300'},{sn:'125',name:'철수',expert:'java',cost:'1000'}];
-	var dList = new Array;
+	var developers;
 	/*
 	if(jQuery.isEmptyObject(dList)){
 		alert('asdf');
@@ -87,24 +94,63 @@
 	});
 	
 	function part_change(v){
-		$('tr:hidden').show();
+		$('#developerList > tbody > tr:hidden').removeClass('hide');
 		if(v.value!=0){
 			jQuery("#developerList > tbody").children("tr").each(function(){
 				if($(this).children('td:first').attr('id')!=v.value){
-					$(this).hide();
+					$(this).addClass('hide');
 				}
 			});
 		}
 	}
-	
-	function save_selected_developers(){
-		var temp = new Array();
+	function selectAll(){
 		jQuery("#developerList > tbody").children("tr").each(function(){
-			if($(this).attr('class')){
-				temp.push($(this).attr('id'));
+			if(!($(this).attr('class'))){
+				$(this).addClass('info');
 			}
 		});
-		dList = temp;
+	}
+	function deselectAll(){
+		jQuery("#developerList > tbody").children("tr").each(function(){
+			if($(this).attr('class')=='info'){
+				$(this).removeClass('info');
+			}
+		});
+	}
+	function save_selected_developers(){
+		var temp = '';
+		jQuery("#developerList > tbody").children("tr").each(function(){
+			if($(this).attr('class')=='info' || $(this).attr('class')=='info hide'){
+				temp+=$(this).attr('id')+';';
+			}
+		});
+		$("#selectedDeveloperList").val(temp);
+		alert($("#selectedDeveloperList").val());
+		//alert(temp.length);
+	}
+	function form_submit(){
+		var form = document.forms['work_input'];
+		alert('submit');
+		save_selected_developers();
+
+		form.submit();
+		/*
+		$.ajax({
+			type:'POST',
+			url:'${pageContext.request.contextPath}/func/insertWork',
+			data:{
+				name: w_name.value,
+				description: description.value,
+				expert_part: expert_part.value,
+				detail_part: detail_part.value,
+				developers: developers,
+				cost: cost.value,
+				start_period: start_period.value,
+				end_period: end_period.value
+			}
+			
+		});
+		*/
 	}
 </script>
 
@@ -124,28 +170,54 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	    	<button class="btn btn-primary" data-dismiss="modal" onclick="save_selected_developers()">Save changes</button>
+	    	<button class="btn btn-primary" data-dismiss="modal">Close</button>
 		</div>
 	</div>
-	<!-- 
-	<input id="selectedDeveloperList" type="text" name="obj">
-	 -->
-	<div>
-		<table class="table table-hover" id="selectedDeveloperList"></table>
-	</div>
+	 
+	<input id="selectedDeveloperList" type="text" name="developers">
 	
 	<p>
 	비용 설정
-	?????????
+	<input type="text" name="cost">
 	</p>
-	
+	<p>
+	 	<input name="fileData" type="file"/>
+	</p>
 	<p>
 	기간설정
-	??????
 	</p>
-	<p>
-	<button class="btn btn-large btn-block btn-primary" type="submit">등록</button>
-	</p>
+	
+	
+	<div>
+	<div id="flight">
+
+   <label> 
+   	Start<br />  
+   	<input type="date" name="start_period" /> 
+   </label>
+   
+   <label> 
+   	End<br /> 
+   	<input type="date" name="end_period" data-value="7" /> 
+   </label>
+	</div>
+	</div>
 	</form>
+	<script>
+$(":date").dateinput({ trigger: true, format: 'yyyymmdd', min: -1 })
+
+// use the same callback for two different events. possible with bind
+$(":date").bind("onShow onHide", function()  {
+	$(this).parent().toggleClass("active");
+});
+
+// when first date input is changed
+
+$(":date:first").data("dateinput").change(function() {
+	// we use it's value for the seconds input min option
+	$(":date:last").data("dateinput").setMin(this.getValue(), true);
+});
+</script>
+
+	
 </div>
