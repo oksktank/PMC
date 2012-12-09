@@ -32,6 +32,7 @@ body {
 	padding-top: 60px; /* 60px to make the container go all the way
       	to the bottom of the topbar */
 }
+.sidemenu {font-size:15px;}
 </style>
 <link href="/PMC/style/bootstrap-responsive.css" rel="stylesheet">
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -55,7 +56,7 @@ undefined
 				</ul>
 				<div id="loginForm" class="pull-right">
 				<form class="navbar-form">
-            		<input id="username" type="email" placeholder="Username" class="span2">
+            		<input id="username" type="text" placeholder="Username" class="span2">
             		<input id="password" type="password" placeholder="Password" class="span2">
             		<button class="btn" onClick="signIn()">
 	              		Sign in
@@ -65,8 +66,43 @@ undefined
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<decorator:body />
+	<div class="container-fluid">
+	  <div class="row-fluid">
+	    <div class="span3">
+	      <div class="well sidebar-nav">
+	        <ul class="nav nav-list">
+	          <li class="nav-header">
+	            <h3>
+	              Developer
+	            </h3>
+	          </li>
+	          <li>
+	          </li>
+	          <li class="sidemenu">
+	          	<a href="#">
+	              Link
+	            </a>
+	          </li>
+	          <li class="sidemenu">
+	            <a href="#">
+	              Link
+	            </a>
+	          </li>
+	          <li class="sidemenu">
+	            <a href="#">
+	              Link
+	            </a>
+	          </li>
+	        </ul>
+	      </div>
+	    </div>
+	    <div class="span9">
+			<decorator:body />
+			<div>
+	        © Project Metal Care 2012
+	        </div>
+	    </div>
+	  </div>
 	</div>
 </body>
 </html>

@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/java/kr/mentalcare/project/MainController.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/dev_workauction.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/temp.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/temp2.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/workadd.jsp=UTF-8
 encoding/<project>=UTF-8
 separateDerivedEncodings=true

@@ -6,7 +6,7 @@
 </h1>
 <hr>
 
-<div >
+<div>
 	<form id='work_input' method="post" action="${pageContext.request.contextPath}/func/insertWork">
 	<p>
 	<button class="btn btn-large btn-block btn-primary" onclick="form_submit()">등록</button>

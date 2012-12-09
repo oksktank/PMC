@@ -57,7 +57,7 @@ undefined
 				</ul>
 				<div id="loginForm" class="pull-right">
 				<form class="navbar-form">
-            		<input id="username" type="email" placeholder="Username" class="span2">
+            		<input id="username" type="text" placeholder="Username" class="span2">
             		<input id="password" type="password" placeholder="Password" class="span2">
             		<button class="btn" onClick="signIn()">
 	              		Sign in
