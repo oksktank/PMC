@@ -1,6 +1,7 @@
 package kr.mentalcare.project;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.GregorianCalendar;
 
@@ -45,8 +46,9 @@ public class DataFuncController {
 			work.setAdmin_num(userInfo.getId());
 			
 			FileUtil fileUtil=new FileUtil();
-			String filePath="d:\\download";
-			String fileName=(new GregorianCalendar()).getTimeInMillis()+"_"+uploadItem.getFileData().getOriginalFilename();
+			String filePath="d:\\upload\\sw_work";
+			String originFileName=uploadItem.getFileData().getOriginalFilename();
+			String fileName=(new GregorianCalendar()).getTimeInMillis()+"_"+URLEncoder.encode(originFileName,"UTF-8");
 		    fileUtil.writeFile(uploadItem.getFileData(), filePath,  fileName);
 		    work.setFile_name(fileName);
 		    work.setFile_path(filePath);
