@@ -72,7 +72,7 @@ public class FuncController {
 	    System.err.println("Test upload: " + uploadItem.getFileData().getOriginalFilename());
 	    
 	    FileUtil fileUtil=new FileUtil();
-	    fileUtil.writeFile(uploadItem.getFileData(), "d:\\download",  (new GregorianCalendar()).getTimeInMillis()+"_"+uploadItem.getFileData().getOriginalFilename());
+	    fileUtil.writeFile(uploadItem.getFileData(), "d:\\upload\\sw_work",  (new GregorianCalendar()).getTimeInMillis()+"_"+uploadItem.getFileData().getOriginalFilename());
 	    
 	    System.err.println("-------------------------------------------");
 	 
@@ -81,10 +81,10 @@ public class FuncController {
 	
 	 @RequestMapping("/download")
 	    public ModelAndView download( 
-	                                  @RequestParam("fileName")String fileName){
+	    		String filePath,String fileName){
 	         
-	        String fullPath = "d:\\download\\" + fileName;
-	         
+	        String fullPath = filePath+"\\" + fileName;
+	        System.out.println(fullPath+" 다운로드");
 	        File file = new File(fullPath);
 	         
 	        return new ModelAndView("download", "downloadFile", file);

@@ -7,7 +7,7 @@
 <hr>
 
 <div>
-	<form id='work_input' method="post" action="${pageContext.request.contextPath}/func/insertWork">
+	<form id='work_input'  enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/func/insertWork">
 	<p>
 	<button class="btn btn-large btn-block btn-primary" onclick="form_submit()">등록</button>
 	</p>
