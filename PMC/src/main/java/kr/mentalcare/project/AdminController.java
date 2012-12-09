@@ -29,6 +29,11 @@ public class AdminController {
 	@Autowired
 	DeveloperService developerService;
 	
+	@RequestMapping("/")
+	public String aa_main(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("admin_main", model, request);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/workadd")
 	public String workadd(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{

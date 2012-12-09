@@ -16,22 +16,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("dev")
 public class DevController {
+	@RequestMapping("/")
+	public String aa_main(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("dev_main", model, request);
+	}
+	
 	@RequestMapping("/test")
 	public String aa(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		return AuthUtil.retModelWithUserInfo("test", model, request);
 	}
 	
-	@RequestMapping("/main")
-	public String aa_main(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
-		return AuthUtil.retModelWithUserInfo("dev_main", model, request);
+	@RequestMapping("/cost")
+	public String aa_cost(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("dev_cost", model, request);
 	}
 	
-	@RequestMapping("/work_auction")
+	@RequestMapping("/invite_work")
+	public String aa_invite_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("dev_invite", model, request);
+	}
+	
+	@RequestMapping("/all_work")
+	public String aa_all_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("dev_allwork", model, request);
+	}
+	
+	@RequestMapping("/past_work")
+	public String aa_past_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("dev_pastwork", model, request);
+	}
+	
+	//invite_work에서 클릭 -> auction?wid=xxxx
+	@RequestMapping("/auction")
 	public String aa_work_auction(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		return AuthUtil.retModelWithUserInfo("dev_workauction", model, request);
 	}
 	
-	@RequestMapping("/work_info")
+	//사이드메뉴에서 진행중인 work 선택 -> work?wid=xxxx
+	@RequestMapping("/work")
 	public String aa_work_info(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		return AuthUtil.retModelWithUserInfo("dev_workinfo", model, request);
 	}

@@ -111,21 +111,47 @@ undefined
 	          <li>
 	          </li>
 	          <li class="sidemenu">
-	          	<a href="#">
-	              Link
+	          	<a href="/PMC/dev/">
+	              내 정보
 	            </a>
 	          </li>
 	          <li class="sidemenu">
-	            <a href="#">
-	              Link
+	          	<a href="/PMC/dev/cost">
+	              단가 통계
 	            </a>
 	          </li>
 	          <li class="sidemenu">
-	            <a href="#">
-	              Link
+	          	<a href="/PMC/dev/invite_work">
+	              초대 받은 Works
+	            </a>
+	          </li>
+	          <li class="sidemenu">
+	          	<a href="/PMC/dev/all_work">
+	              전체 Works
+	            </a>
+	          </li>
+	          <li class="sidemenu">
+	          	<a href="/PMC/dev/past_work">
+	              과거 개발 내역
 	            </a>
 	          </li>
 	        </ul>
+	      <hr>
+	      <ul class="nav nav-list">
+	          <li class="nav-header">
+	            <h5>진행중인 Works</h5>
+	          </li>
+	          <li class="sidemenu">
+	          	<a href="/PMC/dev/work">
+	              REAL
+	            </a>
+	          </li>
+	          <li class="sidemenu">
+	          	<a href="/PMC/dev/work">
+	              PMC
+	            </a>
+	          </li>
+	      </ul>
 	      </div>
 	    </div>
 	    <div class="span9">
