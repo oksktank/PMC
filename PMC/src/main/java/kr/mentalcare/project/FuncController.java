@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import kr.mentalcare.project.model.ResultData;
 import kr.mentalcare.project.model.UploadItem;
@@ -44,6 +45,12 @@ public class FuncController {
 			result=true;
 		}
 		return obj.writeValueAsString(new ResultData(result,loginUser));
+	}
+	
+	@RequestMapping(value="/signOut",method=RequestMethod.GET)
+	public void signOut(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		request.getSession().invalidate();
+		response.sendRedirect(request.getContextPath()+"/");
 	}
 	
 	@RequestMapping("/upload")
