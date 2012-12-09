@@ -1,4 +1,4 @@
-var loginUser=${loginUser};
+
 	$(function(){
 		setUser();
 	});

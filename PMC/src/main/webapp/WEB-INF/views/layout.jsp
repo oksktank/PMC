@@ -6,6 +6,8 @@
 <html>
 <head>
 <script src="/PMC/script/jquery-1.8.0.min.js"></script>
+
+<script>var loginUser=${loginUser};</script>
 <script src="/PMC/script/common.js"></script>
 <script src="/PMC/script/bootstrap.min.js"></script>
 <script src="/PMC/script/bootstrap-datepicker.js"></script>

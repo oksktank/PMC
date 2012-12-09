@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <h1>
-	용역 입력
+	용역 입력 
 </h1>
 <hr>
 
@@ -85,22 +85,18 @@
 	<p>
 	전문분야
 	<select name="expert_part">
-  <option value="1">1</option>
-  <option>2</option>
-  <option>3</option>
-  <option>4</option>
-  <option>5</option>
+	<c:forEach items="${expertField }" var="field">
+		<option value="${field.id }">${field.name }</option>
+	</c:forEach>
 </select>
 	</p>
 	
 	<p>
 	세부분야
 	<select name="detail_part">
-  <option value="1">1</option>
-  <option>2</option>
-  <option>3</option>
-  <option>4</option>
-  <option>5</option>
+  	<c:forEach items="${detailField }" var="field">
+		<option value="${field.id }">${field.name }</option>
+	</c:forEach>
 </select>
 	</p>
 	
@@ -121,10 +117,9 @@
 				<div style="float:left">
 					<select onchange="part_change(this)">
 						<option value="0">분야선택</option>
-						<option value="디비">디비</option>
-						<option value="웹">웹</option>
-						<option>4</option>
-						<option>5</option>
+						<c:forEach items="${expertField }" var="field">
+							<option value="${field.name }">${field.name }</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div style="float:right">
@@ -142,7 +137,7 @@
 	}
 	*/
 	$(function(){
-		jQuery.each(data, function(i,val) {
+		/*jQuery.each(data, function(i,val) {
 			var output='';
 			output += '<tr id='+val.sn+' onclick="$(this).toggleClass(\'info\');">';
 			output += '<td id='+val.expert+'>'+val.name+'</td>';
@@ -150,7 +145,7 @@
 			output += '<td>'+val.cost+'</td>';
 			output += '</td></tr>';
 	       	$(output).appendTo('#developerList');
-	    });
+	    });*/
 	});
 	
 	function part_change(v){
@@ -226,6 +221,13 @@
 							<td><b>Expert</b></td>
 							<td><b>Location</b></td>
 						</tr>
+						<c:forEach items="${allDev }" var="dev">
+							<tr id="${dev.sn }" onclick="$(this).toggleClass('info');">
+								<td id="${dev.expert_part_name}">${dev.name}</td>
+								<td>${dev.expert_part_name}</td>
+								<td>${dev.address}</td>
+							</tr>
+						</c:forEach>
 				</table>
 			</div>
 		</div>

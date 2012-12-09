@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="Field">
+	<typeAlias alias="FieldName" type="kr.mentalcare.project.model.FieldName"/>
+	
+	<select id="getAllField" resultClass="FieldName">
+		SELECT id,gubun,NAME FROM FIELD_NAME
+		ORDER BY id
+	</select>
+	<select id="getExpertField" resultClass="FieldName">
+		SELECT id,gubun,NAME FROM FIELD_NAME
+		WHERE gubun=0 ORDER BY id
+	</select>
+	<select id="getDetailField" resultClass="FieldName">
+		SELECT id,gubun,NAME FROM FIELD_NAME
+		WHERE gubun=1 ORDER BY id
+	</select>
+</sqlMap>
