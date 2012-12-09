@@ -9,6 +9,15 @@
 		<pattern>/func/*</pattern>
 	</excludes>
 
+	<decorator name="dev_layout" page="dev_layout.jsp">
+		<pattern>/dev/*</pattern>
+	</decorator>
+	<decorator name="admin_layout" page="admin_layout.jsp">
+		<pattern>/admin/*</pattern>
+	</decorator>
+	<decorator name="evaluator_layout" page="evaluator_layout.jsp">
+		<pattern>/evaluator/*</pattern>
+	</decorator>
 	<decorator name="layout" page="layout.jsp">
 		<pattern>/*</pattern>
 	</decorator>

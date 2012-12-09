@@ -14,7 +14,7 @@
 <script src="/PMC/script/jquery.tools.min.js"></script>
  -->
 <meta charset="utf-8">
-<title>Project Mental Care</title>
+<title>Project Mental Care[개발자]</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
