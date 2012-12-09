@@ -5,38 +5,47 @@
 .sidemenu {font-size:15px;}
 #my_info {width:100%;}
 #my_info td {padding:10px;}
+.td-background-color {background-color:EEEEEE;}
 </style>
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span3">
-      <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-          <li class="nav-header">
-            <h3>
-              Developer
-            </h3>
-          </li>
-          <li>
-          </li>
-          <li class="sidemenu">
-          	<a href="#">
-              Link
-            </a>
-          </li>
-          <li class="sidemenu">
-            <a href="#">
-              Link
-            </a>
-          </li>
-          <li class="sidemenu">
-            <a href="#">
-              Link
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="span9">
+<script>
+	var data = [{sn:'123',name:'영희',expert:'웹',cost:'300'},{sn:'1234',name:'쿠키',expert:'디비',cost:'300'},{sn:'13253',name:'영수',expert:'디비',cost:'300'},{sn:'19123',name:'구슬',expert:'웹',cost:'300'},{sn:'323',name:'고기',expert:'웹',cost:'300'},{sn:'1823',name:'용지',expert:'웹',cost:'300'},{sn:'1723',name:'방패',expert:'웹',cost:'300'},{sn:'12233',name:'꽃',expert:'디비',cost:'300'},{sn:'223',name:'냠냠',expert:'기타',cost:'300'},{sn:'1123',name:'레포트',expert:'디비',cost:'300'},{sn:'125',name:'철수',expert:'java',cost:'1000'}];
+
+	$(function(){
+		jQuery.each(data, function(i,val) {
+			var output='';
+			output += '<div class="accordion-group"><div class="accordion-heading">';
+			output += '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+val.name+'</a></div>';
+			output += '<div id="collapse'+i+'" class="accordion-body collapse"><div class="accordion-inner"><table class="table table-bordered">';
+			output += '<tr><td class="td-backgorund-color" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
+			output += '<tr><td class="td-background-color" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
+			output += '<tr><td class="td-background-color" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
+			output += '<tr><td class="td-background-color" style="width:100px">첨부 파일</td>';
+			output += '<td><button class="btn btn-primary" onclick=다운로드파일ㅋㅅㅋ(i);>Download</button></td></tr>';
+			output += '</div>';
+	       	$(output).appendTo('.newworks>#accordion2');
+	    });
+	});
+	
+	
+	//게시판
+	$(function(){
+		jQuery.each(data, function(i,val) {
+			var output='';
+			output += '<div class="accordion-group"><div class="accordion-heading">';
+			output += '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+val.name+'</a></div>';
+			output += '<div id="collapse'+i+'" class="accordion-body collapse"><div class="accordion-inner"><table class="table table-bordered">';
+			output += '<tr><td class="table-left-name" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
+			output += '<tr><td class="table-left-name" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
+			output += '<tr><td class="table-left-name" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
+			output += '<tr><td class="table-left-name" style="width:100px">첨부 파일</td>';
+			output += '<td><button class="btn btn-primary" onclick=다운로드파일ㅋㅅㅋ(i);>Download</button></td></tr>';
+			output += '</div>';
+	       	$(output).appendTo('.board');
+	    });
+	});
+
+</script>
+<div>
       <div class="hero-unit">
         <table id="my_info">
         <tr>
@@ -77,48 +86,6 @@
         </table>
 	  </div>
       <hr>
-     
-<script>
-	var data = [{sn:'123',name:'영희',expert:'웹',cost:'300'},{sn:'1234',name:'쿠키',expert:'디비',cost:'300'},{sn:'13253',name:'영수',expert:'디비',cost:'300'},{sn:'19123',name:'구슬',expert:'웹',cost:'300'},{sn:'323',name:'고기',expert:'웹',cost:'300'},{sn:'1823',name:'용지',expert:'웹',cost:'300'},{sn:'1723',name:'방패',expert:'웹',cost:'300'},{sn:'12233',name:'꽃',expert:'디비',cost:'300'},{sn:'223',name:'냠냠',expert:'기타',cost:'300'},{sn:'1123',name:'레포트',expert:'디비',cost:'300'},{sn:'125',name:'철수',expert:'java',cost:'1000'}];
-
-	$(function(){
-		jQuery.each(data, function(i,val) {
-			var output='';
-			output += '<div class="accordion-group"><div class="accordion-heading">';
-			output += '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+val.name+'</a></div>';
-			output += '<div id="collapse'+i+'" class="accordion-body collapse"><div class="accordion-inner"><table class="table table-bordered">';
-			output += '<tr><td class="td-backgorund-color" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
-			output += '<tr><td class="td-background-color" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
-			output += '<tr><td class="td-background-color" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
-			output += '<tr><td class="td-background-color" style="width:100px">첨부 파일</td>';
-			output += '<td><button class="btn btn-primary" onclick=다운로드파일ㅋㅅㅋ(i);>Download</button></td></tr>';
-			output += '</div>';
-	       	$(output).appendTo('.newworks>#accordion2');
-	    });
-	});
-	
-	
-	//게시판
-	$(function(){
-		jQuery.each(data, function(i,val) {
-			var output='';
-			output += '<div class="accordion-group"><div class="accordion-heading">';
-			output += '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse'+i+'">'+val.name+'</a></div>';
-			output += '<div id="collapse'+i+'" class="accordion-body collapse"><div class="accordion-inner"><table class="table table-bordered">';
-			output += '<tr><td class="table-left-name" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
-			output += '<tr><td class="table-left-name" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
-			output += '<tr><td class="table-left-name" style="width:100px">용역  이름</td><td>'+val.name+'</td></tr>';
-			output += '<tr><td class="table-left-name" style="width:100px">첨부 파일</td>';
-			output += '<td><button class="btn btn-primary" onclick=다운로드파일ㅋㅅㅋ(i);>Download</button></td></tr>';
-			output += '</div>';
-	       	$(output).appendTo('.board');
-	    });
-	});
-
-</script>
-<style>
-	.td-background-color {background-color:EEEEEE;}
-</style>
 
       <!-- 추후 동적생성으로 -->
       <div class="newworks">
@@ -221,14 +188,4 @@
       </div>
 
       <hr>
-      <div class="boardhahahahahaha">
-      	<table class="table table-bordered table-striped" id="board">
-      	
-      	</table>
-      </div>
-      <div>
-        © Company 2012
-      </div>
-    </div>
-  </div>
 </div>
