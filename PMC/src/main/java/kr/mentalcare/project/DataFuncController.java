@@ -5,8 +5,11 @@ import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.GregorianCalendar;
 
+import javassist.bytecode.analysis.Analyzer;
+
 import javax.servlet.http.HttpServletRequest;
 
+import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
 import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UploadItem;
 import kr.mentalcare.project.model.UserInfo;
@@ -53,10 +56,18 @@ public class DataFuncController {
 		    work.setFile_name(fileName);
 		    work.setFile_path(filePath);
 			
-			adminService.insertSwWork(work);
-			
+			SW_Work result=adminService.insertSwWork(work);
+			Integer workNum=result.getNum();
+			for(int i=0;i<developerArray.length;i++){
+				DeveloperWorkDeveloperTeam team=new DeveloperWorkDeveloperTeam();
+				team.setW_num(workNum);
+				team.setD_sn(Integer.parseInt(developerArray[i]));
+				team.setDt_num(null);
+				adminService.insertWorkDevTeam(team);
+			}
+			return "Success";
 		}
 		
-		return null;
+		return "Fail";
 	}
 }
