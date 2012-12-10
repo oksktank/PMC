@@ -13,10 +13,12 @@
 <hr>
 
 <div id="develop">
+<!-- 여기부터 -->
 	<div class="well">
 		<table id="work_info">
 			<tr>
-				<td colspan="2"><span id="work_header">웹서버 세팅</span></td>
+			<!-- wid로 구분 work/?wid=xxxx -->
+				<td colspan="2"><a href="/PMC/evaluator/work"><span id="work_header">웹서버 세팅</span></a></td>
 			</tr>
 			<tr>
 				<td colspan="2"><div class="work_description">
@@ -31,12 +33,15 @@
 				<td>
 				</td>
 				<td>
-				<input class="span3" type="text">
-				<button class="btn btn-info"><b>평가</b></button>
+					<div class="input-append">
+					    <input type="text" id="grade3242" class="span5">
+					    <button type="submit" class="btn btn-info" data-dismiss="modal">평가</button>
+					</div>
 				</td>
 			</tr>
 		</table>
 	</div>
+<!-- 여기까지 반복 -->
 	<div class="well">
 	안녕
 	</div>

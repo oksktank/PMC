@@ -35,4 +35,9 @@ public class EvaluatorController {
 	public String aa_history(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		return AuthUtil.retModelWithUserInfo("evaluator_past", model, request);
 	}
+	
+	@RequestMapping("/work")
+	public String aa_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("dev_workinfo", model, request);
+	}
 }

@@ -4,7 +4,7 @@
 <style>
 #input_button {text-align:right;}
 .td_right {width:15%;}
-#team_info {width:100%;}
+#team_info {width:100%; text-align:center;}
 #developerlist {width:100%;}
 .td-background-color {background-color:EEEEEE;}
 #myModal {text-align:left;}
@@ -199,12 +199,12 @@
 <hr>
 <div id="auction_list">
 
-
+<!-- 여기부터 -->
 	<div class="well">
 		<table id="team_info">
 			<tr>
-				<td>TEAM REAL</td>
-				<td class="td_right">입찰가</td>
+				<th>TEAM REAL</th>
+				<th class="td_right">입찰가</th>
 			</tr>
 			<tr>
 				<td>이한솔 김상훈 김원석 노원우</td>
@@ -212,6 +212,7 @@
 			</tr>
 		</table>
 	</div>
+<!-- 여기까지 반복 -->
 	<div class="well">
 	안녕
 	</div>

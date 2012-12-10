@@ -61,4 +61,9 @@ public class AdminController {
 	public String aa_work_auction(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		return AuthUtil.retModelWithUserInfo("admin_workauction", model, request);
 	}
+	
+	@RequestMapping("/work")
+	public String aa_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("dev_workinfo", model, request);
+	}
 }
