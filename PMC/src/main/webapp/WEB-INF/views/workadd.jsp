@@ -18,8 +18,9 @@
 	</p>
 	<script>
 	$(function() {
-		var startDate = new Date(2012,12,5);
-		var endDate = new Date(2012,12,25);
+		var startDate = new Date(); // month는 0부터 시작 
+		
+		var endDate = new Date();
 		$('#alert').hide();
 		
 		$('#date-start')
@@ -56,11 +57,11 @@
         <tr>
           <th>
               Start date
-              <a href="#" class="btn small" id="date-start" data-date-format="yyyy-mm-dd" data-date="2012-12-05">Change</a>
+              <a href="#" class="btn small" id="date-start" data-date-format="yyyy-mm-dd" data-date="">Change</a>
           </th>
           <th>
               End date
-              <a href="#" class="btn small" id="date-end" data-date-format="yyyy-mm-dd" data-date="2012-12-25">Change</a>
+              <a href="#" class="btn small" id="date-end" data-date-format="yyyy-mm-dd" data-date="">Change</a>
           </th>
         </tr>
     </thead>
@@ -186,7 +187,7 @@
 		var form = document.forms['work_input'];
 		alert('submit');
 		save_selected_developers();
-
+		
 		form.submit();
 		/*
 		$.ajax({
