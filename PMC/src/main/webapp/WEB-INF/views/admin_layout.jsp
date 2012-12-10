@@ -104,24 +104,27 @@ undefined
 	        <ul class="nav nav-list">
 	          <li class="nav-header">
 	            <h3>
-	              Developer
+	              Admin
 	            </h3>
 	          </li>
-	          <li>
-	          </li>
 	          <li class="sidemenu">
-	          	<a href="#">
-	              Link
+	          	<a href="/PMC/admin/">
+	              내 정보
 	            </a>
 	          </li>
 	          <li class="sidemenu">
-	            <a href="#">
-	              Link
+	          	<a href="/PMC/admin/workadd">
+	              신규 Work 등록
 	            </a>
 	          </li>
 	          <li class="sidemenu">
-	            <a href="#">
-	              Link
+	          	<a href="/PMC/admin/auction_list">
+	              경매 진행중인 Work
+	            </a>
+	          </li>
+	          <li class="sidemenu">
+	          	<a href="/PMC/admin/on_work">
+	              개발 완료된 Work
 	            </a>
 	          </li>
 	        </ul>

@@ -104,24 +104,22 @@ undefined
 	        <ul class="nav nav-list">
 	          <li class="nav-header">
 	            <h3>
-	              Developer
+	              Evaluator
 	            </h3>
 	          </li>
-	          <li>
-	          </li>
 	          <li class="sidemenu">
-	          	<a href="#">
-	              Link
+	          	<a href="/PMC/evaluator/">
+	              내 정보
 	            </a>
 	          </li>
 	          <li class="sidemenu">
-	            <a href="#">
-	              Link
+	          	<a href="/PMC/evaluator/evaluate">
+	              평가하기
 	            </a>
 	          </li>
 	          <li class="sidemenu">
-	            <a href="#">
-	              Link
+	          	<a href="/PMC/evaluator/history">
+	              과거 평가 내역
 	            </a>
 	          </li>
 	        </ul>

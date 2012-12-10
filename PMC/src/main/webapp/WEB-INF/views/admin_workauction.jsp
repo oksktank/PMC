@@ -38,11 +38,6 @@
 		        	</tr>
 		        </table>
 		        </div>
-<div id="input_button">
-<a href="#" class="btn btn-danger" id="bid"><b>입찰하기</b></a>
-　
-<a href="#" class="btn btn-success" id="team"><b>팀 생성</b></a>
-</div>
 <hr>
 <div id="auction_list">
 
@@ -52,10 +47,14 @@
 			<tr>
 				<td>TEAM REAL</td>
 				<td class="td_right">입찰가</td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>이한솔 김상훈 김원석 노원우</td>
 				<td class="td_right">2400</td>
+				<td class="td_right">
+				<button class="btn btn-danger"><b>입찰하기</b></button>
+				</td>
 			</tr>
 		</table>
 	</div>

@@ -47,7 +47,7 @@
         </tr>
         <tr>
         	<td style="text-align:right">
-        		<a href="/PMC/admin/new_work" class="btn btn-primary" id="new_work"><b>신규 Work 등록</b></a>
+        		<a href="/PMC/admin/workadd" class="btn btn-primary" id="new_work"><b>신규 Work 등록</b></a>
         	</td>
         </tr>
         </table>

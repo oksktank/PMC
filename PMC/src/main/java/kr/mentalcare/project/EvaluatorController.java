@@ -20,4 +20,19 @@ public class EvaluatorController {
 	public String test(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		return AuthUtil.retModelWithUserInfo("test", model, request);
 	}
+	
+	@RequestMapping("/")
+	public String aa_main(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("evaluator_main", model, request);
+	}
+	
+	@RequestMapping("/evaluate")
+	public String aa_evaluate(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("evaluator_evaluate", model, request);
+	}
+	
+	@RequestMapping("/history")
+	public String aa_history(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("evaluator_past", model, request);
+	}
 }

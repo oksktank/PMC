@@ -45,4 +45,20 @@ public class AdminController {
 		
 		return AuthUtil.retModelWithUserInfo("workadd", model, request);
 	}
+	
+	@RequestMapping("/auction_list")
+	public String aa_work_auction_list(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("admin_workauctionlist", model, request);
+	}
+	
+	@RequestMapping("/on_work")
+	public String aa_on_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("admin_onworklist", model, request);
+	}
+	
+	//auction_list에서 클릭 -> auction?wid=xxxx
+	@RequestMapping("/auction")
+	public String aa_work_auction(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("admin_workauction", model, request);
+	}
 }
