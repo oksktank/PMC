@@ -93,7 +93,7 @@
 		  
       
       </div>
-
+</div>
       <hr>
       <div>
         © Company 2012
