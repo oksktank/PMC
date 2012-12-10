@@ -3,11 +3,11 @@
 <%@ page session="false" %>
 <style>
 .td_right {width:15%;}
-.work_description {padding-left:30px;}
+.work_description {padding-left:30px; padding-bottom:20px;}
 #work_info {width:100%;}
 #work_info td {padding:5px;}
 #work_header {font-size:20px; color:#BB0000; font-weight:bold;}
-#work_em {font-size:20px; color:#003A9A; font-weight:bold;}
+#work_em {font-size:20px; color:#003A9A; font-weight:bold; margin-right:30px;}
 </style>
 <h1>개발 진행중인 Works</h1>
 <hr>
@@ -22,10 +22,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><span class="work_description">
-				여기는 설명 ㅇㅇㅇ ㅇ ㅇ ㅇ ㅇ
+				<td colspan="2"><div class="work_description">
+				여기는 설명 ㅇㅇㅇ ㅇ ㅇ ㅇ ㅇ<br>
 				spring framework 기반 웹 서버 세팅 ㅋ
-				</span></td>
+				</div></td>
 			</tr>
 			<tr>
 				<td colspan="2">

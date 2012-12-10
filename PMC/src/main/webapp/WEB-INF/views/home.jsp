@@ -3,6 +3,7 @@
 <%@ page session="false" %>
 <style>
 .sidemenu{font-size:15px;}
+.td-background-color {background-color:EEEEEE;}
 </style>
 
 <div class="container-fluid">
@@ -50,27 +51,37 @@
 		      <div class="accordion-inner">
 		        <table class="table table-bordered">
 		        	<tr>
-		        		<td class="asdf" style="width:100px">용역 이름
+		        		<td class="td-background-color" style="width:100px">용역 이름
 		        		</td>
 		        		<td>${work.w_name }</td>
 		        	</tr>
 		        	<tr>
-		        		<td class="asdf" style="width:100px">기간
-		        		</td>
-		        		<td>${work.start_period } ~ ${work.end_period } </td>
-		        	</tr>
-		        	<tr>
-		        		<td class="asdf" style="width:100px">분야
-		        		</td>
-		        		<td>${work.expert_part_name } ${work.detail_part_name }</td>
-		        	</tr>
-		        	<tr>
-		        		<td class="asdf" style="width:100px">개발내용
+		        		<td class="td-background-color" style="width:100px">개발 내용
 		        		</td>
 		        		<td>${work.description }</td>
 		        	</tr>
 		        	<tr>
-		        		<td class="asdf" style="width:100px">첨부파일
+		        		<td class="td-background-color" style="width:100px">기간
+		        		</td>
+		        		<td>${work.start_period } ~ ${work.end_period } </td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">인센티브
+		        		</td>
+		        		<td>${work.cost } </td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">전문 분야
+		        		</td>
+		        		<td>${work.expert_part_name }</td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">세부 분야
+		        		</td>
+		        		<td>${work.detail_part_name }</td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">첨부파일
 		        		</td>
 		        		<td><a href="${pageContext.request.contextPath }/func/download?filePath=${work.file_path }&fileName=${work.file_name}"><button class="btn btn-primary">Download</button></a></td>
 		        	</tr>
