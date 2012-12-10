@@ -8,6 +8,9 @@
 	<insert id="insertSwWork" parameterClass="SW_Work">
 		INSERT INTO SW_WORK(file_name,file_path,cost,start_period,end_period,admin_num,dt_num,w_name,description,expert_part,detail_part)
 		VALUES(#file_name#,#file_path#,#cost#,#start_period#,#end_period#,#admin_num#,#dt_num#,#w_name#,#description#,#expert_part#,#detail_part#)
+		<selectKey keyProperty="num" resultClass="Integer">
+        SELECT LAST_INSERT_ID()
+    	</selectKey>
 	</insert>
 	<insert id="insertAdmin" parameterClass="Admin">
 		INSERT INTO ADMIN(NAME,address,phone) VALUES (#name#,#address#,#phone#)

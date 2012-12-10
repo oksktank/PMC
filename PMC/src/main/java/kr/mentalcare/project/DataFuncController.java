@@ -56,13 +56,13 @@ public class DataFuncController {
 		    work.setFile_name(fileName);
 		    work.setFile_path(filePath);
 			
-			SW_Work result=adminService.insertSwWork(work);
-			Integer workNum=result.getNum();
+			
+			Integer workNum=adminService.insertSwWork(work);
 			for(int i=0;i<developerArray.length;i++){
 				DeveloperWorkDeveloperTeam team=new DeveloperWorkDeveloperTeam();
 				team.setW_num(workNum);
 				team.setD_sn(Integer.parseInt(developerArray[i]));
-				team.setDt_num(null);
+				team.setDt_num(-1);
 				adminService.insertWorkDevTeam(team);
 			}
 			return "Success";

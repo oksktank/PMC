@@ -20,8 +20,8 @@ public class AdminService {
 		return (Admin)sqlMapClient.insert("Admin.insertAdmin", admin);
 	}
 	
-	public SW_Work insertSwWork(SW_Work work) throws SQLException{
-		return (SW_Work)sqlMapClient.insert("Admin.insertSwWork",work);
+	public Integer insertSwWork(SW_Work work) throws SQLException{
+		return (Integer)sqlMapClient.insert("Admin.insertSwWork",work);
 	}
 	
 	public DeveloperWorkDeveloperTeam insertWorkDevTeam(DeveloperWorkDeveloperTeam workDevTeam) throws SQLException{
