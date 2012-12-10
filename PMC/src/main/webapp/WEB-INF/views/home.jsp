@@ -42,11 +42,11 @@
       		<c:forEach items="${recentWork }" var="work">
       		<div class="accordion-group">
 		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse${work.num }">
 		        ${work.w_name }
 		      </a>
 		    </div>
-		    <div id="collapseTwo" class="accordion-body collapse">
+		    <div id="collapse${work.num }" class="accordion-body collapse">
 		      <div class="accordion-inner">
 		        <table class="table table-bordered">
 		        	<tr>

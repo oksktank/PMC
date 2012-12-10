@@ -48,7 +48,7 @@ public class DataFuncController {
 			FileUtil fileUtil=new FileUtil();
 			String filePath="d:\\upload\\sw_work";
 			String originFileName=uploadItem.getFileData().getOriginalFilename();
-			String fileName=(new GregorianCalendar()).getTimeInMillis()+"_"+URLEncoder.encode(originFileName,"UTF-8");
+			String fileName=(new GregorianCalendar()).getTimeInMillis()+"_"+originFileName;
 		    fileUtil.writeFile(uploadItem.getFileData(), filePath,  fileName);
 		    work.setFile_name(fileName);
 		    work.setFile_path(filePath);
