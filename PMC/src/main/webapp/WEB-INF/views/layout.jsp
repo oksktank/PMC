@@ -85,6 +85,7 @@ undefined
 					<li><a href="#"> Home </a></li>
 					<li><a href="#"> About </a></li>
 					<li><a href="#"> Contact </a></li>
+					<li><a href="/PMC/join"> Join </a></li>
 				</ul>
 				<div id="loginForm" class="pull-right">
 				<form class="navbar-form">

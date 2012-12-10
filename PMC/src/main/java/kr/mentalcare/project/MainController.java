@@ -77,6 +77,11 @@ public class MainController {
 		return AuthUtil.retModelWithUserInfo("test", model, request);
 	}
 	
+	@RequestMapping("/join")
+	public String aa_join(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		return AuthUtil.retModelWithUserInfo("join", model, request);
+	}
+	
 	@RequestMapping("/dev_main")
 	public String dev_main11(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		//adminService.insertAdmin("이원석", "공A", "010-2242-2424");
