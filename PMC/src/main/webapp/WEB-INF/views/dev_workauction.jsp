@@ -184,10 +184,11 @@
 			</div>
 			<div class="modal-footer">
 				<form id="team_input" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/func/insertTeam">
-				<div class="input-append">
+				<div class="input-prepend input-append">
+					<span class="add-on">팀 이름</span>
 					<input id="selectedDeveloperList" type="hidden" name="developers">
 				    <input type="text" id="team_name" class="span5">
-				    <button type="submit" class="btn btn-danger" data-dismiss="modal">팀 생성</button>
+				    <button type="submit" class="btn btn-danger" data-dismiss="modal">생성</button>
 				</div>
 				</form>
 			</div>
