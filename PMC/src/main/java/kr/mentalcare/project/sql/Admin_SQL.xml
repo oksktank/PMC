@@ -4,11 +4,16 @@
 <sqlMap namespace="Admin">
 	<typeAlias alias="Admin" type="kr.mentalcare.project.model.Admin"/>
 	<typeAlias alias="SW_Work" type="kr.mentalcare.project.model.SW_Work"/>
+	<typeAlias alias="DeveloperWorkDeveloperTeam" type="kr.mentalcare.project.model.DeveloperWorkDeveloperTeam"/>
 	<insert id="insertSwWork" parameterClass="SW_Work">
 		INSERT INTO SW_WORK(file_name,file_path,cost,start_period,end_period,admin_num,dt_num,w_name,description,expert_part,detail_part)
 		VALUES(#file_name#,#file_path#,#cost#,#start_period#,#end_period#,#admin_num#,#dt_num#,#w_name#,#description#,#expert_part#,#detail_part#)
 	</insert>
 	<insert id="insertAdmin" parameterClass="Admin">
 		INSERT INTO ADMIN(NAME,address,phone) VALUES (#name#,#address#,#phone#)
+	</insert>
+	<insert id="insertWorkDevTeam" parameterClass="DeveloperWorkDeveloperTeam">
+		INSERT INTO DEVELOPER_WORK_DEVELOPER_TEAM(d_sn,w_num,dt_num)
+		VALUES(#d_sn#,#w_num#,#dt_num#)
 	</insert>
 </sqlMap>

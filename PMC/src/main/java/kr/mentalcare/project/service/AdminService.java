@@ -3,6 +3,7 @@ package kr.mentalcare.project.service;
 import java.sql.SQLException;
 
 import kr.mentalcare.project.model.Admin;
+import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
 import kr.mentalcare.project.model.SW_Work;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,9 @@ public class AdminService {
 	
 	public SW_Work insertSwWork(SW_Work work) throws SQLException{
 		return (SW_Work)sqlMapClient.insert("Admin.insertSwWork",work);
+	}
+	
+	public DeveloperWorkDeveloperTeam insertWorkDevTeam(DeveloperWorkDeveloperTeam workDevTeam) throws SQLException{
+		return (DeveloperWorkDeveloperTeam)sqlMapClient.insert("Admin.insertWorkDevTeam",workDevTeam);
 	}
 }
