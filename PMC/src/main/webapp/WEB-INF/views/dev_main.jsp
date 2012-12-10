@@ -75,9 +75,11 @@
 		          <li class="nav-header">
 		          My Works
 		          </li>
-        		  <li><button class="btn btn-primary">REAL</button></li>
-        		  <li><button class="btn btn-primary">PMC</button></li>
-        		</ul>
+		        </ul>
+		          <!-- 이거 내 진행중 프로젝트 동적 생성 -->
+		          <!-- work?wid=xxxx로 -->
+        		  <p><a href="/PMC/dev/work" class="btn btn-primary">REAL</a></p>
+        		  <p><a href="/PMC/dev/work" class="btn btn-primary">PMC</a></p>
         	</div>
         	</td>
         	<td>
@@ -87,103 +89,59 @@
 	  </div>
       <hr>
 
-      <!-- 추후 동적생성으로 -->
       <div class="newworks">
       	<div class="accordion" id="accordion2">
-		  <div class="accordion-group">
+      		<c:forEach items="${recentWork }" var="work">
+      		<div class="accordion-group">
 		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-		        	곰인형 로봇을 사용한 교육용 PC Application Game 개발
+		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse${work.num }">
+		        ${work.w_name }
 		      </a>
 		    </div>
-		    <div id="collapseOne" class="accordion-body collapse in">
+		    <div id="collapse${work.num }" class="accordion-body collapse">
 		      <div class="accordion-inner">
 		        <table class="table table-bordered">
 		        	<tr>
-		        		<td class="asdf" style="width:100px">용역 이름
+		        		<td class="td-background-color" style="width:100px">용역 이름
 		        		</td>
-		        		<td>샬라샬라</td>
+		        		<td>${work.w_name }</td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">개발 내용
+		        		</td>
+		        		<td>${work.description }</td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">기간
+		        		</td>
+		        		<td>${work.start_period } ~ ${work.end_period } </td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">인센티브
+		        		</td>
+		        		<td>${work.cost } </td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">전문 분야
+		        		</td>
+		        		<td>${work.expert_part_name }</td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">세부 분야
+		        		</td>
+		        		<td>${work.detail_part_name }</td>
+		        	</tr>
+		        	<tr>
+		        		<td class="td-background-color" style="width:100px">첨부파일
+		        		</td>
+		        		<td><a class="btn btn-primary" href="${pageContext.request.contextPath }/func/download?filePath=${work.file_path }&fileName=${work.file_name}">Download</a></td>
 		        	</tr>
 		        </table>
 		      </div>
 		    </div>
 		  </div>
-		  <div class="accordion-group">
-		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-		        Facebook 연동 mobile application 개발
-		      </a>
-		    </div>
-		    <div id="collapseTwo" class="accordion-body collapse">
-		      <div class="accordion-inner">
-		        <table class="table table-bordered">
-		        	<tr>
-		        		<td class="asdf" style="width:100px">용역 이름
-		        		</td>
-		        		<td>Facebook 연동 mobile application 개발</td>
-		        	</tr>
-		        	<tr>
-		        		<td class="asdf" style="width:100px">기간
-		        		</td>
-		        		<td>2012.12 ~ 2013.2 (3개월)</td>
-		        	</tr>
-		        	<tr>
-		        		<td class="asdf" style="width:100px">자격요건
-		        		</td>
-		        		<td>HTML/CSS/Javascript를 이용한 web programming 기술</td>
-		        	</tr>
-		        	<tr>
-		        		<td class="asdf" style="width:100px">개발내용
-		        		</td>
-		        		<td>Facebook의 기능과 mobile의 기능이 연동되는 application
-	Facebook application 형태로 패키징하여 facebook에 등록</td>
-		        	</tr>
-		        	<tr>
-		        		<td class="asdf" style="width:100px">첨부파일
-		        		</td>
-		        		<td><button class="btn btn-primary">Download</button></td>
-		        	</tr>
-		        </table>
-		      </div>
-		    </div>
-		  </div>
-		  <div class="accordion-group">
-		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-		        내일로 여행을 위한 여행 가이드 Mobile Application 개발
-		      </a>
-		    </div>
-		    <div id="collapseThree" class="accordion-body collapse">
-		      <div class="accordion-inner">
-		        Anim pariatur cliche...
-		      </div>
-		    </div>
-		  </div>
-		  <div class="accordion-group">
-		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-		        수학 함수 그래프 이해를 돕는 교육용 게임 개발
-		      </a>
-		    </div>
-		    <div id="collapseFour" class="accordion-body collapse">
-		      <div class="accordion-inner">
-		        Anim pariatur cliche...
-		      </div>
-		    </div>
-		  </div>
-		  <div class="accordion-group">
-		    <div class="accordion-heading">
-		      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
-		        Real time Web based Game
-		      </a>
-		    </div>
-		    <div id="collapseFive" class="accordion-body collapse">
-		      <div class="accordion-inner">
-		        Anim pariatur cliche...
-		      </div>
-		    </div>
-		  </div>
-		</div>
+      		</c:forEach>
+		  
       
       </div>
 
