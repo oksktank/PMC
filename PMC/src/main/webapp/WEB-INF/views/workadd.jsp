@@ -31,6 +31,7 @@
 	        } else {
 	            $('#alert').hide();
 	            startDate = new Date(ev.date);
+	            $('#start_period').val(stringDate(startDate));
 	            $('#date-start-display').text($('#date-start').data('date'));
 	        }
 	        $('#date-start').datepicker('hide');
@@ -43,11 +44,21 @@
 	        } else {
 	            $('#alert').hide();
 	            endDate = new Date(ev.date);
+	            $('#end_period').val(stringDate(endDate));
 	            $('#date-end-display').text($('#date-end').data('date'));
 	        }
 	        $('#date-end').datepicker('hide');
 	    });
 	});
+	
+	function stringDate(d) {
+		return padStr(d.getFullYear()) +
+		padStr(1 + d.getMonth()) +
+		padStr(d.getDate());
+	}
+	function padStr(i) {
+		return (i < 10) ? "0" + i : "" + i;
+	}
 </script>
 <div class="alert alert-error" id="alert">
     <strong>Oh snap!</strong>
@@ -69,6 +80,10 @@
         <tr>
           <td id="date-start-display">2012-12-05</td>
           <td id="date-end-display">2012-12-25</td>
+        </tr>
+        <tr>
+        	<td><input type="text" name="start_period" id="start_period"></td>
+        	<td><input type="text" name="end_period" id="end_period"></td>
         </tr>
     </tbody>
 </table>

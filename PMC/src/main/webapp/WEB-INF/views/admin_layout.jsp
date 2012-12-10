@@ -79,9 +79,9 @@ undefined
 	<div class="navbar navbar-fixed-top navbar-inverse">
 		<div class="navbar-inner">
 			<div class="container">
-				<a class="brand" href="#"> Project Mental Care </a>
+				<a class="brand" href="/PMC/admin/"> Project Mental Care </a>
 				<ul class="nav">
-					<li><a href="#"> Home </a></li>
+					<li><a href="/PMC/admin/"> Home </a></li>
 					<li><a href="#"> About </a></li>
 					<li><a href="#"> Contact </a></li>
 				</ul>

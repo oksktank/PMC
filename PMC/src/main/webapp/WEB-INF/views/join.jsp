@@ -41,6 +41,23 @@
 	<form id='user_input'  enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/func/insertUser">
 		<table class="table table-bordered">
 			<tr>
+				<td class="td-background-color">역할</td>
+				<td>
+					<label class="radio">
+					  <input type="radio" name="role" id="optionsRadios1" value="1">
+					  개발자
+					</label>
+					<label class="radio">
+					  <input type="radio" name="role" id="optionsRadios2" value="2">
+					  평가자
+					</label>
+					<label class="radio">
+					  <input type="radio" name="role" id="optionsRadios3" value="3">
+					  관리자
+					</label>
+				</td>
+			</tr>
+			<tr>
 				<td class="td-background-color">이름</td>
 				<td><input type="text" name="w_name"></td>
 			</tr>
