@@ -141,6 +141,9 @@ undefined
 	          <li class="nav-header">
 	            <h5>진행중인 Works</h5>
 	          </li>
+	          <!-- #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	          <!-- 동적 생성 자신이 진행중인 work 띄우기 -->
+	          <!-- dev/work?wid=xxxx로 이동할거임 -->
 	          <li class="sidemenu">
 	          	<a href="/PMC/dev/work">
 	              REAL
@@ -151,6 +154,7 @@ undefined
 	              PMC
 	            </a>
 	          </li>
+	          <!-- #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 	      </ul>
 	      </div>
 	    </div>

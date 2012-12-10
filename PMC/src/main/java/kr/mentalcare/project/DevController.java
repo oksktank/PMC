@@ -2,9 +2,11 @@ package kr.mentalcare.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.mentalcare.project.model.FieldName;
 import kr.mentalcare.project.util.AuthUtil;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -47,8 +49,14 @@ public class DevController {
 	}
 	
 	//invite_work에서 클릭 -> auction?wid=xxxx
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/auction")
 	public String aa_work_auction(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+/*
+		model.addAttribute("expertField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getExpertField"));
+		model.addAttribute("detailField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getDetailField"));
+		model.addAttribute("allDev",developerService.getAllDeveloperList());
+	*/	
 		return AuthUtil.retModelWithUserInfo("dev_workauction", model, request);
 	}
 	
