@@ -2,24 +2,46 @@ package kr.mentalcare.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import kr.mentalcare.project.model.FieldName;
+import kr.mentalcare.project.model.SW_Work;
+import kr.mentalcare.project.model.UserInfo;
+import kr.mentalcare.project.service.DeveloperService;
+import kr.mentalcare.project.service.WorkService;
 import kr.mentalcare.project.util.AuthUtil;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("dev")
 public class DevController {
+	
+	@Autowired
+	DeveloperService developerService;
+	@Autowired
+	WorkService workService;
+	
 	@RequestMapping("/")
 	public String aa_main(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			Integer sn=userInfo.getId();
+			model.addAttribute("developer", developerService.getDeveloper(sn));
+			model.addAttribute("invitedWorkCount",developerService.getInvitedWorkCount(sn));
+			model.addAttribute("myTeamList",developerService.getMyTeamList(sn));
+			model.addAttribute("recentWork",workService.getRecentWork());
+		}
+		
+		
 		return AuthUtil.retModelWithUserInfo("dev_main", model, request);
 	}
 	
@@ -35,6 +57,12 @@ public class DevController {
 	
 	@RequestMapping("/invite_work")
 	public String aa_invite_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			Integer sn=userInfo.getId();
+			model.addAttribute("invitedWork", developerService.getInvitedWork(sn));
+		}
 		return AuthUtil.retModelWithUserInfo("dev_invite", model, request);
 	}
 	
@@ -51,12 +79,13 @@ public class DevController {
 	//invite_work에서 클릭 -> auction?wid=xxxx
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/auction")
-	public String aa_work_auction(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
-/*
-		model.addAttribute("expertField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getExpertField"));
-		model.addAttribute("detailField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getDetailField"));
-		model.addAttribute("allDev",developerService.getAllDeveloperList());
-	*/	
+	public String aa_work_auction(HttpServletRequest request, Model model,@RequestParam Integer wnum) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			SW_Work work=workService.getWork(wnum);
+			model.addAttribute("work", work);
+		}
 		return AuthUtil.retModelWithUserInfo("dev_workauction", model, request);
 	}
 	

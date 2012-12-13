@@ -6,7 +6,7 @@
 .td-background-color {background-color:EEEEEE;}
 .page_move {cursor:pointer;}
 </style>
-<h1>초대 받은 Work List</h1>
+<h1>초대받은Work List</h1>
 <hr>
 
 <div id="search">
@@ -28,13 +28,15 @@
 	</tr>
 	<!-- 여기부터 동적생성 wid->work의pk-->
 	<!-- onclick 해서 dev/auction?wid=xxxx로 이동할거임 -->
-	<tr class="page_move" onclick="location.href='/PMC/dev/auction';">
-		<td>1</td>
-		<td>웹서버세팅</td>
-		<td>웹</td>
-		<td>3000</td>
-		<td>20120504~20120604</td>
+	<c:forEach items="${invitedWork }" var="work" varStatus="i">
+	<tr class="page_move" onclick="location.href='/PMC/dev/auction?wid=${work.num}';">
+		<td>${i.index+1 }</td>
+		<td>${work.w_name }</td>
+		<td>${work.expert_part_name }</td>
+		<td>${work.cost }</td>
+		<td>${work.start_period }~${work.end_period }</td>
 	</tr>
+	</c:forEach>
 	<!-- 여기까지 -->
 </table>
 </div>

@@ -7,7 +7,7 @@
 #my_info td {padding:10px;}
 .td-background-color {background-color:EEEEEE;}
 </style>
-<script>
+<!-- script>
 	var data = [{sn:'123',name:'영희',expert:'웹',cost:'300'},{sn:'1234',name:'쿠키',expert:'디비',cost:'300'},{sn:'13253',name:'영수',expert:'디비',cost:'300'},{sn:'19123',name:'구슬',expert:'웹',cost:'300'},{sn:'323',name:'고기',expert:'웹',cost:'300'},{sn:'1823',name:'용지',expert:'웹',cost:'300'},{sn:'1723',name:'방패',expert:'웹',cost:'300'},{sn:'12233',name:'꽃',expert:'디비',cost:'300'},{sn:'223',name:'냠냠',expert:'기타',cost:'300'},{sn:'1123',name:'레포트',expert:'디비',cost:'300'},{sn:'125',name:'철수',expert:'java',cost:'1000'}];
 
 	$(function(){
@@ -44,29 +44,29 @@
 	    });
 	});
 
-</script>
+</script-->
 <div>
       <div class="hero-unit">
         <table id="my_info">
         <tr>
 	        <td>
-	        	<h1>이름</h1>
+	        	<h1>${developer.name }</h1>
 	       	</td>
 	       	<td>
-	       		<b>전문분야 세부분야</b>
+	       		<b>전문분야:</b>${developer.expert_part_name }<br/><b>세부분야:</b>${developer.detail_part_name }
 	        </td>
         </tr>
         <tr>
         	<td>
-        	초대받은 works <a href="#">3</a>건
+        	초대받은 works <a href="#">${invitedWorkCount }</a>건
         	</td>
         	<td>
-        	010-xxxx-xxxx
+        	<b>전화번호:</b> ${developer.phone }
         	</td>
         </tr>
         <tr>
         	<td></td>
-        	<td>전문성 등급 <b>2등급</b></td>
+        	<td><b>전문성 등급 :</b> 2등급</td>
         </tr>
         <tr>
         	<td>
@@ -78,8 +78,9 @@
 		        </ul>
 		          <!-- 이거 내 진행중 프로젝트 동적 생성 -->
 		          <!-- work?wid=xxxx로 -->
-        		  <p><a href="/PMC/dev/work" class="btn btn-primary">REAL</a></p>
-        		  <p><a href="/PMC/dev/work" class="btn btn-primary">PMC</a></p>
+		          <c:forEach items="${myTeamList }" var="team">
+		          <p><a href="/PMC/dev/work?id=${dt_number }" class="btn btn-primary">${team.dt_name }</a></p>
+		          </c:forEach>
         	</div>
         	</td>
         	<td>

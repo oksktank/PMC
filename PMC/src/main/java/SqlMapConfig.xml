@@ -15,6 +15,7 @@
 	<sqlMap resource="kr/mentalcare/project/sql/UserInfo_SQL.xml" />
 	<sqlMap resource="kr/mentalcare/project/sql/Field_SQL.xml" />
 	<sqlMap resource="kr/mentalcare/project/sql/Developer_SQL.xml" />
+	<sqlMap resource="kr/mentalcare/project/sql/Evaluator_SQL.xml" />
 	<sqlMap resource="kr/mentalcare/project/sql/Work_SQL.xml" />
 	
 </sqlMapConfig>

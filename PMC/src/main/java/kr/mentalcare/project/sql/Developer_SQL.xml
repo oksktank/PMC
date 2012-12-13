@@ -3,11 +3,37 @@
 
 <sqlMap namespace="Developer">
 	<typeAlias alias="Developer" type="kr.mentalcare.project.model.Developer"/>
+	<typeAlias alias="DeveloperTeam" type="kr.mentalcare.project.model.DeveloperTeam"/>
+	<typeAlias alias="SW_Work" type="kr.mentalcare.project.model.SW_Work"/>
+	
+	<select id="getDeveloper" parameterClass="Integer" resultClass="Developer">
+	SELECT * FROM DEVELOPER WHERE SN=#sn#
+	</select>
+	
 	<insert id="insertDeveloper" parameterClass="Developer">
 	INSERT INTO DEVELOPER(sn,NAME,address,phone,expert_part,detail_part) VALUES
 	(#sn#,#name#,#address#,#phone#,#expert_part#,#detail_part#)
 	</insert>
+	
 	<select id="getAllDeveloper" resultClass="Developer">
 	SELECT * FROM DEVELOPER d ORDER BY sn
+	</select>
+	
+	<select id="getInvitedWorkCount" parameterClass="Integer" resultClass="Integer">
+	SELECT COUNT(*) FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE dt_num=-1 AND d_sn=#sn#
+	</select>
+	
+	<select id="getInvitedWork" parameterClass="Integer" resultClass="SW_Work">
+	SELECT * FROM SW_WORK
+	WHERE num IN(
+	SELECT w_num FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE dt_num=-1 AND d_sn=#sn#)
+	</select>
+	
+	<select id="getMyTeamList" parameterClass="Integer" resultClass="DeveloperTeam">
+	SELECT * FROM DEVELOPER_TEAM
+	WHERE  dt_number IN (SELECT dt_num FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE d_sn=#sn# AND dt_num!=-1)	
 	</select>
 </sqlMap>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.mentalcare.project.model.Admin;
 import kr.mentalcare.project.model.Developer;
 import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
+import kr.mentalcare.project.model.Evaluator;
 import kr.mentalcare.project.model.Join;
 import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UploadItem;
@@ -23,6 +24,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,6 +82,7 @@ public class DataFuncController {
 	}
 	
 	@RequestMapping(value="/insertUser",method=RequestMethod.POST)
+	@Transactional
 	public void joinUser(HttpServletRequest request,HttpServletResponse response,@ModelAttribute Join join) throws JsonGenerationException, JsonMappingException, IOException, SQLException{
 		System.out.println(new ObjectMapper().writeValueAsString(join));
 		UserInfo userInfo=new UserInfo();
@@ -100,6 +103,14 @@ public class DataFuncController {
 			sqlMapClient.insert("Developer.insertDeveloper", dev);
 			break;
 		case 2: //평가자
+			Evaluator ev=new Evaluator();
+			ev.setSn(sn);
+			ev.setName(join.getName());
+			ev.setPhone(join.getPhone());
+			ev.setAddress(join.getAddress());
+			ev.setExpert_part(join.getExpert_part());
+			ev.setDetail_part(join.getDetail_part());
+			sqlMapClient.insert("Evaluator.insertEvaluator", ev);
 			break;
 		case 3: //관리자
 			Admin a=new Admin(join.getName(),join.getAddress(),join.getPhone());

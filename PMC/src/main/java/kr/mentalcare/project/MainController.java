@@ -2,9 +2,7 @@ package kr.mentalcare.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +13,7 @@ import kr.mentalcare.project.model.FieldName;
 import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.service.AdminService;
 import kr.mentalcare.project.service.FieldNameService;
+import kr.mentalcare.project.service.WorkService;
 import kr.mentalcare.project.util.AuthUtil;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -49,17 +48,12 @@ public class MainController {
 	@Autowired
 	FieldNameService fieldNameService;
 	
+	@Autowired
+	WorkService workService;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request,Locale locale, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException {
-		@SuppressWarnings("unchecked")
-		List<SW_Work> workList=sqlMapClient.queryForList("Work.getRecentWork");
-		HashMap<Integer,FieldName> fieldMap=fieldNameService.getFieldNameMap();
-		for(int i=0;i<workList.size();i++){
-			SW_Work work=workList.get(i);
-			work.setExpert_part_name(fieldMap.get(work.getExpert_part()).getName());
-			work.setDetail_part_name(fieldMap.get(work.getDetail_part()).getName());
-		}
-		model.addAttribute("recentWork",workList);
+		model.addAttribute("recentWork",workService.getRecentWork());
 		return AuthUtil.retModelWithUserInfo("home", model, request);
 	}
 	
