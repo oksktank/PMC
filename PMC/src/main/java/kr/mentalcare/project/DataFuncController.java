@@ -59,14 +59,13 @@ public class DataFuncController {
 			work.setAdmin_num(userInfo.getId());
 			
 			FileUtil fileUtil=new FileUtil();
-			String filePath="d:\\upload\\sw_work";
+			String filePath=FileUtil.filePath;
 			String originFileName=uploadItem.getFileData().getOriginalFilename();
 			String fileName=(new GregorianCalendar()).getTimeInMillis()+"_"+originFileName;
 			if(originFileName!=null&&!originFileName.equals("")){
 				fileUtil.writeFile(uploadItem.getFileData(), filePath,  fileName);
 			
 				work.setFile_name(fileName);
-				work.setFile_path(filePath);
 			}
 			
 			Integer workNum=adminService.insertSwWork(work);

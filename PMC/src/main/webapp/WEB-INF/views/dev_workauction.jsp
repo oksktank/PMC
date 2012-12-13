@@ -145,7 +145,7 @@
 		        		<td class="td-background-color" style="width:100px">첨부파일
 		        		</td>
 		        		<td>
-		        		<a href="${pageContext.request.contextPath }/func/download?filePath=${work.file_path }&fileName=${work.file_name}" class="btn btn-primary">Download</a>
+		        		<a href="${pageContext.request.contextPath }/func/download?fileName=${work.file_name}" class="btn btn-primary">Download</a>
 		        		</td>
 		        	</tr>
 		        </table>

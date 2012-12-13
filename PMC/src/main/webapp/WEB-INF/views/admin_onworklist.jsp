@@ -71,7 +71,7 @@
 	
 </script>
 
-<h1>개발 진행중인 Works</h1>
+<h1>개발진행중인Works</h1>
 <hr>
 
 <div id="onwork_list">

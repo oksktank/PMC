@@ -16,15 +16,14 @@
 		ORDER BY num
 	</select>
 	
-	<select id="getCompleteWorkList" parameterClass="Integer" resultClass="SW_Work">
+	<select id="getOnWorkList" parameterClass="Integer" resultClass="SW_Work">
 		SELECT * FROM SW_WORK WHERE dt_num IS NOT NULL
-		AND dt_num IN(SELECT dt_number FROM DEVELOPER_TEAM WHERE file_name IS NOT NULL)
 		AND admin_num=#admin_num#
 	</select>
 	
 	<insert id="insertSwWork" parameterClass="SW_Work">
-		INSERT INTO SW_WORK(file_name,file_path,cost,start_period,end_period,admin_num,dt_num,w_name,description,expert_part,detail_part)
-		VALUES(#file_name#,#file_path#,#cost#,#start_period#,#end_period#,#admin_num#,#dt_num#,#w_name#,#description#,#expert_part#,#detail_part#)
+		INSERT INTO SW_WORK(file_name,cost,start_period,end_period,admin_num,dt_num,w_name,description,expert_part,detail_part)
+		VALUES(#file_name#,#cost#,#start_period#,#end_period#,#admin_num#,#dt_num#,#w_name#,#description#,#expert_part#,#detail_part#)
 		<selectKey keyProperty="num" resultClass="Integer">
         SELECT LAST_INSERT_ID()
     	</selectKey>

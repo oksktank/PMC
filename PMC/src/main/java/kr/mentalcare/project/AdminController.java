@@ -57,12 +57,12 @@ public class AdminController {
 			}
 			model.addAttribute("auctionWorkCount",auctionWorkCount);
 			
-			List<SW_Work> completeWorkList=sqlMapClient.queryForList("Admin.getCompleteWorkList",sn);
-			int completeWorkCount=0;
-			if(completeWorkList!=null){
-				completeWorkCount=completeWorkList.size();
+			List<SW_Work> onWorkList=sqlMapClient.queryForList("Admin.getOnWorkList",sn);
+			int onWorkCount=0;
+			if(onWorkList!=null){
+				onWorkCount=onWorkList.size();
 			}
-			model.addAttribute("completeWorkCount",completeWorkCount);
+			model.addAttribute("onWorkCount",onWorkCount);
 			
 			model.addAttribute("recentWork",workService.getRecentWork());
 			

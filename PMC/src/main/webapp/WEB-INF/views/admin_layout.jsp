@@ -132,7 +132,7 @@ undefined
 	          </li>
 	          <li class="sidemenu">
 	          	<a href="/PMC/admin/on_work">
-	              개발 완료된 Work
+	              개발 진행중인 Work
 	            </a>
 	          </li>
 	        </ul>

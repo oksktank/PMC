@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUtil {
 	 
     private FileOutputStream fos;
-     
+    public static String filePath="d:\\upload\\sw_work";
     public void writeFile(MultipartFile file, String path, String fileName){
          
         try{
