@@ -18,7 +18,7 @@
 	
 	<select id="getOnWorkList" parameterClass="Integer" resultClass="SW_Work">
 		SELECT * FROM SW_WORK WHERE dt_num IS NOT NULL
-		AND admin_num=#sn# AND (SELECT COUNT(*) FROM DEVELOPMENT_RESULT WHERE w_num=num)=0
+		AND admin_num=#sn# AND (SELECT COUNT(*) FROM DEVELOPMENT_RESULT WHERE w_num=num)>0
 		ORDER BY num DESC
 	</select>
 	

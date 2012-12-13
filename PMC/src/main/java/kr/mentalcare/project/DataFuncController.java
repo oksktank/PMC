@@ -11,12 +11,14 @@ import kr.mentalcare.project.model.Admin;
 import kr.mentalcare.project.model.Developer;
 import kr.mentalcare.project.model.DeveloperTeam;
 import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
+import kr.mentalcare.project.model.DevelopmentResult;
 import kr.mentalcare.project.model.Evaluator;
 import kr.mentalcare.project.model.Join;
 import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UploadItem;
 import kr.mentalcare.project.model.UserInfo;
 import kr.mentalcare.project.service.AdminService;
+import kr.mentalcare.project.service.ResultService;
 import kr.mentalcare.project.service.TeamService;
 import kr.mentalcare.project.util.AuthUtil;
 import kr.mentalcare.project.util.FileUtil;
@@ -43,9 +45,40 @@ public class DataFuncController {
 	AdminService adminService;
 	@Autowired
 	TeamService teamService;
+	@Autowired
+	ResultService resultService;
 	
 	@Autowired
 	SqlMapClient sqlMapClient;
+	
+	@RequestMapping(value="/insertResult",method=RequestMethod.POST)
+	@ResponseBody
+	@Transactional
+	public String insertResult(UploadItem uploadItem,@RequestParam Integer w_num,@RequestParam Integer dt_num,HttpServletRequest request,HttpServletResponse response) throws SQLException, IOException{
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			DevelopmentResult result=new DevelopmentResult();
+			result.setW_num(w_num);
+			FileUtil fileUtil=new FileUtil();
+			String filePath=FileUtil.filePath;
+			String originFileName=uploadItem.getFileData().getOriginalFilename();
+			String fileName=(new GregorianCalendar()).getTimeInMillis()+"_"+originFileName;
+			if(originFileName!=null&&!originFileName.equals("")){
+				fileUtil.writeFile(uploadItem.getFileData(), filePath,  fileName);
+				
+				result.setFile_name(fileName);
+			}
+			Integer r_num=resultService.insertResult(result);
+			DeveloperTeam team=teamService.getTeamById(dt_num);
+			team.setR_num(r_num);
+			int count=sqlMapClient.update("Team.setRnum",team);
+			if(count>0){
+				response.sendRedirect(request.getContextPath()+"/dev/work?id="+dt_num);
+				return "Success";
+			}
+		}
+		response.sendRedirect(request.getContextPath()+"/dev/work?id="+dt_num);
+		return "Fail";
+	}
 	
 	@RequestMapping(value="/insertWork",method=RequestMethod.POST)
 	@ResponseBody

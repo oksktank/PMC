@@ -3,14 +3,23 @@
 
 <sqlMap namespace="Evaluator">
 	<typeAlias alias="Evaluator" type="kr.mentalcare.project.model.Evaluator"/>
+	<typeAlias alias="EvaluateResult" type="kr.mentalcare.project.model.EvaluateResult"/>
 	
 	<select id="getAllEvaluator" resultClass="Evaluator">
 	SELECT * FROM EVALUATOR
 	ORDER BY sn
 	</select>
 	
+	<select id="getEvaluateResult" parameterClass="EvaluateResult" resultClass="EvaluateResult">
+	SELECT * FROM EVALUATE_RESULT WHERE r_num=#r_num# AND e_sn=#e_sn#
+	</select>
+	
 	<insert id="insertEvaluator" parameterClass="Evaluator">
 	INSERT INTO EVALUATOR(sn,NAME,address,phone,expert_part,detail_part) VALUES
 	(#sn#,#name#,#address#,#phone#,#expert_part#,#detail_part#)
+	</insert>
+	
+	<insert id="insertEvaluateResult" parameterClass="EvaluateResult">
+	INSERT INTO EVALUATE_RESULT(r_num,e_sn) VALUES(#r_num#,#e_sn#)
 	</insert>
 </sqlMap>

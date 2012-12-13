@@ -29,7 +29,7 @@
 		        	<tr>
 		        		<td class="td-background-color" style="width:100px">인센티브
 		        		</td>
-		        		<td>${work.cost }</td>
+		        		<td>${work.cost } → ${team.cost }</td>
 		        	</tr>
 		        	<tr>
 		        		<td class="td-background-color" style="width:100px">전문분야
@@ -84,8 +84,10 @@
 	<c:if test="${myResult ne null }">
 		<p>현재 결과 파일: <a href="${pageContext.request.contextPath }/func/download?fileName=${myResult.file_name }">${myResult.file_name }</a></p>
 	</c:if>
-	<form>
+	<form enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/func/insertResult">
 	 	<input name="fileData" type="file"/>
+	 	<input type="hidden" name="w_num" value="${work.num }"/>
+	 	<input type="hidden" name="dt_num" value="${myTeam.dt_number }"/>
 	 	<input type="submit" class="btn btn-success" value="Upload">
 	</form>
 </div>

@@ -2,7 +2,7 @@ package kr.mentalcare.project.model;
 
 public class EvaluateResult {
 	Integer r_num;
-	Integer w_num;
+	Integer e_sn;
 	Integer grade;
 	public Integer getR_num() {
 		return r_num;
@@ -10,11 +10,12 @@ public class EvaluateResult {
 	public void setR_num(Integer r_num) {
 		this.r_num = r_num;
 	}
-	public Integer getW_num() {
-		return w_num;
+	
+	public Integer getE_sn() {
+		return e_sn;
 	}
-	public void setW_num(Integer w_num) {
-		this.w_num = w_num;
+	public void setE_sn(Integer e_sn) {
+		this.e_sn = e_sn;
 	}
 	public Integer getGrade() {
 		return grade;

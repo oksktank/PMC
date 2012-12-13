@@ -7,10 +7,17 @@
 	<select id="getResultByRnum" parameterClass="Integer" resultClass="DevelopmentResult">
 		SELECT * FROM DEVELOPMENT_RESULT WHERE r_num=#r_num#
 	</select>
+	<select id="getResultByWnum" parameterClass="Integer" resultClass="DevelopmentResult">
+		SELECT * FROM DEVELOPMENT_RESULT WHERE w_num=#w_num#
+	</select>
+	
+	<update id="updateResult" parameterClass="DevelopmentResult">
+		UPDATE DEVELOPMENT_RESULT SET file_name=#file_name# WHERE w_num=#w_num#
+	</update>
 	
 	<insert id="insertResult" parameterClass="DevelopmentResult">
 		INSERT INTO DEVELOPMENT_RESULT(w_num,file_name)
-		VALUES(#w_name#,#file_name#)
+		VALUES(#w_num#,#file_name#)
 		<selectKey keyProperty="r_num" resultClass="Integer">
         SELECT LAST_INSERT_ID()
     	</selectKey>

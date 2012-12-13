@@ -52,6 +52,23 @@
 	}
 	function work_complete(v){
 		alert(v+' '+evaluators);
+		if(v!=''&&evaluator!=''){
+		$.ajax({
+			url: "${pageContext.request.contextPath}/admin/toEvaluator",
+			type:'POST',
+			data:{
+				dt_num:v,
+				evaluators:evaluators
+			},
+			success:function(data){
+				if(data=='Success'){
+					alert('평가 요청이 완료되었습니다.')
+				}else{
+					alert('평가 요청이 실패했습니다.');
+				}
+			}
+		});
+		}
 	}
 	function set_target(v){
 		wid=v;
@@ -91,7 +108,7 @@
 			<tr>
 				<td><span id="work_header">${work.w_name }</span></td>
 				<td class="td_right">
-				<button class="btn btn-warning" onclick="work_complete('${work.num}');"><b>평가 의뢰</b></button>
+				<button class="btn btn-warning" onclick="work_complete('${work.dt_num}');"><b>평가 의뢰</b></button>
 				</td>
 			</tr>
 			<tr>

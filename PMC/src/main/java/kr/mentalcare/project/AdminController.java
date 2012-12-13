@@ -6,14 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import kr.mentalcare.project.model.Admin;
+import kr.mentalcare.project.model.DeveloperTeam;
+import kr.mentalcare.project.model.EvaluateResult;
 import kr.mentalcare.project.model.FieldName;
 import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UserInfo;
 import kr.mentalcare.project.service.AdminService;
 import kr.mentalcare.project.service.DeveloperService;
 import kr.mentalcare.project.service.EvaluatorService;
+import kr.mentalcare.project.service.TeamService;
 import kr.mentalcare.project.service.WorkService;
 import kr.mentalcare.project.util.AuthUtil;
 
@@ -23,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -42,6 +47,8 @@ public class AdminController {
 	WorkService workService;
 	@Autowired
 	EvaluatorService evaluatorService;
+	@Autowired
+	TeamService teamService;
 	
 	@RequestMapping("/")
 	public String aa_main(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
@@ -110,6 +117,28 @@ public class AdminController {
 			model.addAttribute("allEva",evaluatorService.getAllEvaluatorList());
 		}
 		return AuthUtil.retModelWithUserInfo("admin_onworklist", model, request);
+	}
+	
+	@RequestMapping("/toEvaluator")
+	@ResponseBody
+	public String toEvaluator(HttpServletRequest request,Integer dt_num,String evaluators) throws SQLException{
+		String[] evaluator=evaluators.split(";");
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+			DeveloperTeam team=teamService.getTeamById(dt_num);
+			for(int i=0;i<evaluator.length;i++){
+				EvaluateResult evResult=new EvaluateResult();
+				evResult.setR_num(team.getR_num());
+				evResult.setE_sn(Integer.parseInt(evaluator[i]));
+				EvaluateResult temp=(EvaluateResult) sqlMapClient.queryForObject("Evaluator.getEvaluateResult",evResult);
+				
+				if(temp==null){
+					sqlMapClient.insert("Evaluator.insertEvaluateResult",evResult);
+				}
+				
+			}
+			return "Success";
+		}
+		return "Fail";
 	}
 	
 	//auction_list에서 클릭 -> auction?wid=xxxx

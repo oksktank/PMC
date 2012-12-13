@@ -30,6 +30,9 @@
 	<update id="setCost" parameterClass="DeveloperTeam">
 	UPDATE DEVELOPER_TEAM SET cost=#cost# WHERE dt_number=#dt_number#
 	</update>
+	<update id="setRnum" parameterClass="DeveloperTeam">
+	UPDATE DEVELOPER_TEAM SET r_num=#r_num# WHERE dt_number=#dt_number#
+	</update>
 	
 	<insert id="insertTeam" parameterClass="DeveloperTeam">
 		INSERT INTO DEVELOPER_TEAM(dt_name,cost)
