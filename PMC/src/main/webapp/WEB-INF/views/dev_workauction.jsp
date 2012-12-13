@@ -10,7 +10,7 @@
 #myModal {text-align:left;}
 </style>
 <script>
-	var data = [{sn:'123',name:'영희',expert:'웹',cost:'300'},{sn:'1234',name:'쿠키',expert:'디비',cost:'300'},{sn:'13253',name:'영수',expert:'디비',cost:'300'},{sn:'19123',name:'구슬',expert:'웹',cost:'300'},{sn:'323',name:'고기',expert:'웹',cost:'300'},{sn:'1823',name:'용지',expert:'웹',cost:'300'},{sn:'1723',name:'방패',expert:'웹',cost:'300'},{sn:'12233',name:'꽃',expert:'디비',cost:'300'},{sn:'223',name:'냠냠',expert:'기타',cost:'300'},{sn:'1123',name:'레포트',expert:'디비',cost:'300'},{sn:'125',name:'철수',expert:'java',cost:'1000'}];
+	//var data = [{sn:'123',name:'영희',expert:'웹',cost:'300'},{sn:'1234',name:'쿠키',expert:'디비',cost:'300'},{sn:'13253',name:'영수',expert:'디비',cost:'300'},{sn:'19123',name:'구슬',expert:'웹',cost:'300'},{sn:'323',name:'고기',expert:'웹',cost:'300'},{sn:'1823',name:'용지',expert:'웹',cost:'300'},{sn:'1723',name:'방패',expert:'웹',cost:'300'},{sn:'12233',name:'꽃',expert:'디비',cost:'300'},{sn:'223',name:'냠냠',expert:'기타',cost:'300'},{sn:'1123',name:'레포트',expert:'디비',cost:'300'},{sn:'125',name:'철수',expert:'java',cost:'1000'}];
 	var developers;
 	/*
 	if(jQuery.isEmptyObject(dList)){
@@ -69,11 +69,6 @@
 		var form = document.forms['team_input'];
 		alert('submit');
 		save_selected_developers();
-		alert($("#selectedDeveloperList").val());
-		alert($("#team_input #cost").val());
-		alert($("#team_input #dt_name").val());
-		alert('${param.wnum}');
-		
 		$.ajax({
 			url: "${pageContext.request.contextPath}/func/insertTeam",
 			type:'POST',
@@ -91,9 +86,23 @@
 				}
 			}
 		});
-		//action="${pageContext.request.contextPath}/func/insertTeam"
-		//<input id="selectedDeveloperList" type="hidden" 얘를 전송함
-		//form.submit();
+	}
+	function bid(){
+		$.ajax({
+			url: "${pageContext.request.contextPath}/func/bid",
+			type:'POST',
+			data:{
+				cost:$("#myTeamCost").val(),
+				wnum:'${param.wnum}'
+			},
+			success:function(data){
+				if(data=='Success'){
+					location.reload();
+				}else{
+					alert('입찰에 실패하였습니다. 가격을 확인해주세요');
+				}
+			}
+		});
 	}
 </script>
 
@@ -142,23 +151,17 @@
 		        </table>
 		        </div>
 <div id="input_button">
-	<form class="bid">
-	  <div class="input-append">
-	    <input type="text" class="span2">
-	    <span class="add-on">원</span>
-	    <button type="submit" class="btn btn-danger">입찰하기</button>
-	  </div>
-	</form>
+	
 
 	<!-- 둘 중 하나 띄우게 -->
-	<!-- 팀 있으면 -->
-	<div id="my_team_info">
-		<span><b>My Team : </b> 팀이름(팀원1,팀원2,팀원3,팀원4)</span>
-	</div>
-	<!-- 팀 없으면 -->
+	<c:choose>
+		<c:when test="${myTeam eq null }">
+			<!-- 팀 없으면 -->
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2 -->
 	<div id="team_create">
+		<c:if test="${work.dt_num eq null }">
 		<a href="#myModal" role="button" class="btn btn-success" data-toggle="modal"><b>팀 생성</b></a>
+		</c:if>
 	 	
 		<!-- Modal -->
 		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -219,29 +222,47 @@
 		</div>
 	</div>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2 -->
+		</c:when>
+		<c:otherwise>
+		<!-- 팀 있으면 -->
+			<div id="my_team_info">
+				<span><b>My Team : </b> ${myTeam.dt_name }(<c:forEach items="${myTeam.devList }" var="dev">${dev.name } </c:forEach>)</span>
+			</div>
+			<c:if test="${work.dt_num eq null }">
+			<form class="bid">
+	  		<div class="input-append">
+	    		<input type="text" id="myTeamCost" class="span2">
+	    		<span class="add-on">원</span>
+	    		<button type="button" class="btn btn-danger" onClick="bid()">입찰하기</button>
+	  		</div>
+			</form>
+			</c:if>
+		</c:otherwise>
+	</c:choose>
+	
+	
+	
 </div>
 <hr>
 <div id="auction_list">
 
 <!-- 여기부터 -->
+	<c:forEach items="${teamListInWork }" var="team">
 	<div class="well">
 		<table id="team_info">
 			<tr>
-				<th>TEAM REAL</th>
+				<th>${team.dt_name }</th>
 				<th class="td_right">입찰가</th>
 			</tr>
 			<tr>
-				<td>이한솔 김상훈 김원석 노원우</td>
-				<td class="td_right">2400</td>
+				<td>
+					<c:forEach var="dev" items="${team.devList }">
+						${dev.name } 
+					</c:forEach>
+				</td>
+				<td class="td_right">${team.cost }</td>
 			</tr>
 		</table>
 	</div>
-<!-- 여기까지 반복 -->
-	<div class="well">
-	안녕
-	</div>
-	<div class="well">
-	안녕
-	</div>
-
+	</c:forEach>
 </div>

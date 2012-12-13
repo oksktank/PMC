@@ -3,11 +3,17 @@ package kr.mentalcare.project;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.mentalcare.project.model.Admin;
 import kr.mentalcare.project.model.FieldName;
+import kr.mentalcare.project.model.SW_Work;
+import kr.mentalcare.project.model.UserInfo;
+import kr.mentalcare.project.service.AdminService;
 import kr.mentalcare.project.service.DeveloperService;
+import kr.mentalcare.project.service.WorkService;
 import kr.mentalcare.project.util.AuthUtil;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -29,8 +35,38 @@ public class AdminController {
 	@Autowired
 	DeveloperService developerService;
 	
+	@Autowired
+	AdminService adminService;
+	@Autowired
+	WorkService workService;
+	
 	@RequestMapping("/")
 	public String aa_main(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+			Integer sn=userInfo.getId();
+			Admin admin=(Admin) sqlMapClient.queryForObject("Admin.getAdmin", sn);
+			
+			model.addAttribute("admin",admin);
+			
+			List<SW_Work> auctionWorkList=sqlMapClient.queryForList("Admin.getAuctionWorkList",sn);
+			int auctionWorkCount=0;
+			if(auctionWorkList!=null){
+				auctionWorkCount=auctionWorkList.size();
+			}
+			model.addAttribute("auctionWorkCount",auctionWorkCount);
+			
+			List<SW_Work> completeWorkList=sqlMapClient.queryForList("Admin.getCompleteWorkList",sn);
+			int completeWorkCount=0;
+			if(completeWorkList!=null){
+				completeWorkCount=completeWorkList.size();
+			}
+			model.addAttribute("completeWorkCount",completeWorkCount);
+			
+			model.addAttribute("recentWork",workService.getRecentWork());
+			
+		}
 		return AuthUtil.retModelWithUserInfo("admin_main", model, request);
 	}
 	

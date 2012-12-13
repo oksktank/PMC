@@ -5,6 +5,9 @@ public class Admin {
 	String name;
 	String address;
 	String phone;
+	public Admin(){
+		
+	}
 	public Admin(String name, String address, String phone) {
 		this.name=name;
 		this.address=address;

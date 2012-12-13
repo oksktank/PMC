@@ -6,6 +6,25 @@
 	<typeAlias alias="DeveloperTeam" type="kr.mentalcare.project.model.DeveloperTeam"/>
 	<typeAlias alias="DeveloperWorkDeveloperTeam" type="kr.mentalcare.project.model.DeveloperWorkDeveloperTeam"/>
 	
+	<select id="getTeamBySn" parameterClass="DeveloperWorkDeveloperTeam" resultClass="DeveloperTeam">
+	SELECT * FROM DEVELOPER_TEAM WHERE dt_number=(
+	SELECT dt_num FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE dt_num!=-1 AND w_num=#w_num# AND d_sn=#d_sn#)
+	</select>
+	
+	<select id="getTeamListInWork" parameterClass="Integer" resultClass="DeveloperTeam">
+	SELECT * FROM DEVELOPER_TEAM
+	WHERE dt_number IN(
+	SELECT dt_num FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE w_num=#w_num# AND dt_num!=-1
+	GROUP BY dt_num)	
+	ORDER BY cost ASC
+	</select>
+	
+	<update id="setCost" parameterClass="DeveloperTeam">
+	UPDATE DEVELOPER_TEAM SET cost=#cost# WHERE dt_number=#dt_number#
+	</update>
+	
 	<insert id="insertTeam" parameterClass="DeveloperTeam">
 		INSERT INTO DEVELOPER_TEAM(dt_name,cost)
 		VALUES(#dt_name#,#cost#)

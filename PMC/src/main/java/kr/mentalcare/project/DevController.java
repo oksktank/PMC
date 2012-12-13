@@ -6,10 +6,13 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.mentalcare.project.model.DeveloperTeam;
+import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
 import kr.mentalcare.project.model.FieldName;
 import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UserInfo;
 import kr.mentalcare.project.service.DeveloperService;
+import kr.mentalcare.project.service.TeamService;
 import kr.mentalcare.project.service.WorkService;
 import kr.mentalcare.project.util.AuthUtil;
 
@@ -31,6 +34,8 @@ public class DevController {
 	DeveloperService developerService;
 	@Autowired
 	WorkService workService;
+	@Autowired
+	TeamService teamService;
 	@Autowired
 	SqlMapClient sqlMapClient;
 	
@@ -90,9 +95,17 @@ public class DevController {
 		model.addAttribute("expertField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getExpertField"));
 		model.addAttribute("detailField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getDetailField"));
 		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			Integer sn=userInfo.getId();
 			SW_Work work=workService.getWork(wnum);
 			model.addAttribute("work", work);
 			model.addAttribute("noTeamDeveloper",developerService.getNoTeamDeveloperInWork(work.getNum()));
+			model.addAttribute("teamListInWork",teamService.getTeamListInWork(work.getNum()));
+			
+			DeveloperWorkDeveloperTeam param=new DeveloperWorkDeveloperTeam();
+			param.setD_sn(sn);
+			param.setW_num(work.getNum());
+			
+			model.addAttribute("myTeam",teamService.getTeamBySnAndWnum(param));
 		}
 		return AuthUtil.retModelWithUserInfo("dev_workauction", model, request);
 	}

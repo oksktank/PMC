@@ -32,17 +32,17 @@
         <table id="my_info">
         <tr>
 	        <td>
-	        	<h1>이름</h1>
+	        	<h1>${admin.name }</h1>
 	       	</td>
         </tr>
         <tr>
         	<td>
-        	경매 진행중인 Works <a href="#">4</a>건
+        	경매 진행중인 Works <a href="/PMC/admin/auction_list">${auctionWorkCount }</a>건
         	</td>
         </tr>
         <tr>
         	<td>
-        	개발 진행중인 Works <a href="#">3</a>건
+        	개발 진행중인 Works <a href="#">${completeWorkCount }</a>건
         	</td>
         </tr>
         <tr>

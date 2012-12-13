@@ -17,6 +17,11 @@
 	WHERE dt_num=-1 AND w_num=#w_num#)
 	</select>
 	
+	<select id="getDeveloperListInTeam" parameterClass="Integer" resultClass="Developer">
+	SELECT * FROM DEVELOPER WHERE sn IN (SELECT d_sn FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE dt_num=#dt_num#) ORDER BY sn
+	</select>
+	
 	<insert id="insertDeveloper" parameterClass="Developer">
 	INSERT INTO DEVELOPER(sn,NAME,address,phone,expert_part,detail_part) VALUES
 	(#sn#,#name#,#address#,#phone#,#expert_part#,#detail_part#)

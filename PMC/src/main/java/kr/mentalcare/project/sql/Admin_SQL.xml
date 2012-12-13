@@ -5,6 +5,23 @@
 	<typeAlias alias="Admin" type="kr.mentalcare.project.model.Admin"/>
 	<typeAlias alias="SW_Work" type="kr.mentalcare.project.model.SW_Work"/>
 	<typeAlias alias="DeveloperWorkDeveloperTeam" type="kr.mentalcare.project.model.DeveloperWorkDeveloperTeam"/>
+	
+	<select id="getAdmin" parameterClass="Integer" resultClass="Admin">
+		SELECT * FROM ADMIN WHERE sn=#sn#
+	</select>
+	
+	<select id="getAuctionWorkList" parameterClass="Integer" resultClass="SW_Work">
+		SELECT * FROM SW_WORK
+		WHERE admin_num=#sn# AND dt_num IS NULL
+		ORDER BY num
+	</select>
+	
+	<select id="getCompleteWorkList" parameterClass="Integer" resultClass="SW_Work">
+		SELECT * FROM SW_WORK WHERE dt_num IS NOT NULL
+		AND dt_num IN(SELECT dt_number FROM DEVELOPER_TEAM WHERE file_name IS NOT NULL)
+		AND admin_num=#admin_num#
+	</select>
+	
 	<insert id="insertSwWork" parameterClass="SW_Work">
 		INSERT INTO SW_WORK(file_name,file_path,cost,start_period,end_period,admin_num,dt_num,w_name,description,expert_part,detail_part)
 		VALUES(#file_name#,#file_path#,#cost#,#start_period#,#end_period#,#admin_num#,#dt_num#,#w_name#,#description#,#expert_part#,#detail_part#)
@@ -23,4 +40,5 @@
 		UPDATE DEVELOPER_WORK_DEVELOPER_TEAM SET dt_num=#dt_num#
 		WHERE dt_num=-1 AND w_num=#w_num# AND d_sn=#d_sn#
 	</update>
+	
 </sqlMap>

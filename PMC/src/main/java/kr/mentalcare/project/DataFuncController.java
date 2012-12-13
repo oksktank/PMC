@@ -17,6 +17,7 @@ import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UploadItem;
 import kr.mentalcare.project.model.UserInfo;
 import kr.mentalcare.project.service.AdminService;
+import kr.mentalcare.project.service.TeamService;
 import kr.mentalcare.project.util.AuthUtil;
 import kr.mentalcare.project.util.FileUtil;
 
@@ -26,6 +27,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +42,8 @@ public class DataFuncController {
 	
 	@Autowired
 	AdminService adminService;
+	@Autowired
+	TeamService teamService;
 	
 	@Autowired
 	SqlMapClient sqlMapClient;
@@ -147,4 +151,28 @@ public class DataFuncController {
 		response.sendRedirect(request.getContextPath()+"/");
 	}
 	
+	
+	@RequestMapping(value="/bid",method=RequestMethod.POST)
+	@ResponseBody
+	public String bid(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam Integer wnum,@RequestParam Integer cost) throws SQLException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			Integer sn=userInfo.getId();
+			DeveloperWorkDeveloperTeam param=new DeveloperWorkDeveloperTeam();
+			param.setD_sn(sn);
+			param.setW_num(wnum);
+			
+			DeveloperTeam myTeam=teamService.getTeamBySnAndWnum(param);
+			if(cost<myTeam.getCost()){
+				myTeam.setCost(cost);
+
+				int count=sqlMapClient.update("Team.setCost", myTeam);
+				if(count>0){
+					return "Success";
+				}
+			}
+		}
+		return "Fail";
+	}
 }
