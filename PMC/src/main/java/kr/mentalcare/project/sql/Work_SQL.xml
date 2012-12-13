@@ -3,6 +3,8 @@
 
 <sqlMap namespace="Work">
 	<typeAlias alias="SW_Work" type="kr.mentalcare.project.model.SW_Work"/>
+	<typeAlias alias="DeveloperWorkDeveloperTeam" type="kr.mentalcare.project.model.DeveloperWorkDeveloperTeam"/>
+	
 	<select id="getRecentWork" resultClass="SW_Work">
 	SELECT * FROM SW_WORK
 	ORDER BY num DESC
@@ -11,4 +13,7 @@
 	SELECT * FROM SW_WORK
 	WHERE num=#num#
 	</select>
+	<update id="chooseWorkTeam" parameterClass="DeveloperWorkDeveloperTeam">
+	UPDATE SW_WORK SET dt_num=#dt_num# WHERE num=#w_num#
+	</update>
 </sqlMap>

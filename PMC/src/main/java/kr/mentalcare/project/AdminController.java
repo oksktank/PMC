@@ -13,6 +13,7 @@ import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UserInfo;
 import kr.mentalcare.project.service.AdminService;
 import kr.mentalcare.project.service.DeveloperService;
+import kr.mentalcare.project.service.EvaluatorService;
 import kr.mentalcare.project.service.WorkService;
 import kr.mentalcare.project.util.AuthUtil;
 
@@ -39,6 +40,8 @@ public class AdminController {
 	AdminService adminService;
 	@Autowired
 	WorkService workService;
+	@Autowired
+	EvaluatorService evaluatorService;
 	
 	@RequestMapping("/")
 	public String aa_main(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
@@ -97,6 +100,15 @@ public class AdminController {
 	
 	@RequestMapping("/on_work")
 	public String aa_on_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+			Integer sn=userInfo.getId();
+			List<SW_Work> onWorkList=sqlMapClient.queryForList("Admin.getOnWorkList",sn);
+			workService.setPartName(onWorkList);
+			model.addAttribute("onWorkList",onWorkList);
+			model.addAttribute("allEva",evaluatorService.getAllEvaluatorList());
+		}
 		return AuthUtil.retModelWithUserInfo("admin_onworklist", model, request);
 	}
 	

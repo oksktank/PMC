@@ -3,6 +3,12 @@
 
 <sqlMap namespace="Evaluator">
 	<typeAlias alias="Evaluator" type="kr.mentalcare.project.model.Evaluator"/>
+	
+	<select id="getAllEvaluator" resultClass="Evaluator">
+	SELECT * FROM EVALUATOR
+	ORDER BY sn
+	</select>
+	
 	<insert id="insertEvaluator" parameterClass="Evaluator">
 	INSERT INTO EVALUATOR(sn,NAME,address,phone,expert_part,detail_part) VALUES
 	(#sn#,#name#,#address#,#phone#,#expert_part#,#detail_part#)

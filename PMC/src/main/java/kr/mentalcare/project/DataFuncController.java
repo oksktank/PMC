@@ -27,7 +27,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -170,6 +169,21 @@ public class DataFuncController {
 				if(count>0){
 					return "Success";
 				}
+			}
+		}
+		return "Fail";
+	}
+	
+	@RequestMapping(value="/chooseWorkTeam",method=RequestMethod.POST)
+	@ResponseBody
+	public String chooseWorkTeam(HttpServletRequest request,HttpServletResponse response,
+			@ModelAttribute DeveloperWorkDeveloperTeam param) throws SQLException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+			Integer sn=userInfo.getId();
+			int count=sqlMapClient.update("Work.chooseWorkTeam",param);
+			if(count==1){
+				return "Success";
 			}
 		}
 		return "Fail";

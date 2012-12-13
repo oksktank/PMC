@@ -109,8 +109,8 @@
 			url: "${pageContext.request.contextPath}/func/chooseWorkTeam",
 			type:'POST',
 			data:{
-				dt_number:dt_number,
-				wnum:'${param.wnum}'
+				dt_num:dt_number,
+				w_num:'${param.wnum}'
 			},
 			success:function(data){
 				if(data=='Success'){

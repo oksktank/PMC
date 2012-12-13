@@ -21,7 +21,7 @@
 
 <script>
 	var data = [{sn:'123',name:'영희',expert:'웹',cost:'300'},{sn:'1234',name:'쿠키',expert:'디비',cost:'300'},{sn:'13253',name:'영수',expert:'디비',cost:'300'},{sn:'19123',name:'구슬',expert:'웹',cost:'300'},{sn:'323',name:'고기',expert:'웹',cost:'300'},{sn:'1823',name:'용지',expert:'웹',cost:'300'},{sn:'1723',name:'방패',expert:'웹',cost:'300'},{sn:'12233',name:'꽃',expert:'디비',cost:'300'},{sn:'223',name:'냠냠',expert:'기타',cost:'300'},{sn:'1123',name:'레포트',expert:'디비',cost:'300'},{sn:'125',name:'철수',expert:'java',cost:'1000'}];
-	var developers;
+	var evaluators;
 	var wid;
 	/*
 	if(jQuery.isEmptyObject(dList)){
@@ -51,22 +51,31 @@
 		}
 	}
 	function work_complete(v){
-		//wid의 work가 완료되었다고 디비 flag 변경
+		alert(v+' '+evaluators);
 	}
 	function set_target(v){
 		wid=v;
 	}
 	
 	function request(){
-		var temp = '';
-		jQuery("#developerList > tbody").children("tr").each(function(){
+		evaluators='';
+		var evaluator='';
+		$("#evaluators").html(evaluator);
+		jQuery("#evaluatorList > tbody").children("tr").each(function(){
 			if($(this).attr('class')=='info' || $(this).attr('class')=='info hide'){
-				temp+=$(this).attr('id')+';';
+				evaluators+=$(this).attr('id')+';';
+				if(evaluator==''){
+					evaluator+=$(this).find('.name').html();	
+				}else{
+					evaluator+=','+$(this).find('.name').html();
+				}
+				
+				$("#evaluators").html(evaluator);
 			}
 		});
 		
 		//w랑 temp 서버로 전송해서 평가의뢰
-		location.href="/PMC/admin/on_work";
+		//location.href="/PMC/admin/on_work";
 	}
 	
 </script>
@@ -76,38 +85,32 @@
 
 <div id="onwork_list">
 <!-- 여기부터 -->
-	<div class="well">
+	<c:forEach items="${onWorkList }" var="work">
+		<div class="well">
 		<table id="work_info">
 			<tr>
-				<td><span id="work_header">웹서버 세팅</span></td>
+				<td><span id="work_header">${work.w_name }</span></td>
 				<td class="td_right">
-				<button class="btn btn-warning" onclick="work_complete(wid);"><b>Work 완료</b></button>
+				<button class="btn btn-warning" onclick="work_complete('${work.num}');"><b>평가 의뢰</b></button>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2"><div class="work_description">
-				여기는 설명 ㅇㅇㅇ ㅇ ㅇ ㅇ ㅇ<br>
-				spring framework 기반 웹 서버 세팅 ㅋ
+				${work.description }
 				</div></td>
 			</tr>
 			<tr>
 				<td colspan="2">
 				<span id="work_em">평가의뢰</span>
-				
-				<!-- 동적 생성 ㅇ ㅇㅇㅇ ㅇ 평가자 -->
-				도라에몽, 잡스
+				<span id="evaluators"></span>
 				<a href="#myModal" class="btn btn-info" onclick="set_target(wid);" data-toggle="modal"><b>+</b></a>
 				</td>
 			</tr>
 		</table>
-	</div>
+		</div>
+	</c:forEach>
+	
 <!-- 여기까지 반복 -->
-	<div class="well">
-	안녕
-	</div>
-	<div class="well">
-	안녕
-	</div>
 
 </div>
 
@@ -144,17 +147,17 @@
 								<td><b>Expert</b></td>
 								<td><b>Detail</b></td>
 							</tr>
-							<c:forEach items="${allDev }" var="dev">
-								<tr id="${dev.sn }" onclick="$(this).toggleClass('info');">
-									<td id="${dev.expert_part_name}">${dev.name}</td>
-									<td>${dev.expert_part_name}</td>
-									<td>${dev.detail_part_name}</td>
+							<c:forEach items="${allEva }" var="eva">
+								<tr id="${eva.sn }" onclick="$(this).toggleClass('info');">
+									<td id="${eva.expert_part_name}" class="name">${eva.name}</td>
+									<td>${eva.expert_part_name}</td>
+									<td>${eva.detail_part_name}</td>
 								</tr>
 							</c:forEach>
 					</table>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary" onclick="request()">의뢰</button>
+				<button class="btn btn-primary"  data-dismiss="modal" onclick="request()">의뢰</button>
 			</div>
 		</div>
