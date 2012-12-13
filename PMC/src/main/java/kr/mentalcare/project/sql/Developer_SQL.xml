@@ -4,10 +4,17 @@
 <sqlMap namespace="Developer">
 	<typeAlias alias="Developer" type="kr.mentalcare.project.model.Developer"/>
 	<typeAlias alias="DeveloperTeam" type="kr.mentalcare.project.model.DeveloperTeam"/>
+	<typeAlias alias="DeveloperWorkDeveloperTeam" type="kr.mentalcare.project.model.DeveloperWorkDeveloperTeam"/>
 	<typeAlias alias="SW_Work" type="kr.mentalcare.project.model.SW_Work"/>
 	
 	<select id="getDeveloper" parameterClass="Integer" resultClass="Developer">
 	SELECT * FROM DEVELOPER WHERE SN=#sn#
+	</select>
+	
+	<select id="getNoTeamDeveloperInWork" parameterClass="Integer" resultClass="Developer">
+	SELECT * FROM DEVELOPER 
+	WHERE sn IN(SELECT d_sn FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE dt_num=-1 AND w_num=#w_num#)
 	</select>
 	
 	<insert id="insertDeveloper" parameterClass="Developer">

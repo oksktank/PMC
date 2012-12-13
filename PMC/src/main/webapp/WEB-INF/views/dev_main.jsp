@@ -58,7 +58,7 @@
         </tr>
         <tr>
         	<td>
-        	초대받은 works <a href="#">${invitedWorkCount }</a>건
+        	초대받은 works <a href="${pageContext.request.contextPath }/dev/invite_work">${invitedWorkCount }</a>건
         	</td>
         	<td>
         	<b>전화번호:</b> ${developer.phone }

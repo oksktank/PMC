@@ -19,4 +19,8 @@
 		INSERT INTO DEVELOPER_WORK_DEVELOPER_TEAM(d_sn,w_num,dt_num)
 		VALUES(#d_sn#,#w_num#,#dt_num#)
 	</insert>
+	<update id="updateWorkDevTeam" parameterClass="DeveloperWorkDeveloperTeam">
+		UPDATE DEVELOPER_WORK_DEVELOPER_TEAM SET dt_num=#dt_num#
+		WHERE dt_num=-1 AND w_num=#w_num# AND d_sn=#d_sn#
+	</update>
 </sqlMap>

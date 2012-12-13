@@ -63,16 +63,37 @@
 			}
 		});
 		$("#selectedDeveloperList").val(temp);
-		alert($("#selectedDeveloperList").val());
 		//alert(temp.length);
 	}
 	function form_submit(){
 		var form = document.forms['team_input'];
 		alert('submit');
 		save_selected_developers();
-
+		alert($("#selectedDeveloperList").val());
+		alert($("#team_input #cost").val());
+		alert($("#team_input #dt_name").val());
+		alert('${param.wnum}');
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/func/insertTeam",
+			type:'POST',
+			data:{
+				cost:$("#team_input #cost").val(),
+				w_num:'${param.wnum}',
+				developers:$("#selectedDeveloperList").val(),
+				dt_name:$("#team_input #dt_name").val(),
+			},
+			success:function(data){
+				if(data=='Success'){
+					location.reload();
+				}else{
+					alert('팀 생성에 실패하였습니다.');
+				}
+			}
+		});
+		//action="${pageContext.request.contextPath}/func/insertTeam"
 		//<input id="selectedDeveloperList" type="hidden" 얘를 전송함
-		form.submit();
+		//form.submit();
 	}
 </script>
 
@@ -84,39 +105,38 @@
 		        	<tr>
 		        		<td class="td-background-color" style="width:100px">용역 이름
 		        		</td>
-		        		<td>Facebook 연동 mobile application 개발</td>
+		        		<td>${work.w_name }</td>
 		        	</tr>
 		        	<tr>
 		        		<td class="td-background-color" style="width:100px">개발내용
 		        		</td>
-		        		<td>Facebook의 기능과 mobile의 기능이 연동되는 application
-	Facebook application 형태로 패키징하여 facebook에 등록</td>
+		        		<td>${work.description }</td>
 		        	</tr>
 		        	<tr>
 		        		<td class="td-background-color" style="width:100px">기간
 		        		</td>
-		        		<td>2012.12 ~ 2013.2 (3개월)</td>
+		        		<td>${work.start_period } ~ ${work.end_period }</td>
 		        	</tr>
 		        	<tr>
 		        		<td class="td-background-color" style="width:100px">인센티브
 		        		</td>
-		        		<td>3000</td>
+		        		<td>${work.cost }</td>
 		        	</tr>
 		        	<tr>
 		        		<td class="td-background-color" style="width:100px">전문분야
 		        		</td>
-		        		<td>HTML/CSS/Javascript를 이용한 web programming 기술</td>
+		        		<td>${work.expert_part_name }</td>
 		        	</tr>
 		        	<tr>
 		        		<td class="td-background-color" style="width:100px">세부분야
 		        		</td>
-		        		<td>HTML/CSS/Javascript를 이용한 web programming 기술</td>
+		        		<td>${work.detail_part_name }</td>
 		        	</tr>
 		        	<tr>
 		        		<td class="td-background-color" style="width:100px">첨부파일
 		        		</td>
 		        		<td>
-		        		<a href="#" class="btn btn-primary">Download</a>
+		        		<a href="${pageContext.request.contextPath }/func/download?filePath=${work.file_path }&fileName=${work.file_name}" class="btn btn-primary">Download</a>
 		        		</td>
 		        	</tr>
 		        </table>
@@ -172,7 +192,7 @@
 								<td><b>Expert</b></td>
 								<td><b>Location</b></td>
 							</tr>
-							<c:forEach items="${allDev }" var="dev">
+							<c:forEach items="${noTeamDeveloper }" var="dev">
 								<tr id="${dev.sn }" onclick="$(this).toggleClass('info');">
 									<td id="${dev.expert_part_name}">${dev.name}</td>
 									<td>${dev.expert_part_name}</td>
@@ -183,12 +203,16 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<form id="team_input" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/func/insertTeam">
+				<form id="team_input" enctype="multipart/form-data" method="post">
+				<div class="input-prepend input-append">
+					<span class="add-on">입찰가</span>
+				    <input type="text" id="cost" class="span5">
+				</div>
 				<div class="input-prepend input-append">
 					<span class="add-on">팀 이름</span>
 					<input id="selectedDeveloperList" type="hidden" name="developers">
-				    <input type="text" id="team_name" class="span5">
-				    <button type="submit" class="btn btn-danger" data-dismiss="modal">생성</button>
+				    <input type="text" id="dt_name" class="span5">
+				    <button type="button" class="btn btn-danger" onClick="form_submit()" data-dismiss="modal">생성</button>
 				</div>
 				</form>
 			</div>

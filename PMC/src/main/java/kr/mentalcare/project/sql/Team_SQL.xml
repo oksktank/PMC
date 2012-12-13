@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="Team">
+	<typeAlias alias="Developer" type="kr.mentalcare.project.model.Developer"/>
+	<typeAlias alias="DeveloperTeam" type="kr.mentalcare.project.model.DeveloperTeam"/>
+	<typeAlias alias="DeveloperWorkDeveloperTeam" type="kr.mentalcare.project.model.DeveloperWorkDeveloperTeam"/>
+	
+	<insert id="insertTeam" parameterClass="DeveloperTeam">
+		INSERT INTO DEVELOPER_TEAM(dt_name,cost)
+		VALUES(#dt_name#,#cost#)
+		<selectKey keyProperty="dt_number" resultClass="Integer">
+        SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
+	
+</sqlMap>

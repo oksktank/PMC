@@ -33,6 +33,19 @@ public class DeveloperService {
 		return dev;
 	}
 	
+	public List<Developer> getNoTeamDeveloperInWork(Integer w_num) throws SQLException{
+		@SuppressWarnings("unchecked")
+		List<Developer> devList=sqlMapClient.queryForList("Developer.getNoTeamDeveloperInWork", w_num);
+		HashMap<Integer,FieldName> fieldMap=fieldNameService.getFieldNameMap();
+		
+		for(int i=0;i<devList.size();i++){
+			Developer dev=devList.get(i);
+			dev.setExpert_part_name(fieldMap.get(dev.getExpert_part()).getName());
+			dev.setDetail_part_name(fieldMap.get(dev.getDetail_part()).getName());
+		}
+		return devList;
+	}
+	
 	public Integer getInvitedWorkCount(Integer sn) throws SQLException{
 		return (Integer) sqlMapClient.queryForObject("Developer.getInvitedWorkCount", sn);
 	}

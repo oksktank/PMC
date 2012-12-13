@@ -27,4 +27,8 @@ public class AdminService {
 	public DeveloperWorkDeveloperTeam insertWorkDevTeam(DeveloperWorkDeveloperTeam workDevTeam) throws SQLException{
 		return (DeveloperWorkDeveloperTeam)sqlMapClient.insert("Admin.insertWorkDevTeam",workDevTeam);
 	}
+	
+	public int updateWorkDevTeam(DeveloperWorkDeveloperTeam workDevTeam) throws SQLException{
+		return sqlMapClient.update("Admin.updateWorkDevTeam",workDevTeam);
+	}
 }

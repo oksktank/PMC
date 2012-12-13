@@ -29,7 +29,7 @@
 	<!-- 여기부터 동적생성 wid->work의pk-->
 	<!-- onclick 해서 dev/auction?wid=xxxx로 이동할거임 -->
 	<c:forEach items="${invitedWork }" var="work" varStatus="i">
-	<tr class="page_move" onclick="location.href='/PMC/dev/auction?wid=${work.num}';">
+	<tr class="page_move" onclick="location.href='/PMC/dev/auction?wnum=${work.num}';">
 		<td>${i.index+1 }</td>
 		<td>${work.w_name }</td>
 		<td>${work.expert_part_name }</td>

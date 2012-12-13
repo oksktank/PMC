@@ -2,9 +2,11 @@ package kr.mentalcare.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.mentalcare.project.model.FieldName;
 import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UserInfo;
 import kr.mentalcare.project.service.DeveloperService;
@@ -19,6 +21,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ibatis.sqlmap.client.SqlMapClient;
+
 @Controller
 @RequestMapping("dev")
 public class DevController {
@@ -27,6 +31,8 @@ public class DevController {
 	DeveloperService developerService;
 	@Autowired
 	WorkService workService;
+	@Autowired
+	SqlMapClient sqlMapClient;
 	
 	@RequestMapping("/")
 	public String aa_main(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
@@ -81,10 +87,12 @@ public class DevController {
 	@RequestMapping("/auction")
 	public String aa_work_auction(HttpServletRequest request, Model model,@RequestParam Integer wnum) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		UserInfo userInfo=AuthUtil.getLoginUser(request);
-		
+		model.addAttribute("expertField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getExpertField"));
+		model.addAttribute("detailField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getDetailField"));
 		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
 			SW_Work work=workService.getWork(wnum);
 			model.addAttribute("work", work);
+			model.addAttribute("noTeamDeveloper",developerService.getNoTeamDeveloperInWork(work.getNum()));
 		}
 		return AuthUtil.retModelWithUserInfo("dev_workauction", model, request);
 	}

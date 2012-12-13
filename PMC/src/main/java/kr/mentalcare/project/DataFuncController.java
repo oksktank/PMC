@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.mentalcare.project.model.Admin;
 import kr.mentalcare.project.model.Developer;
+import kr.mentalcare.project.model.DeveloperTeam;
 import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
 import kr.mentalcare.project.model.Evaluator;
 import kr.mentalcare.project.model.Join;
@@ -47,11 +48,8 @@ public class DataFuncController {
 	@ResponseBody
 	public String insertWork(UploadItem uploadItem,HttpServletRequest request,@ModelAttribute SW_Work work,@RequestParam String developers) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
-			ObjectMapper obj=new ObjectMapper();
-			System.out.println(obj.writeValueAsString(work));
-			System.out.println(developers);
+			
 			String[] developerArray=developers.split(";");
-			System.out.println(developerArray.length);
 			
 			UserInfo userInfo=AuthUtil.getLoginUser(request);
 			work.setAdmin_num(userInfo.getId());
@@ -79,6 +77,30 @@ public class DataFuncController {
 		}
 		
 		return "Fail";
+	}
+	
+
+	@RequestMapping(value="/insertTeam",method=RequestMethod.POST)
+	@ResponseBody
+	@Transactional
+	public String insertTeam(HttpServletRequest request,@RequestParam Integer w_num,
+			@ModelAttribute DeveloperTeam team,@RequestParam String developers) throws SQLException{
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			String[] developerArray=developers.split(";");
+			System.out.println(developerArray);
+			Integer dt_num=(Integer) sqlMapClient.insert("Team.insertTeam", team);
+			
+			for(int i=0;i<developerArray.length;i++){
+				DeveloperWorkDeveloperTeam workTeam=new DeveloperWorkDeveloperTeam();
+				workTeam.setW_num(w_num);
+				workTeam.setD_sn(Integer.parseInt(developerArray[i]));
+				workTeam.setDt_num(dt_num);
+				adminService.updateWorkDevTeam(workTeam);
+			}
+			return "Success";
+		}
+		
+		return null;
 	}
 	
 	@RequestMapping(value="/insertUser",method=RequestMethod.POST)
@@ -124,4 +146,5 @@ public class DataFuncController {
 		
 		response.sendRedirect(request.getContextPath()+"/");
 	}
+	
 }
