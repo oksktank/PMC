@@ -6,4 +6,10 @@
 	<select id="findUserInfo" parameterClass="UserInfo" resultClass="UserInfo">
 		SELECT id,username,role FROM USERINFO WHERE username=#username# AND PASSWORD=#password#
 	</select>
+	<insert id="insertUser" parameterClass="UserInfo">
+		INSERT INTO USERINFO(username,PASSWORD,role) VALUES(#username#,#password#,#role#)
+		<selectKey keyProperty="id" resultClass="Integer">
+        SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
 </sqlMap>

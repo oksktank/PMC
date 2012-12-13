@@ -1,15 +1,16 @@
 package kr.mentalcare.project;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.GregorianCalendar;
 
-import javassist.bytecode.analysis.Analyzer;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import kr.mentalcare.project.model.Admin;
+import kr.mentalcare.project.model.Developer;
 import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
+import kr.mentalcare.project.model.Join;
 import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UploadItem;
 import kr.mentalcare.project.model.UserInfo;
@@ -28,12 +29,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ibatis.sqlmap.client.SqlMapClient;
+
 @Controller
 @RequestMapping("func")
 public class DataFuncController {
 	
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	SqlMapClient sqlMapClient;
 	
 	@RequestMapping(value="/insertWork",method=RequestMethod.POST)
 	@ResponseBody
@@ -71,5 +77,40 @@ public class DataFuncController {
 		}
 		
 		return "Fail";
+	}
+	
+	@RequestMapping(value="/insertUser",method=RequestMethod.POST)
+	public void joinUser(HttpServletRequest request,HttpServletResponse response,@ModelAttribute Join join) throws JsonGenerationException, JsonMappingException, IOException, SQLException{
+		System.out.println(new ObjectMapper().writeValueAsString(join));
+		UserInfo userInfo=new UserInfo();
+		userInfo.setUsername(join.getUsername());
+		userInfo.setPassword(join.getPassword());
+		userInfo.setRole(join.getRole());
+		
+		Integer sn=(Integer)sqlMapClient.insert("UserInfo.insertUser", userInfo);
+		switch(join.getRole()){
+		case 1: //개발자
+			Developer dev=new Developer();
+			dev.setSn(sn);
+			dev.setName(join.getName());
+			dev.setPhone(join.getPhone());
+			dev.setAddress(join.getAddress());
+			dev.setExpert_part(join.getExpert_part());
+			dev.setDetail_part(join.getDetail_part());
+			sqlMapClient.insert("Developer.insertDeveloper", dev);
+			break;
+		case 2: //평가자
+			break;
+		case 3: //관리자
+			Admin a=new Admin(join.getName(),join.getAddress(),join.getPhone());
+			a.setSn(sn);
+			sqlMapClient.insert("Admin.insertAdmin", a);
+			break;
+		default:
+			
+			break;
+		}
+		
+		response.sendRedirect(request.getContextPath()+"/");
 	}
 }

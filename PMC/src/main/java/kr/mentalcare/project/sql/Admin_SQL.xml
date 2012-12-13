@@ -13,7 +13,7 @@
     	</selectKey>
 	</insert>
 	<insert id="insertAdmin" parameterClass="Admin">
-		INSERT INTO ADMIN(NAME,address,phone) VALUES (#name#,#address#,#phone#)
+		INSERT INTO ADMIN(sn,NAME,address,phone) VALUES (#sn#,#name#,#address#,#phone#)
 	</insert>
 	<insert id="insertWorkDevTeam" parameterClass="DeveloperWorkDeveloperTeam">
 		INSERT INTO DEVELOPER_WORK_DEVELOPER_TEAM(d_sn,w_num,dt_num)

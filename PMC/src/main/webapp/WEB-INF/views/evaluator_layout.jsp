@@ -15,17 +15,26 @@ function signIn(){
 	$.ajax({
 		url: "${pageContext.request.contextPath}/func/signIn",
 		data:{
-			username:$(".navbar-form #username").val(),
-			password:$(".navbar-form #password").val()
+			username:$("#loginForm #username").val(),
+			password:$("#loginForm #password").val()
 		},
 		success:function(data){
 			var json=jQuery.parseJSON(data);
 			if(json.result==true){
 				
 				loginUser=json.data;
-				setUser();
+				var contextUrl='${pageContext.request.contextPath}';
+				if(loginUser['role']==1){
+
+					location.href=contextUrl+'/dev/';  
+				}else if(loginUser['role']==2){
+
+					location.href=contextUrl+'/evaluator/';  
+				}else if(loginUser['role']==3){
+					location.href=contextUrl+'/admin/';  
+				}
 			}else{
-				//로그인 실패
+				alert('로그인 실패');
 			}
 		}
 	});
@@ -34,7 +43,8 @@ function setUser(){
 	if(loginUser!=null){
 		var loginForm=$("#loginForm");
 		loginForm.empty();
-		loginForm.html(loginUser['username']+"님 환영합니다.");
+		var signOut='<a href="/PMC/func/signOut">[로그아웃]</a>';
+		loginForm.html(loginUser['username']+"님 환영합니다. "+signOut);
 	}
 }</script>
 <script src="/PMC/script/common.js"></script>
@@ -86,13 +96,11 @@ undefined
 					<li><a href="#"> Contact </a></li>
 				</ul>
 				<div id="loginForm" class="pull-right">
-				<form class="navbar-form">
             		<input id="username" type="text" placeholder="Username" class="span2">
             		<input id="password" type="password" placeholder="Password" class="span2">
             		<button class="btn" onClick="signIn()">
 	              		Sign in
             		</button>
-          		</form>
           		</div>
 			</div>
 		</div>

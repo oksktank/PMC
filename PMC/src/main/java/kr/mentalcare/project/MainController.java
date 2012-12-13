@@ -3,6 +3,7 @@ package kr.mentalcare.project;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -50,15 +51,6 @@ public class MainController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request,Locale locale, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException {
-		logger.info("Welcome home! the client locale is "+ locale.toString());
-		System.out.println(sqlMapClient);
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		System.out.println("login User:"+request.getSession().getAttribute("userInfo"));
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
 		@SuppressWarnings("unchecked")
 		List<SW_Work> workList=sqlMapClient.queryForList("Work.getRecentWork");
 		HashMap<Integer,FieldName> fieldMap=fieldNameService.getFieldNameMap();
@@ -73,21 +65,17 @@ public class MainController {
 	
 	@RequestMapping("/test")
 	public String aa(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
-		//adminService.insertAdmin("이원석", "공A", "010-2242-2424");
 		return AuthUtil.retModelWithUserInfo("test", model, request);
 	}
 	
 	@RequestMapping("/join")
 	public String aa_join(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		
+		model.addAttribute("expertField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getExpertField"));
+		model.addAttribute("detailField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getDetailField"));
+		
 		return AuthUtil.retModelWithUserInfo("join", model, request);
 	}
-	
-	@RequestMapping("/dev_main")
-	public String dev_main11(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
-		//adminService.insertAdmin("이원석", "공A", "010-2242-2424");
-		return AuthUtil.retModelWithUserInfo("dev_main", model, request);
-	}
-	
 	
 	
 }

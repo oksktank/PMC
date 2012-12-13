@@ -3,7 +3,10 @@
 
 <sqlMap namespace="Developer">
 	<typeAlias alias="Developer" type="kr.mentalcare.project.model.Developer"/>
-	
+	<insert id="insertDeveloper" parameterClass="Developer">
+	INSERT INTO DEVELOPER(sn,NAME,address,phone,expert_part,detail_part) VALUES
+	(#sn#,#name#,#address#,#phone#,#expert_part#,#detail_part#)
+	</insert>
 	<select id="getAllDeveloper" resultClass="Developer">
 	SELECT * FROM DEVELOPER d ORDER BY sn
 	</select>

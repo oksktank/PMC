@@ -33,7 +33,7 @@
 </script>
 
 <h1>
-	회원 가입
+	회원가입
 </h1>
 <hr>
 
@@ -58,20 +58,24 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="td-background-color">이름</td>
-				<td><input type="text" name="w_name"></td>
+				<td class="td-background-color">아이디</td>
+				<td><input type="text" name="username"></td>
 			</tr>
 			<tr>
 				<td class="td-background-color">비밀번호</td>
-				<td><input type="password" name="pass"></td>
+				<td><input type="password" name="password"></td>
+			</tr>
+			<tr>
+				<td class="td-background-color">이름</td>
+				<td><input type="text" name="name"></td>
 			</tr>
 			<tr>
 				<td class="td-background-color">전화번호</td>
-				<td><input type="tel" name="w_name"></td>
+				<td><input type="tel" name="phone"></td>
 			</tr>
 			<tr>
 				<td class="td-background-color">거주지</td>
-				<td><input type="text" name="w_name"></td>
+				<td><input type="text" name="address"></td>
 			</tr>
 			<tr>
 				<td class="td-background-color">전문분야</td>
