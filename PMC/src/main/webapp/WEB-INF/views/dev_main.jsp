@@ -79,7 +79,7 @@
 		          <!-- 이거 내 진행중 프로젝트 동적 생성 -->
 		          <!-- work?wid=xxxx로 -->
 		          <c:forEach items="${myTeamList }" var="team">
-		          <p><a href="/PMC/dev/work?id=${dt_number }" class="btn btn-primary">${team.dt_name }</a></p>
+		          <p><a href="/PMC/dev/work?id=${team.dt_number }" class="btn btn-primary">${team.dt_name }</a></p>
 		          </c:forEach>
         	</div>
         	</td>

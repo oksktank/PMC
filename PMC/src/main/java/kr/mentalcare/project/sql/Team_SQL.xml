@@ -12,6 +12,12 @@
 	WHERE dt_num!=-1 AND w_num=#w_num# AND d_sn=#d_sn#)
 	</select>
 	
+	<select id="getTeamById" parameterClass="Integer" resultClass="DeveloperTeam">
+	SELECT * FROM DEVELOPER_TEAM WHERE dt_number=#dt_number#
+	</select>
+	
+	
+	
 	<select id="getTeamListInWork" parameterClass="Integer" resultClass="DeveloperTeam">
 	SELECT * FROM DEVELOPER_TEAM
 	WHERE dt_number IN(

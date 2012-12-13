@@ -13,6 +13,13 @@
 	SELECT * FROM SW_WORK
 	WHERE num=#num#
 	</select>
+	<select id="getWorkNumByTeamId" parameterClass="Integer" resultClass="Integer">
+	SELECT w_num FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE dt_num=#dt_num# GROUP BY w_num
+	</select>
+	<select id="getWorkByTeamId" parameterClass="Integer" resultClass="SW_Work">
+	SELECT * FROM SW_WORK WHERE dt_num=#id#
+	</select>
 	<update id="chooseWorkTeam" parameterClass="DeveloperWorkDeveloperTeam">
 	UPDATE SW_WORK SET dt_num=#dt_num# WHERE num=#w_num#
 	</update>

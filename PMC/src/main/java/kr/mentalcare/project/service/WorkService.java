@@ -42,4 +42,14 @@ public class WorkService {
 			work.setDetail_part_name(fieldMap.get(work.getDetail_part()).getName());
 		}
 	}
+
+	public SW_Work getWorkByTeamId(Integer id) throws SQLException {
+		SW_Work work=(SW_Work) sqlMapClient.queryForObject("Work.getWorkByTeamId",id);
+		if(work!=null){
+			HashMap<Integer,FieldName> fieldMap=fieldNameService.getFieldNameMap();
+			work.setExpert_part_name(fieldMap.get(work.getExpert_part()).getName());
+			work.setDetail_part_name(fieldMap.get(work.getDetail_part()).getName());
+		}
+		return work;
+	}
 }

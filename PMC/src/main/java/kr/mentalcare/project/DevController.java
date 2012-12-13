@@ -5,10 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import kr.mentalcare.project.model.Admin;
 import kr.mentalcare.project.model.DeveloperTeam;
 import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
+import kr.mentalcare.project.model.DevelopmentResult;
 import kr.mentalcare.project.model.FieldName;
 import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UserInfo;
@@ -119,9 +121,31 @@ public class DevController {
 		return AuthUtil.retModelWithUserInfo("dev_workauction", model, request);
 	}
 	
-	//사이드메뉴에서 진행중인 work 선택 -> work?wid=xxxx
+	//사이드메뉴에서 진행중인 work 선택 -> teamId가 넘어옴 해당 팀이 work가 선정되어있을시 work, 아닐 시 auction페이지로 이동
 	@RequestMapping("/work")
-	public String aa_work_info(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+	public String aa_work_info(@RequestParam Integer id,HttpServletRequest request,HttpServletResponse response, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			SW_Work work=workService.getWorkByTeamId(id);
+			if(work==null){
+				Integer wnum=(Integer) sqlMapClient.queryForObject("Work.getWorkNumByTeamId",id);
+				response.sendRedirect(request.getContextPath()+"/dev/auction?wnum="+wnum);
+			}else{
+				Integer sn=userInfo.getId();
+				model.addAttribute("work", work);
+				model.addAttribute("team",teamService.getTeamById(id));
+				DeveloperWorkDeveloperTeam param=new DeveloperWorkDeveloperTeam();
+				param.setD_sn(sn);
+				param.setW_num(work.getNum());
+				DeveloperTeam myTeam=teamService.getTeamBySnAndWnum(param);
+				model.addAttribute("myTeam", myTeam);
+				if(myTeam.getR_num()!=null){
+					DevelopmentResult result=(DevelopmentResult) sqlMapClient.queryForObject("DevelopmentResult.getResultByRnum",myTeam.getR_num());
+					model.addAttribute("myResult",result);
+				}
+			}
+			
+		}
 		return AuthUtil.retModelWithUserInfo("dev_workinfo", model, request);
 	}
 }

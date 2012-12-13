@@ -5,10 +5,6 @@ public class Evaluator {
 	String name;
 	String address;
 	String phone;
-	Double cost_per_day;
-
-	Double cost_average;
-	Double cost_deviation;
 	Integer expert_part;
 	Integer detail_part;
 	String expert_part_name;
@@ -36,24 +32,6 @@ public class Evaluator {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	public Double getCost_per_day() {
-		return cost_per_day;
-	}
-	public void setCost_per_day(Double cost_per_day) {
-		this.cost_per_day = cost_per_day;
-	}
-	public Double getCost_average() {
-		return cost_average;
-	}
-	public void setCost_average(Double cost_average) {
-		this.cost_average = cost_average;
-	}
-	public Double getCost_deviation() {
-		return cost_deviation;
-	}
-	public void setCost_deviation(Double cost_deviation) {
-		this.cost_deviation = cost_deviation;
 	}
 	public Integer getExpert_part() {
 		return expert_part;

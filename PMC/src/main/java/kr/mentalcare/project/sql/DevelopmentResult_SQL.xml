@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="DevelopmentResult">
+	<typeAlias alias="DevelopmentResult" type="kr.mentalcare.project.model.DevelopmentResult"/>
+	
+	<select id="getResultByRnum" parameterClass="Integer" resultClass="DevelopmentResult">
+		SELECT * FROM DEVELOPMENT_RESULT WHERE r_num=#r_num#
+	</select>
+	
+	<insert id="insertResult" parameterClass="DevelopmentResult">
+		INSERT INTO DEVELOPMENT_RESULT(w_num,file_name)
+		VALUES(#w_name#,#file_name#)
+		<selectKey keyProperty="r_num" resultClass="Integer">
+        SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
+	
+</sqlMap>

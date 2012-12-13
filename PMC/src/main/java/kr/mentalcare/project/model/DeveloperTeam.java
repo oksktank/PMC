@@ -4,10 +4,21 @@ import java.util.List;
 
 public class DeveloperTeam {
 	int dt_number;
-	int cost;
+	Integer cost;
 	String dt_name;
+	Integer r_num;
+	
 	List<Developer> devList;
 	
+	public Integer getR_num() {
+		return r_num;
+	}
+	public void setR_num(Integer r_num) {
+		this.r_num = r_num;
+	}
+	public void setCost(Integer cost) {
+		this.cost = cost;
+	}
 	public String getDt_name() {
 		return dt_name;
 	}
@@ -21,11 +32,8 @@ public class DeveloperTeam {
 	public void setDt_number(int dt_number) {
 		this.dt_number = dt_number;
 	}
-	public int getCost() {
+	public Integer getCost() {
 		return cost;
-	}
-	public void setCost(int cost) {
-		this.cost = cost;
 	}
 	public List<Developer> getDevList() {
 		return devList;
