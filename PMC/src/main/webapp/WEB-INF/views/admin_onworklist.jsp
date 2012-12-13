@@ -52,7 +52,7 @@
 	}
 	function work_complete(v){
 		alert(v+' '+evaluators);
-		if(v!=''&&evaluator!=''){
+		if(v!=''&&evaluators!=''){
 		$.ajax({
 			url: "${pageContext.request.contextPath}/admin/toEvaluator",
 			type:'POST',

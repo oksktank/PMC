@@ -3,6 +3,7 @@
 
 <sqlMap namespace="Evaluator">
 	<typeAlias alias="Evaluator" type="kr.mentalcare.project.model.Evaluator"/>
+	<typeAlias alias="SW_Work" type="kr.mentalcare.project.model.SW_Work"/>
 	<typeAlias alias="EvaluateResult" type="kr.mentalcare.project.model.EvaluateResult"/>
 	
 	<select id="getAllEvaluator" resultClass="Evaluator">
@@ -13,6 +14,16 @@
 	<select id="getEvaluateResult" parameterClass="EvaluateResult" resultClass="EvaluateResult">
 	SELECT * FROM EVALUATE_RESULT WHERE r_num=#r_num# AND e_sn=#e_sn#
 	</select>
+	
+	<select id="getEvaluateJob" parameterClass="Integer" resultClass="SW_Work">
+	SELECT w.*,dr.file_name AS result_file_name,er.r_num as r_num FROM EVALUATE_RESULT er, DEVELOPMENT_RESULT dr,SW_WORK w
+	WHERE er.r_num=dr.r_num AND dr.w_num=w.num
+	AND er.e_sn=#sn# AND er.grade is NULL
+	</select>
+	
+	<update id="setGrade" parameterClass="EvaluateResult">
+	UPDATE EVALUATE_RESULT SET grade=#grade# where r_num=#r_num# AND e_sn=#e_sn#
+	</update>
 	
 	<insert id="insertEvaluator" parameterClass="Evaluator">
 	INSERT INTO EVALUATOR(sn,NAME,address,phone,expert_part,detail_part) VALUES

@@ -125,7 +125,8 @@ public class DevController {
 	@RequestMapping("/work")
 	public String aa_work_info(@RequestParam Integer id,HttpServletRequest request,HttpServletResponse response, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		UserInfo userInfo=AuthUtil.getLoginUser(request);
-		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)||AuthUtil.isAvailableRole(request,UserInfo.ROLE_EVALUATOR)||
+				AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
 			SW_Work work=workService.getWorkByTeamId(id);
 			if(work==null){
 				Integer wnum=(Integer) sqlMapClient.queryForObject("Work.getWorkNumByTeamId",id);
@@ -139,7 +140,7 @@ public class DevController {
 				param.setW_num(work.getNum());
 				DeveloperTeam myTeam=teamService.getTeamBySnAndWnum(param);
 				model.addAttribute("myTeam", myTeam);
-				if(myTeam.getR_num()!=null){
+				if(myTeam!=null&&myTeam.getR_num()!=null){
 					DevelopmentResult result=(DevelopmentResult) sqlMapClient.queryForObject("DevelopmentResult.getResultByRnum",myTeam.getR_num());
 					model.addAttribute("myResult",result);
 				}

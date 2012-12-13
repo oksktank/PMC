@@ -12,6 +12,7 @@ import kr.mentalcare.project.model.Developer;
 import kr.mentalcare.project.model.DeveloperTeam;
 import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
 import kr.mentalcare.project.model.DevelopmentResult;
+import kr.mentalcare.project.model.EvaluateResult;
 import kr.mentalcare.project.model.Evaluator;
 import kr.mentalcare.project.model.Join;
 import kr.mentalcare.project.model.SW_Work;
@@ -48,8 +49,30 @@ public class DataFuncController {
 	@Autowired
 	ResultService resultService;
 	
+	
 	@Autowired
 	SqlMapClient sqlMapClient;
+	
+	@RequestMapping(value="/evaluate",method=RequestMethod.POST)
+	@ResponseBody
+	public String evaluate(@RequestParam Integer r_num,@RequestParam Integer grade,HttpServletRequest request) throws SQLException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_EVALUATOR)){
+			Integer sn=userInfo.getId();
+			EvaluateResult evResult=new EvaluateResult();
+			evResult.setR_num(r_num);
+			evResult.setE_sn(sn);
+			EvaluateResult temp=(EvaluateResult) sqlMapClient.queryForObject("Evaluator.getEvaluateResult",evResult);
+			evResult.setGrade(grade);
+			int count=sqlMapClient.update("Evaluator.setGrade",evResult);
+			if(count>0){
+				return "Success";
+			}
+			
+		}
+		
+		return "Fail";
+	}
 	
 	@RequestMapping(value="/insertResult",method=RequestMethod.POST)
 	@ResponseBody

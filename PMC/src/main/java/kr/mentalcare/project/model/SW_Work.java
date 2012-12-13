@@ -15,7 +15,14 @@ public class SW_Work {
 	String expert_part_name;
 	String detail_part_name;
 	String result_file_name;
+	Integer r_num;
 	
+	public Integer getR_num() {
+		return r_num;
+	}
+	public void setR_num(Integer r_num) {
+		this.r_num = r_num;
+	}
 	public String getResult_file_name() {
 		return result_file_name;
 	}
