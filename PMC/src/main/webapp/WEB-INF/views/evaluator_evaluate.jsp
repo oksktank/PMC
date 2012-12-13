@@ -46,7 +46,7 @@
 		<table id="work_info">
 			<tr>
 			<!-- wid로 구분 work/?wid=xxxx -->
-				<td colspan="2" width="500"><a href="/PMC/dev/work?id=${work.dt_num }"><span id="work_header">${work.w_name }</span></a></td>
+				<td colspan="2" width="500"><a href="/PMC/evaluator/work?id=${work.dt_num }"><span id="work_header">${work.w_name }</span></a></td>
 			</tr>
 			<tr>
 				<td colspan="2"><div class="work_description">

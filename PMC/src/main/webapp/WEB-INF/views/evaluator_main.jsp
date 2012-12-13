@@ -12,15 +12,15 @@
         <table id="my_info">
         <tr>
 	        <td>
-	        	<h1>이름</h1>
+	        	<h1>${evaluator.name }</h1>
 	       	</td>
 	       	<td>
-	       	전문분야 세부분야
+	       	<b>전문분야:</b>${evaluator.expert_part_name }<br/><b>세부분야:</b>${evaluator.detail_part_name }
 	       	</td>
         </tr>
         <tr>
         	<td>
-        	평가의뢰 <a href="#">4</a>건
+        	평가의뢰 <a href="/PMC/evaluator/evaluate">${evCount }</a>건
         	</td>
         </tr>
         </table>

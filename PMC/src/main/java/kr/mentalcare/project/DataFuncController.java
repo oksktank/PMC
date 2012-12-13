@@ -105,7 +105,7 @@ public class DataFuncController {
 	
 	@RequestMapping(value="/insertWork",method=RequestMethod.POST)
 	@ResponseBody
-	public String insertWork(UploadItem uploadItem,HttpServletRequest request,@ModelAttribute SW_Work work,@RequestParam String developers) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+	public String insertWork(UploadItem uploadItem,HttpServletRequest request,HttpServletResponse response,@ModelAttribute SW_Work work,@RequestParam String developers) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
 			
 			String[] developerArray=developers.split(";");
@@ -131,6 +131,7 @@ public class DataFuncController {
 				team.setDt_num(-1);
 				adminService.insertWorkDevTeam(team);
 			}
+			response.sendRedirect(request.getContextPath()+"/admin/");
 			return "Success";
 		}
 		

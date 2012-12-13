@@ -16,7 +16,15 @@ public class SW_Work {
 	String detail_part_name;
 	String result_file_name;
 	Integer r_num;
+	Integer grade;
 	
+	
+	public Integer getGrade() {
+		return grade;
+	}
+	public void setGrade(Integer grade) {
+		this.grade = grade;
+	}
 	public Integer getR_num() {
 		return r_num;
 	}

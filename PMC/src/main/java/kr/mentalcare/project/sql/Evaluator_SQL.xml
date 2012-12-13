@@ -11,6 +11,11 @@
 	ORDER BY sn
 	</select>
 	
+	<select id="getEvaluator" parameterClass="Integer" resultClass="Evaluator">
+	SELECT * FROM EVALUATOR
+	WHERE sn=#sn#
+	</select>
+	
 	<select id="getEvaluateResult" parameterClass="EvaluateResult" resultClass="EvaluateResult">
 	SELECT * FROM EVALUATE_RESULT WHERE r_num=#r_num# AND e_sn=#e_sn#
 	</select>
@@ -19,6 +24,13 @@
 	SELECT w.*,dr.file_name AS result_file_name,er.r_num as r_num FROM EVALUATE_RESULT er, DEVELOPMENT_RESULT dr,SW_WORK w
 	WHERE er.r_num=dr.r_num AND dr.w_num=w.num
 	AND er.e_sn=#sn# AND er.grade is NULL
+	</select>
+	
+	<select id="getEvaluated" parameterClass="Integer" resultClass="SW_Work">
+	SELECT w.*,dr.file_name AS result_file_name,er.r_num as r_num,er.grade as grade
+	 FROM EVALUATE_RESULT er, DEVELOPMENT_RESULT dr,SW_WORK w
+	WHERE er.r_num=dr.r_num AND dr.w_num=w.num
+	AND er.e_sn=#sn# AND er.grade is NOT NULL
 	</select>
 	
 	<update id="setGrade" parameterClass="EvaluateResult">

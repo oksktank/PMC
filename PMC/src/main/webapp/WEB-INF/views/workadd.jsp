@@ -195,12 +195,10 @@
 			}
 		});
 		$("#selectedDeveloperList").val(temp);
-		alert($("#selectedDeveloperList").val());
 		//alert(temp.length);
 	}
 	function form_submit(){
 		var form = document.forms['work_input'];
-		alert('submit');
 		save_selected_developers();
 		
 		form.submit();
