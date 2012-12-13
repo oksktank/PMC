@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.mentalcare.project.model.Admin;
 import kr.mentalcare.project.model.DeveloperTeam;
 import kr.mentalcare.project.model.DeveloperWorkDeveloperTeam;
 import kr.mentalcare.project.model.FieldName;
@@ -98,14 +99,22 @@ public class DevController {
 			Integer sn=userInfo.getId();
 			SW_Work work=workService.getWork(wnum);
 			model.addAttribute("work", work);
-			model.addAttribute("noTeamDeveloper",developerService.getNoTeamDeveloperInWork(work.getNum()));
-			model.addAttribute("teamListInWork",teamService.getTeamListInWork(work.getNum()));
+			model.addAttribute("noTeamDeveloper",developerService.getNoTeamDeveloperInWork(wnum));
+			model.addAttribute("teamListInWork",teamService.getTeamListInWork(wnum));
 			
 			DeveloperWorkDeveloperTeam param=new DeveloperWorkDeveloperTeam();
 			param.setD_sn(sn);
-			param.setW_num(work.getNum());
+			param.setW_num(wnum);
 			
 			model.addAttribute("myTeam",teamService.getTeamBySnAndWnum(param));
+		}else if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+			Integer sn=userInfo.getId();
+			Admin admin=(Admin) sqlMapClient.queryForObject("Admin.getAdmin", sn);
+			
+			model.addAttribute("admin",admin);
+			SW_Work work=workService.getWork(wnum);
+			model.addAttribute("work", work);
+			model.addAttribute("teamListInWork",teamService.getTeamListInWork(wnum));
 		}
 		return AuthUtil.retModelWithUserInfo("dev_workauction", model, request);
 	}

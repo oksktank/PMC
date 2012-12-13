@@ -13,12 +13,13 @@
 	<select id="getAuctionWorkList" parameterClass="Integer" resultClass="SW_Work">
 		SELECT * FROM SW_WORK
 		WHERE admin_num=#sn# AND dt_num IS NULL
-		ORDER BY num
+		ORDER BY num desc
 	</select>
 	
 	<select id="getOnWorkList" parameterClass="Integer" resultClass="SW_Work">
 		SELECT * FROM SW_WORK WHERE dt_num IS NOT NULL
 		AND admin_num=#admin_num#
+		ORDER BY num desc
 	</select>
 	
 	<insert id="insertSwWork" parameterClass="SW_Work">

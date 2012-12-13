@@ -84,6 +84,14 @@ public class AdminController {
 	
 	@RequestMapping("/auction_list")
 	public String aa_work_auction_list(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+			Integer sn=userInfo.getId();
+			List<SW_Work> auctionWorkList=sqlMapClient.queryForList("Admin.getAuctionWorkList",sn);
+			workService.setPartName(auctionWorkList);
+			model.addAttribute("auctionList",auctionWorkList);
+		}
 		return AuthUtil.retModelWithUserInfo("admin_workauctionlist", model, request);
 	}
 	

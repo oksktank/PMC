@@ -104,10 +104,27 @@
 			}
 		});
 	}
+	function chooseWorkTeam(dt_number){
+		$.ajax({
+			url: "${pageContext.request.contextPath}/func/chooseWorkTeam",
+			type:'POST',
+			data:{
+				dt_number:dt_number,
+				wnum:'${param.wnum}'
+			},
+			success:function(data){
+				if(data=='Success'){
+					location.reload();
+				}else{
+					alert('팀 입찰에 실패했습니다.');
+				}
+			}
+		});
+	}
 </script>
 
 
-<h1>프로젝트이름</h1>
+<h1>${work.w_name }</h1>
 <hr>
 <div id="project_info">
 <table class="table table-bordered">
@@ -159,7 +176,7 @@
 			<!-- 팀 없으면 -->
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2 -->
 	<div id="team_create">
-		<c:if test="${work.dt_num eq null }">
+		<c:if test="${work.dt_num eq null and admin eq null}">
 		<a href="#myModal" role="button" class="btn btn-success" data-toggle="modal"><b>팀 생성</b></a>
 		</c:if>
 	 	
@@ -247,12 +264,16 @@
 <div id="auction_list">
 
 <!-- 여기부터 -->
-	<c:forEach items="${teamListInWork }" var="team">
+	<c:choose>
+		<c:when test="${work.dt_num ne null }"> <!-- 입찰완료한 팀이 있을때 -->
+		<c:forEach items="${teamListInWork }" var="team">
+			<c:if test="${work.dt_num eq team.dt_number }">
 	<div class="well">
 		<table id="team_info">
 			<tr>
 				<th>${team.dt_name }</th>
 				<th class="td_right">입찰가</th>
+				<th></th>
 			</tr>
 			<tr>
 				<td>
@@ -261,8 +282,46 @@
 					</c:forEach>
 				</td>
 				<td class="td_right">${team.cost }</td>
+				
+				<td class="td_right">
+				<button class="btn btn-success"><b>진행중</b></button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+		</c:if>
+	</c:forEach>
+		</c:when>
+		<c:otherwise> <!-- 경매 진행중일 때-->
+			<c:forEach items="${teamListInWork }" var="team">
+	<div class="well">
+		<table id="team_info">
+			<tr>
+				<th>${team.dt_name }</th>
+				<th class="td_right">입찰가</th>
+				<c:if test="${admin ne null }">
+				<th></th>
+				</c:if>
+			</tr>
+			<tr>
+				<td>
+					<c:forEach var="dev" items="${team.devList }">
+						${dev.name } 
+					</c:forEach>
+				</td>
+				<td class="td_right">${team.cost }</td>
+				
+				<c:if test="${admin ne null }">
+				<td class="td_right">
+				<button class="btn btn-danger" onClick="chooseWorkTeam('${team.dt_number}')"><b>입찰하기</b></button>
+				</td>
+				</c:if>
 			</tr>
 		</table>
 	</div>
 	</c:forEach>
+		</c:otherwise>
+	</c:choose>
+	
 </div>
