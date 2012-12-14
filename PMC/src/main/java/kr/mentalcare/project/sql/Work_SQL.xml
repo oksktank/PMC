@@ -24,4 +24,7 @@
 	<update id="chooseWorkTeam" parameterClass="DeveloperWorkDeveloperTeam">
 	UPDATE SW_WORK SET dt_num=#dt_num# WHERE num=#w_num#
 	</update>
+	<delete id="deleteOtherTeam" parameterClass="DeveloperWorkDeveloperTeam">
+	DELETE FROM DEVELOPER_WORK_DEVELOPER_TEAM where w_num=#w_num# AND dt_num!=#dt_num#
+	</delete>
 </sqlMap>

@@ -262,6 +262,7 @@ public class DataFuncController {
 			Integer sn=userInfo.getId();
 			int count=sqlMapClient.update("Work.chooseWorkTeam",param);
 			if(count==1){
+				sqlMapClient.delete("Work.deleteOtherTeam",param);
 				return "Success";
 			}
 		}
