@@ -15,10 +15,23 @@
 		WHERE admin_num=#sn# AND dt_num IS NULL
 		ORDER BY num desc
 	</select>
-	
+	<select id="getOnDevList" parameterClass="Integer" resultClass="SW_Work">
+		SELECT * FROM SW_WORK WHERE dt_num IS NOT NULL
+		AND admin_num=#sn# AND (SELECT COUNT(*) FROM DEVELOPMENT_RESULT WHERE w_num=num)=0
+		ORDER BY num DESC
+	</select>
 	<select id="getOnWorkList" parameterClass="Integer" resultClass="SW_Work">
 		SELECT * FROM SW_WORK WHERE dt_num IS NOT NULL
 		AND admin_num=#sn# AND (SELECT COUNT(*) FROM DEVELOPMENT_RESULT WHERE w_num=num)>0
+		AND (SELECT COUNT(*) FROM EVALUATE_RESULT WHERE r_num IN(SELECT r_num FROM DEVELOPMENT_RESULT WHERE w_num=num))>0
+		AND (SELECT COUNT(*) FROM EVALUATE_RESULT WHERE r_num IN(SELECT r_num FROM DEVELOPMENT_RESULT WHERE w_num=2) AND grade IS NULL)>0
+		ORDER BY num DESC
+	</select>
+	<select id="getEvaluateEndWorkList" parameterClass="Integer" resultClass="SW_Work">
+		SELECT * FROM SW_WORK WHERE dt_num IS NOT NULL
+		AND admin_num=#sn# AND (SELECT COUNT(*) FROM DEVELOPMENT_RESULT WHERE w_num=num)>0
+		AND (SELECT COUNT(*) FROM EVALUATE_RESULT WHERE r_num IN(SELECT r_num FROM DEVELOPMENT_RESULT WHERE w_num=num))>0
+		AND (SELECT COUNT(*) FROM EVALUATE_RESULT WHERE r_num IN(SELECT r_num FROM DEVELOPMENT_RESULT WHERE w_num=2) AND grade IS NULL)=0
 		ORDER BY num DESC
 	</select>
 	

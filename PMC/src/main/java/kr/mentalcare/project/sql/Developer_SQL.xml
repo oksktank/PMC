@@ -11,6 +11,7 @@
 	SELECT * FROM DEVELOPER WHERE SN=#sn#
 	</select>
 	
+	
 	<select id="getNoTeamDeveloperInWork" parameterClass="Integer" resultClass="Developer">
 	SELECT * FROM DEVELOPER 
 	WHERE sn IN(SELECT d_sn FROM DEVELOPER_WORK_DEVELOPER_TEAM
@@ -20,6 +21,14 @@
 	<select id="getDeveloperListInTeam" parameterClass="Integer" resultClass="Developer">
 	SELECT * FROM DEVELOPER WHERE sn IN (SELECT d_sn FROM DEVELOPER_WORK_DEVELOPER_TEAM
 	WHERE dt_num=#dt_num#) ORDER BY sn
+	</select>
+	
+	<select id="getAverageGrade" parameterClass="Integer" resultClass="Double">
+	SELECT AVG(grade) FROM EVALUATE_RESULT 
+	WHERE r_num IN(SELECT r_num FROM DEVELOPER_TEAM WHERE dt_number IN(
+	SELECT dt_num FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE d_sn=#sn#
+	) AND r_num IS NOT NULL)	
 	</select>
 	
 	<insert id="insertDeveloper" parameterClass="Developer">

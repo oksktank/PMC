@@ -32,6 +32,38 @@ public class DeveloperService {
 		dev.setDetail_part_name(fieldMap.get(dev.getDetail_part()).getName());
 		return dev;
 	}
+	public long getAverageGrade(Integer sn) throws SQLException{
+		Double average=(Double) sqlMapClient.queryForObject("Developer.getAverageGrade",sn);
+		if(average==null) average=0.0;
+		return Math.round(average * 10) / 10;
+	}
+	public int getGradeLevel(Integer sn) throws SQLException{
+		long average=getAverageGrade(sn);
+		int gradeLevel=10;
+		if(average<=100&&average>=90){
+			gradeLevel=1;
+		}else if(average<90&&average>=80){
+			gradeLevel=2;
+		}else if(average<80&&average>=70){
+			gradeLevel=3;
+		}else if(average<70&&average>=60){
+			gradeLevel=4;
+		}else if(average<60&&average>=50){
+			gradeLevel=5;
+		}else if(average<50&&average>=40){
+			gradeLevel=6;
+		}else if(average<40&&average>=30){
+			gradeLevel=7;
+		}else if(average<30&&average>=20){
+			gradeLevel=8;
+		}else if(average<20&&average>=10){
+			gradeLevel=9;
+		}else if(average<10&&average>=0){
+			gradeLevel=10;
+		}
+		return gradeLevel;
+		
+	}
 	
 	public List<Developer> getNoTeamDeveloperInWork(Integer w_num) throws SQLException{
 		@SuppressWarnings("unchecked")

@@ -97,7 +97,7 @@
 	
 </script>
 
-<h1>개발진행중인Works</h1>
+<h1>평가의뢰대기Works</h1>
 <hr>
 
 <div id="onwork_list">
@@ -106,7 +106,7 @@
 		<div class="well">
 		<table id="work_info">
 			<tr>
-				<td><span id="work_header">${work.w_name }</span></td>
+				<td><span id="work_header"><a href="${pageContext.request.contextPath }/admin/work?id=${work.dt_num}">${work.w_name }</a></span></td>
 				<td class="td_right">
 				<button class="btn btn-warning" onclick="work_complete('${work.dt_num}');"><b>평가 의뢰</b></button>
 				</td>

@@ -130,9 +130,19 @@ undefined
 	              경매 진행중인 Work
 	            </a>
 	          </li>
+	           <li class="sidemenu">
+	          	<a href="/PMC/admin/on_dev_list">
+	              개발 진행중인 Work
+	            </a>
+	          </li>
 	          <li class="sidemenu">
 	          	<a href="/PMC/admin/on_work">
-	              개발 진행중인 Work
+	              평가 의뢰 대기 Work
+	            </a>
+	          </li>
+	           <li class="sidemenu">
+	          	<a href="/PMC/admin/evaluate_end_list">
+	              평가 완료 Work
 	            </a>
 	          </li>
 	        </ul>

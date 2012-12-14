@@ -53,6 +53,7 @@ public class DevController {
 			model.addAttribute("invitedWorkCount",developerService.getInvitedWorkCount(sn));
 			model.addAttribute("myTeamList",developerService.getMyTeamList(sn));
 			model.addAttribute("recentWork",workService.getRecentWork());
+			model.addAttribute("gradeLevel",developerService.getGradeLevel(sn));
 		}
 		
 		

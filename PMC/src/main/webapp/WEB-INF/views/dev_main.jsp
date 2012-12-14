@@ -66,7 +66,7 @@
         </tr>
         <tr>
         	<td></td>
-        	<td><b>전문성 등급 :</b> 2등급</td>
+        	<td><b>전문성 등급 :</b> ${gradeLevel }등급</td>
         </tr>
         <tr>
         	<td>

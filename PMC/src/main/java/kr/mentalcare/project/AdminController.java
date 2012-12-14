@@ -108,6 +108,19 @@ public class AdminController {
 		return AuthUtil.retModelWithUserInfo("admin_workauctionlist", model, request);
 	}
 	
+	@RequestMapping("/on_dev_list")
+	public String on_dev_list(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+			Integer sn=userInfo.getId();
+			List<SW_Work> onDevList=sqlMapClient.queryForList("Admin.getOnDevList",sn);
+			workService.setPartName(onDevList);
+			model.addAttribute("onDevList",onDevList);
+		}
+		return AuthUtil.retModelWithUserInfo("admin_on_dev_list", model, request);
+	}
+	
 	@RequestMapping("/on_work")
 	public String aa_on_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		UserInfo userInfo=AuthUtil.getLoginUser(request);
