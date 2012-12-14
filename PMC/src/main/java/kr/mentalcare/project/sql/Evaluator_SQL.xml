@@ -33,6 +33,11 @@
 	AND er.e_sn=#sn# AND er.grade is NOT NULL
 	</select>
 	
+	<select id="getAVRGradeByWnum" parameterClass="Integer" resultClass="Double">
+		SELECT AVG(grade) FROM EVALUATE_RESULT
+		WHERE r_num IN (SELECT r_num FROM DEVELOPMENT_RESULT WHERE w_num=#sn#)
+	</select>
+	
 	<update id="setGrade" parameterClass="EvaluateResult">
 	UPDATE EVALUATE_RESULT SET grade=#grade# where r_num=#r_num# AND e_sn=#e_sn#
 	</update>

@@ -139,6 +139,15 @@ public class AdminController {
 			Integer sn=userInfo.getId();
 			List<SW_Work> onEvaluateEndList=sqlMapClient.queryForList("Admin.getEvaluateEndWorkList",sn);
 			workService.setPartName(onEvaluateEndList);
+			for(int i=0;i<onEvaluateEndList.size();i++){
+				SW_Work work=onEvaluateEndList.get(i);
+				Double avgGrade=(Double) sqlMapClient.queryForObject("Evaluator.getAVRGradeByWnum",work.getNum());
+				if(avgGrade==null) avgGrade=0.0;
+				long avg= Math.round(avgGrade * 10) / 10;
+				work.setAvgGrade(avg);
+				
+				
+			}
 			model.addAttribute("evaluateEndList",onEvaluateEndList);
 		}
 		return AuthUtil.retModelWithUserInfo("admin_evaluate_end_list", model, request);

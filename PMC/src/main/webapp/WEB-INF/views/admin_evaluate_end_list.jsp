@@ -24,7 +24,7 @@
 		<th>No</th>
 		<th>이름</th>
 		<th>전문분야</th>
-		<th>인센티브</th>
+		<th>평가점수</th>
 		<th>기간</th>
 	</tr>
 	<!-- 여기부터 동적생성 wid->work의pk-->
@@ -34,7 +34,7 @@
 		<td>${i.index+1 }</td>
 		<td>${work.w_name }</td>
 		<td>${work.expert_part_name }</td>
-		<td>${work.cost }</td>
+		<td>${work.avgGrade }</td>
 		<td>${work.start_period }~${work.end_period }</td>
 	</tr>
 	</c:forEach>

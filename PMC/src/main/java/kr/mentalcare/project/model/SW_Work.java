@@ -17,8 +17,15 @@ public class SW_Work {
 	String result_file_name;
 	Integer r_num;
 	Integer grade;
+	long avgGrade;
 	
 	
+	public long getAvgGrade() {
+		return avgGrade;
+	}
+	public void setAvgGrade(long avgGrade) {
+		this.avgGrade = avgGrade;
+	}
 	public Integer getGrade() {
 		return grade;
 	}
