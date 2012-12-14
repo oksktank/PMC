@@ -18,6 +18,7 @@
 	WHERE dt_num=-1 AND w_num=#w_num#)
 	</select>
 	
+	
 	<select id="getDeveloperListInTeam" parameterClass="Integer" resultClass="Developer">
 	SELECT * FROM DEVELOPER WHERE sn IN (SELECT d_sn FROM DEVELOPER_WORK_DEVELOPER_TEAM
 	WHERE dt_num=#dt_num#) ORDER BY sn
@@ -43,6 +44,12 @@
 	<select id="getInvitedWorkCount" parameterClass="Integer" resultClass="Integer">
 	SELECT COUNT(*) FROM DEVELOPER_WORK_DEVELOPER_TEAM
 	WHERE dt_num=-1 AND d_sn=#sn#
+	</select>
+	
+	<select id="getPastWork" parameterClass="Integer" resultClass="SW_Work">
+	SELECT w.*,dr.file_name AS result_file_name FROM DEVELOPMENT_RESULT dr, SW_WORK w WHERE w.num=dr.w_num
+	AND dt_num IN(SELECT dt_num FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE d_sn=#sn# AND dt_num!=-1)	
 	</select>
 	
 	<select id="getInvitedWork" parameterClass="Integer" resultClass="SW_Work">

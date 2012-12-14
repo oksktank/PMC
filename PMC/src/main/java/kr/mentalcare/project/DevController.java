@@ -3,6 +3,7 @@ package kr.mentalcare.project;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,6 +77,7 @@ public class DevController {
 		
 		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
 			Integer sn=userInfo.getId();
+			model.addAttribute("myTeamList",developerService.getMyTeamList(sn));
 			model.addAttribute("invitedWork", developerService.getInvitedWork(sn));
 		}
 		return AuthUtil.retModelWithUserInfo("dev_invite", model, request);
@@ -88,6 +90,14 @@ public class DevController {
 	
 	@RequestMapping("/past_work")
 	public String aa_past_work(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		//getPastWork
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			Integer sn=userInfo.getId();
+			List<SW_Work> pastWorkList=sqlMapClient.queryForList("Developer.getPastWork",sn);
+			workService.setPartName(pastWorkList);
+			model.addAttribute("pastWorkList",pastWorkList);
+		}
 		return AuthUtil.retModelWithUserInfo("dev_pastwork", model, request);
 	}
 	
@@ -100,6 +110,7 @@ public class DevController {
 		model.addAttribute("detailField",(ArrayList<FieldName>)sqlMapClient.queryForList("Field.getDetailField"));
 		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
 			Integer sn=userInfo.getId();
+			model.addAttribute("myTeamList",developerService.getMyTeamList(sn));
 			SW_Work work=workService.getWork(wnum);
 			model.addAttribute("work", work);
 			model.addAttribute("noTeamDeveloper",developerService.getNoTeamDeveloperInWork(wnum));
@@ -134,6 +145,7 @@ public class DevController {
 				response.sendRedirect(request.getContextPath()+"/dev/auction?wnum="+wnum);
 			}else{
 				Integer sn=userInfo.getId();
+				model.addAttribute("myTeamList",developerService.getMyTeamList(sn));
 				model.addAttribute("work", work);
 				model.addAttribute("team",teamService.getTeamById(id));
 				DeveloperWorkDeveloperTeam param=new DeveloperWorkDeveloperTeam();

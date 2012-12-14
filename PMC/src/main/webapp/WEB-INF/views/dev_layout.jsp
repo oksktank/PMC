@@ -134,11 +134,6 @@ undefined
 	            </a>
 	          </li>
 	          <li class="sidemenu">
-	          	<a href="/PMC/dev/all_work">
-	              전체 Works
-	            </a>
-	          </li>
-	          <li class="sidemenu">
 	          	<a href="/PMC/dev/past_work">
 	              과거 개발 내역
 	            </a>
@@ -149,20 +144,18 @@ undefined
 	          <li class="nav-header">
 	            <h5>진행중인 Works</h5>
 	          </li>
-	          <!-- #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	          <c:forEach items="${myTeamList }" var="team">
+		      <!-- #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 	          <!-- 동적 생성 자신이 진행중인 work 띄우기 -->
 	          <!-- dev/work?wid=xxxx로 이동할거임 -->
 	          <li class="sidemenu">
-	          	<a href="/PMC/dev/work">
-	              REAL
-	            </a>
-	          </li>
-	          <li class="sidemenu">
-	          	<a href="/PMC/dev/work">
-	              PMC
+	          	<a href="/PMC/dev/work?id=${team.dt_number }">
+	              ${team.dt_name }
 	            </a>
 	          </li>
 	          <!-- #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+		      </c:forEach>
+	          
 	      </ul>
 	      </div>
 	    </div>

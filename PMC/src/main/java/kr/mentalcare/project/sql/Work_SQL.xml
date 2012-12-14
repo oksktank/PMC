@@ -9,6 +9,7 @@
 	SELECT * FROM SW_WORK
 	ORDER BY num DESC
 	</select>
+
 	<select id="getWork" parameterClass="Integer" resultClass="SW_Work">
 	SELECT * FROM SW_WORK
 	WHERE num=#num#

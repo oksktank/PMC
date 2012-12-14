@@ -6,7 +6,7 @@
 .td-background-color {background-color:EEEEEE;}
 .page_move {cursor:pointer;}
 </style>
-<h1>과거 개발 내역</h1>
+<h1>과거&nbsp;개발&nbsp;내역</h1>
 <hr>
 
 <div id="search">
@@ -25,16 +25,21 @@
 		<th>전문분야</th>
 		<th>인센티브</th>
 		<th>기간</th>
+		<th>개발 결과물</th>
 	</tr>
+	<c:forEach varStatus="i" var="work" items="${pastWorkList }">
 	<!-- 여기부터 동적생성 wid->work의pk-->
 	<!-- onclick 해서 dev/work?wid=xxxx로 이동할거임 -->
-	<tr class="page_move" onclick="location.href='/PMC/dev/work';">
-		<td>1</td>
-		<td>웹서버세팅</td>
-		<td>웹</td>
-		<td>3000</td>
-		<td>20120504~20120604</td>
+	<tr class="page_move" onclick="location.href='/PMC/dev/work?id=${work.dt_num}';">
+		<td>${i.index+1 }</td>
+		<td>${work.w_name }</td>
+		<td>${work.expert_part_name }</td>
+		<td>${work.cost }</td>
+		<td>${work.start_period } ~ ${work.end_period }</td>
+		<td><a href="${pageContext.request.contextPath }/func/download?fileName=${work.result_file_name}">${work.result_file_name }</a></td>
 	</tr>
 	<!-- 여기까지 -->
+	</c:forEach>
+	
 </table>
 </div>
