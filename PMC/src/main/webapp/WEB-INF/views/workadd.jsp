@@ -18,9 +18,19 @@
 	</p>
 	<script>
 	$(function() {
-		var startDate = new Date(); // month는 0부터 시작 
+
+		var startInitDate=getToday('YYYYMMDD');
+		var endInitDate=getToday('YYYYMMDD');
+		var startDate = getDate(startInitDate); // month는 0부터 시작 
 		
-		var endDate = new Date();
+		var endDate = getDate(endInitDate);
+		var startText=getDateToFormString(startDate,'YYYY-MM-DD');
+		var endText=getDateToFormString(endDate,'YYYY-MM-DD');
+		//alert(startInitDate+','+endInitDate);
+		$('#start_period').val(startInitDate);
+		$('#end_period').val(endInitDate);
+		$('#date-start-display').html(startText);
+		$('#date-end-display').html(endText);
 		$('#alert').hide();
 		
 		$('#date-start')
@@ -78,12 +88,12 @@
     </thead>
     <tbody>
         <tr>
-          <td id="date-start-display">2012-12-05</td>
-          <td id="date-end-display">2012-12-25</td>
+          <td id="date-start-display"></td>
+          <td id="date-end-display"></td>
         </tr>
         <tr>
-        	<td><input type="text" name="start_period" id="start_period"></td>
-        	<td><input type="text" name="end_period" id="end_period"></td>
+        	<td><input type="hidden" name="start_period" id="start_period"></td>
+        	<td><input type="hidden" name="end_period" id="end_period"></td>
         </tr>
     </tbody>
 </table>
@@ -249,11 +259,11 @@
 		</div>
 	</div>
 	 
-	<input id="selectedDeveloperList" type="text" name="developers">
+	<input id="selectedDeveloperList" type="hidden" name="developers">
 	
 	<p>
 	비용 설정
-	<input type="text" name="cost">
+	<input type="text" name="cost" value="0">
 	</p>
 	<p>
 	 	<input name="fileData" type="file"/>
