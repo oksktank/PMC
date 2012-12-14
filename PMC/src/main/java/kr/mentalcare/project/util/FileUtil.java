@@ -1,5 +1,6 @@
 package kr.mentalcare.project.util;
 
+import java.io.File;
 import java.io.FileOutputStream;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,7 @@ public class FileUtil {
             fos = new FileOutputStream(path + "\\" + fileName);
              
             fos.write(fileData);
-         
+            
         }catch(Exception e){
              
             e.printStackTrace();
@@ -34,4 +35,9 @@ public class FileUtil {
         }// try end;
          
     }// wirteFile() end;
+    
+    public static boolean deleteFile(String fileName){
+    	File f=new File(filePath+"\\"+fileName);
+    	return f.delete();
+    }
 }

@@ -53,7 +53,7 @@ public class FuncController {
 		response.sendRedirect(request.getContextPath()+"/");
 	}
 	
-	@RequestMapping("/upload")
+	/*@RequestMapping("/upload")
 	@ResponseBody
 	  public String create(UploadItem uploadItem, BindingResult result)
 	  {
@@ -77,7 +77,7 @@ public class FuncController {
 	    System.err.println("-------------------------------------------");
 	 
 	    return "true";
-	  }
+	  }*/
 	
 	 @RequestMapping("/download")
 	    public ModelAndView download(String fileName){

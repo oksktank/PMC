@@ -33,4 +33,11 @@ public class FieldNameService {
 			return fieldNameMap;
 		}
 	}
+	
+	public void addFile(String fileName) throws SQLException{
+		sqlMapClient.insert("Common.insertFile", fileName);
+	}
+	public void removeFile(String fileName) throws SQLException{
+		sqlMapClient.delete("Common.deleteFile",fileName);
+	}
 }

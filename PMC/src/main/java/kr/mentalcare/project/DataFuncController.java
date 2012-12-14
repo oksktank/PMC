@@ -21,6 +21,7 @@ import kr.mentalcare.project.model.UploadItem;
 import kr.mentalcare.project.model.UserInfo;
 import kr.mentalcare.project.service.AdminService;
 import kr.mentalcare.project.service.EvaluatorService;
+import kr.mentalcare.project.service.FieldNameService;
 import kr.mentalcare.project.service.ResultService;
 import kr.mentalcare.project.service.TeamService;
 import kr.mentalcare.project.util.AuthUtil;
@@ -52,7 +53,8 @@ public class DataFuncController {
 	ResultService resultService;
 	@Autowired
 	EvaluatorService evaluatorService;
-	
+	@Autowired
+	FieldNameService fieldNameService;
 	@Autowired
 	SqlMapClient sqlMapClient;
 	
@@ -107,7 +109,7 @@ public class DataFuncController {
 			String fileName=(new GregorianCalendar()).getTimeInMillis()+"_"+originFileName;
 			if(originFileName!=null&&!originFileName.equals("")){
 				fileUtil.writeFile(uploadItem.getFileData(), filePath,  fileName);
-				
+				fieldNameService.addFile(fileName);
 				result.setFile_name(fileName);
 			}
 			Integer r_num=resultService.insertResult(result);
@@ -139,7 +141,7 @@ public class DataFuncController {
 			String fileName=(new GregorianCalendar()).getTimeInMillis()+"_"+originFileName;
 			if(originFileName!=null&&!originFileName.equals("")){
 				fileUtil.writeFile(uploadItem.getFileData(), filePath,  fileName);
-			
+				fieldNameService.addFile(fileName);
 				work.setFile_name(fileName);
 			}
 			

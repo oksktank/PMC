@@ -2,4 +2,15 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 
 <sqlMap namespace="Common">
+	<select id="getOldFile" resultClass="String">
+		SELECT file_name FROM FILE
+		WHERE write_date&lt;DATE_SUB( SYSDATE(), INTERVAL 180 DAY )
+	</select>
+	<insert id="insertFile" parameterClass="String">
+		INSERT INTO FILE(file_name,write_date)
+		VALUES(#value#,SYSDATE())
+	</insert>
+	<delete id="deleteFile" parameterClass="String">
+		DELETE FROM FILE WHERE file_name=#value#
+	</delete>
 </sqlMap>
