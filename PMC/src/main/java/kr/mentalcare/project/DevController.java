@@ -22,6 +22,7 @@ import kr.mentalcare.project.util.AuthUtil;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,8 +73,9 @@ public class DevController {
 		
 		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
 			Integer sn=userInfo.getId();
+			model.addAttribute("developer", developerService.getDeveloper(sn));
 			model.addAttribute("myTeamList",developerService.getMyTeamList(sn));
-			List<Integer> costList=sqlMapClient.queryForList("Common.getCostListBySn",sn);
+			List<Integer> costList=sqlMapClient.queryForList("Developer.getCostListBySn",sn);
 			System.out.println(costList);
 			Double gradeSum=0.0;
 			Double variance=0.0;
@@ -86,9 +88,10 @@ public class DevController {
 			}
 			variance=variance/costList.size();
 			
-			model.addAttribute("average",average);
-			model.addAttribute("variance",variance);
-			model.addAttribute("costList",costList);
+			model.addAttribute("average",Math.round(average*10)/10);
+			model.addAttribute("variance",Math.round(variance*10)/10);
+			model.addAttribute("costList",new ObjectMapper().writeValueAsString(costList));
+			
 		}
 		return AuthUtil.retModelWithUserInfo("dev_cost", model, request);
 	}

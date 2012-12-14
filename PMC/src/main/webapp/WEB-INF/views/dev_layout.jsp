@@ -6,6 +6,8 @@
 <html>
 <head>
 <script src="/PMC/script/jquery-1.8.0.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script>var loginUser=${loginUser};
 
 $(function(){

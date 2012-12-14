@@ -24,7 +24,8 @@ public class FileManager {
 			
 			@Override
 			public void run() {
-				while(true){
+				boolean success=true;
+				while(success){
 					try {
 						Thread.sleep(10000);
 
@@ -38,8 +39,10 @@ public class FileManager {
 						
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+						success=false;
 					} catch (SQLException e) {
 						e.printStackTrace();
+						success=false;
 					}
 				}
 			}
