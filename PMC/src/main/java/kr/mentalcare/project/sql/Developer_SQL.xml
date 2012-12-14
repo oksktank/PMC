@@ -40,7 +40,13 @@
 	<select id="getAllDeveloper" resultClass="Developer">
 	SELECT * FROM DEVELOPER d ORDER BY sn
 	</select>
-	
+	<select id="getCostListBySn" parameterClass="Integer" resultClass="Integer">
+	SELECT dt.cost FROM DEVELOPER_TEAM dt,SW_WORK w
+	WHERE dt_number IN(SELECT dt_num FROM DEVELOPER_WORK_DEVELOPER_TEAM
+	WHERE d_sn=#sn# AND dt_num !=-1) 
+	AND dt.dt_number=w.dt_num
+	ORDER BY dt_number
+	</select>
 	<select id="getInvitedWorkCount" parameterClass="Integer" resultClass="Integer">
 	SELECT COUNT(*) FROM DEVELOPER_WORK_DEVELOPER_TEAM
 	WHERE dt_num=-1 AND d_sn=#sn#

@@ -68,6 +68,28 @@ public class DevController {
 	
 	@RequestMapping("/cost")
 	public String aa_cost(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+			Integer sn=userInfo.getId();
+			model.addAttribute("myTeamList",developerService.getMyTeamList(sn));
+			List<Integer> costList=sqlMapClient.queryForList("Common.getCostListBySn",sn);
+			System.out.println(costList);
+			Double gradeSum=0.0;
+			Double variance=0.0;
+			for(int i=0;i<costList.size();i++){
+				gradeSum+=costList.get(i);
+			}
+			Double average=gradeSum/costList.size();
+			for(int i=0;i<costList.size();i++){
+				variance+=Math.pow(average-costList.get(i),2.0);
+			}
+			variance=variance/costList.size();
+			
+			model.addAttribute("average",average);
+			model.addAttribute("variance",variance);
+			model.addAttribute("costList",costList);
+		}
 		return AuthUtil.retModelWithUserInfo("dev_cost", model, request);
 	}
 	
@@ -97,6 +119,7 @@ public class DevController {
 			List<SW_Work> pastWorkList=sqlMapClient.queryForList("Developer.getPastWork",sn);
 			workService.setPartName(pastWorkList);
 			model.addAttribute("pastWorkList",pastWorkList);
+			model.addAttribute("myTeamList",developerService.getMyTeamList(sn));
 		}
 		return AuthUtil.retModelWithUserInfo("dev_pastwork", model, request);
 	}

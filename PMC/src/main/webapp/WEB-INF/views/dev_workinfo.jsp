@@ -7,7 +7,7 @@
 .team_info {width:100%;}
 .td-background-color {background-color:EEEEEE;}
 </style>
-<h1>프로젝트이름</h1>
+<h1>${work.w_name }</h1>
 <hr>
 <div id="project_info">
 <table class="table table-bordered">
