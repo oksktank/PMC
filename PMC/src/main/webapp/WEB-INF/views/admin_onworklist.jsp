@@ -113,7 +113,7 @@
 			</tr>
 			<tr>
 				<td colspan="2"><div class="work_description">
-				${work.description }
+				${work.description }<br/><br/><b>결과물</b> : <a href="${pageContext.request.contextPath }/func/download?fileName=${work.result_file_name }" class="btn btn-success">다운로드</a>
 				</div></td>
 			</tr>
 			<tr>

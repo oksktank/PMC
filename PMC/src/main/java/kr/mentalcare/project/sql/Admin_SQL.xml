@@ -21,10 +21,11 @@
 		ORDER BY num DESC
 	</select>
 	<select id="getOnWorkList" parameterClass="Integer" resultClass="SW_Work">
-		SELECT * FROM SW_WORK WHERE dt_num IS NOT NULL
+		SELECT w.*,dr.file_name AS result_file_name FROM SW_WORK w,DEVELOPMENT_RESULT dr WHERE dt_num IS NOT NULL AND w.num=dr.w_num
 		AND admin_num=#sn# AND (SELECT COUNT(*) FROM DEVELOPMENT_RESULT WHERE w_num=num)>0
 		AND (SELECT COUNT(*) FROM EVALUATE_RESULT WHERE r_num IN(SELECT r_num FROM DEVELOPMENT_RESULT WHERE w_num=num))=0
 		ORDER BY num DESC
+		
 	</select>
 	<select id="getEvaluateEndWorkList" parameterClass="Integer" resultClass="SW_Work">
 		SELECT * FROM SW_WORK WHERE dt_num IS NOT NULL
