@@ -3,6 +3,7 @@ package kr.mentalcare.project;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import kr.mentalcare.project.model.SW_Work;
 import kr.mentalcare.project.model.UploadItem;
 import kr.mentalcare.project.model.UserInfo;
 import kr.mentalcare.project.service.AdminService;
+import kr.mentalcare.project.service.EvaluatorService;
 import kr.mentalcare.project.service.ResultService;
 import kr.mentalcare.project.service.TeamService;
 import kr.mentalcare.project.util.AuthUtil;
@@ -48,7 +50,8 @@ public class DataFuncController {
 	TeamService teamService;
 	@Autowired
 	ResultService resultService;
-	
+	@Autowired
+	EvaluatorService evaluatorService;
 	
 	@Autowired
 	SqlMapClient sqlMapClient;
@@ -66,6 +69,23 @@ public class DataFuncController {
 			evResult.setGrade(grade);
 			int count=sqlMapClient.update("Evaluator.setGrade",evResult);
 			if(count>0){
+				if(evaluatorService.isLastEvaluator(evResult.getR_num())){
+					List<EvaluateResult> result=sqlMapClient.queryForList("Evaluator.getEvaluateResultByRnum",evResult.getR_num());
+					Double gradeSum=0.0;
+					Double variance=0.0;
+					for(int i=0;i<result.size();i++){
+						gradeSum+=result.get(i).getGrade();
+					}
+					Double average=gradeSum/result.size();
+					for(int i=0;i<result.size();i++){
+						variance+=Math.pow(average-result.get(i).getGrade(),2.0);
+					}
+					variance=variance/result.size();
+					System.out.println("Variance is :"+variance);
+					if(variance>=400){
+						sqlMapClient.delete("Evaluator.deleteEvaluateResultByRnum",evResult.getR_num());
+					}
+				}
 				return "Success";
 			}
 			

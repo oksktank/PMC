@@ -20,6 +20,10 @@
 	SELECT * FROM EVALUATE_RESULT WHERE r_num=#r_num# AND e_sn=#e_sn#
 	</select>
 	
+	<select id="getEvaluateResultByRnum" parameterClass="Integer" resultClass="EvaluateResult">
+	SELECT * FROM EVALUATE_RESULT WHERE r_num=#r_num# 
+	</select>
+	
 	<select id="getEvaluateJob" parameterClass="Integer" resultClass="SW_Work">
 	SELECT w.*,dr.file_name AS result_file_name,er.r_num as r_num FROM EVALUATE_RESULT er, DEVELOPMENT_RESULT dr,SW_WORK w
 	WHERE er.r_num=dr.r_num AND dr.w_num=w.num
@@ -38,6 +42,13 @@
 		WHERE r_num IN (SELECT r_num FROM DEVELOPMENT_RESULT WHERE w_num=#sn#)
 	</select>
 	
+	<select id="getAllEvaluateCount" parameterClass="Integer" resultClass="Integer">
+	SELECT COUNT(*) FROM EVALUATE_RESULT WHERE r_num=#r_num#
+	</select>
+	<select id="getNotEvaluatedCount" parameterClass="Integer" resultClass="Integer">
+	SELECT COUNT(*) FROM EVALUATE_RESULT WHERE r_num=#r_num# AND grade IS NULL
+	</select>
+	
 	<update id="setGrade" parameterClass="EvaluateResult">
 	UPDATE EVALUATE_RESULT SET grade=#grade# where r_num=#r_num# AND e_sn=#e_sn#
 	</update>
@@ -50,4 +61,8 @@
 	<insert id="insertEvaluateResult" parameterClass="EvaluateResult">
 	INSERT INTO EVALUATE_RESULT(r_num,e_sn) VALUES(#r_num#,#e_sn#)
 	</insert>
+	
+	<delete id="deleteEvaluateResultByRnum" parameterClass="Integer">
+	DELETE FROM EVALUATE_RESULT WHERE r_num=#r_num#
+	</delete>
 </sqlMap>

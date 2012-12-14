@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.mentalcare.project.model.EvaluateResult;
 import kr.mentalcare.project.model.Evaluator;
 import kr.mentalcare.project.model.FieldName;
 
@@ -32,5 +33,13 @@ public class EvaluatorService {
 		}
 		
 		return allEva;
+	}
+
+	public boolean isLastEvaluator(Integer r_num) throws SQLException { //grade null인게 0개일때 true 리턴
+		Integer notEvaluated=(Integer) sqlMapClient.queryForObject("Evaluator.getNotEvaluatedCount",r_num);
+		if(notEvaluated==0){
+			return true;
+		}
+		return false;
 	}
 }
