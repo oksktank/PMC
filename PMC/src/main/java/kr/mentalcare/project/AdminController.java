@@ -69,6 +69,11 @@ public class AdminController {
 				auctionWorkCount=auctionWorkList.size();
 			}
 			model.addAttribute("auctionWorkCount",auctionWorkCount);
+
+			List<SW_Work> onDevList=sqlMapClient.queryForList("Admin.getOnDevList",sn);
+			int onDevCount=0;
+			if(onDevList!=null) onDevCount=onDevList.size();
+			model.addAttribute("onDevCount",onDevCount);
 			
 			List<SW_Work> onWorkList=sqlMapClient.queryForList("Admin.getOnWorkList",sn);
 			int onWorkCount=0;
@@ -76,6 +81,11 @@ public class AdminController {
 				onWorkCount=onWorkList.size();
 			}
 			model.addAttribute("onWorkCount",onWorkCount);
+			
+			List<SW_Work> onEvaluateEndList=sqlMapClient.queryForList("Admin.getEvaluateEndWorkList",sn);
+			int onEvaluateEndCount=0;
+			if(onEvaluateEndList!=null) onEvaluateEndCount=onEvaluateEndList.size();
+			model.addAttribute("onEvaluateEndCount",onEvaluateEndCount);
 			
 			model.addAttribute("recentWork",workService.getRecentWork());
 			
@@ -119,6 +129,19 @@ public class AdminController {
 			model.addAttribute("onDevList",onDevList);
 		}
 		return AuthUtil.retModelWithUserInfo("admin_on_dev_list", model, request);
+	}
+	
+	@RequestMapping("/evaluate_end_list")
+	public String evaluate_end_list(HttpServletRequest request, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		
+		if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+			Integer sn=userInfo.getId();
+			List<SW_Work> onEvaluateEndList=sqlMapClient.queryForList("Admin.getEvaluateEndWorkList",sn);
+			workService.setPartName(onEvaluateEndList);
+			model.addAttribute("evaluateEndList",onEvaluateEndList);
+		}
+		return AuthUtil.retModelWithUserInfo("admin_evaluate_end_list", model, request);
 	}
 	
 	@RequestMapping("/on_work")

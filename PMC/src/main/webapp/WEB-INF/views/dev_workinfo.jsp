@@ -67,7 +67,7 @@
 			<td>${dev.name }</td>
 			<td>${dev.expert_part_name }</td>
 			<td>${dev.detail_part_name }</td>
-			<td>2등급</td>
+			<td>${dev.gradeLevel }등급</td>
 		</tr>
 		</c:forEach>
 		

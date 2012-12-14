@@ -30,7 +30,17 @@
         </tr>
         <tr>
         	<td>
-        	개발 진행중인 Works <a href="/PMC/admin/on_work">${onWorkCount }</a>건
+        	개발 진행중인 Works <a href="/PMC/admin/on_dev_list">${onDevCount }</a>건
+        	</td>
+        </tr>
+        <tr>
+        	<td>
+        	평가 의뢰 대기 Works <a href="/PMC/admin/on_work">${onWorkCount }</a>건
+        	</td>
+        </tr>
+        <tr>
+        	<td>
+        	평가 완료 Works <a href="/PMC/admin/evaluate_end_list">${onEvaluateEndCount }</a>건
         	</td>
         </tr>
         <tr>

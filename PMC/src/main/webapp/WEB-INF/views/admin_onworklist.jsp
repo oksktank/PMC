@@ -62,7 +62,7 @@
 			},
 			success:function(data){
 				if(data=='Success'){
-					alert('평가 요청이 완료되었습니다.')
+					location.reload();
 				}else{
 					alert('평가 요청이 실패했습니다.');
 				}

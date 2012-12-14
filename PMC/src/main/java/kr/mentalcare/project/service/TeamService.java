@@ -44,6 +44,7 @@ public class TeamService {
 				Developer dev=devList.get(i);
 				dev.setExpert_part_name(fieldMap.get(dev.getExpert_part()).getName());
 				dev.setDetail_part_name(fieldMap.get(dev.getDetail_part()).getName());
+				dev.setGradeLevel(developerService.getGradeLevel(dev.getSn()));
 			}
 			team.setDevList(devList);
 		}

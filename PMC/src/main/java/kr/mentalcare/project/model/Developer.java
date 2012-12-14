@@ -13,6 +13,16 @@ public class Developer {
 	Integer detail_part;
 	String expert_part_name;
 	String detail_part_name;
+	
+	int gradeLevel;
+	
+	
+	public int getGradeLevel() {
+		return gradeLevel;
+	}
+	public void setGradeLevel(int gradeLevel) {
+		this.gradeLevel = gradeLevel;
+	}
 	public int getSn() {
 		return sn;
 	}
