@@ -3,14 +3,13 @@ package kr.mentalcare.project;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import kr.mentalcare.project.model.FieldName;
-import kr.mentalcare.project.model.SW_Work;
+import kr.mentalcare.project.model.UserInfo;
 import kr.mentalcare.project.service.AdminService;
 import kr.mentalcare.project.service.FieldNameService;
 import kr.mentalcare.project.service.WorkService;
@@ -52,7 +51,20 @@ public class MainController {
 	WorkService workService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpServletRequest request,Locale locale, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException {
+	public String home(HttpServletRequest request,HttpServletResponse response,Locale locale, Model model) throws SQLException, JsonGenerationException, JsonMappingException, IOException {
+		
+		UserInfo userInfo=AuthUtil.getLoginUser(request);
+		if(userInfo!=null){
+			String contextPath=request.getContextPath();
+			if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_DEVELOPER)){
+				response.sendRedirect(contextPath+"/dev/");
+			}else if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_ADMIN)){
+				response.sendRedirect(contextPath+"/admin/");
+			}else if(AuthUtil.isAvailableRole(request,UserInfo.ROLE_EVALUATOR)){
+				response.sendRedirect(contextPath+"/evaluator/");
+			}
+		}
+		
 		model.addAttribute("recentWork",workService.getRecentWork());
 		return AuthUtil.retModelWithUserInfo("home", model, request);
 	}
